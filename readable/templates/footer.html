@@ -1,0 +1,5 @@
+{% load i18n %}
+{% now 'Y' as current_year %}
+<footer class="container">
+  <p class="h6 text-center text-muted">{% trans 'All rights reserved' %} &copy; {{ current_year }} &sdot; {% trans 'Proudly powered by' %} <a class="text-primary" href="https://djangoproject.com" target="_blank" data-toggle="tooltip" data-placement="top" title="{% trans 'Django Web Framework' %}" rel="nofollow">{% trans 'Django' %}</a></p>
+</footer>

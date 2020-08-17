@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Exit immediately if a pipeline returns a non-zero status:
+set -e
+
+# Access to the remote Docker API:
+export DOCKER_CERT_PATH=$CI_PROJECT_DIR
+export DOCKER_HOST=$REMOTE_DOCKER_HOST
+
+# Authenticate to the remote Docker API with specified certificates:
+echo "$REMOTE_CA_CERTIFICATE" > $DOCKER_CERT_PATH/ca.pem
+echo "$REMOTE_CLIENT_CERTIFICATE" > $DOCKER_CERT_PATH/cert.pem
+echo "$REMOTE_CLIENT_PRIVATE_KEY" > $DOCKER_CERT_PATH/key.pem
+
+# Sign in to the Docker registry:
+echo "$CI_REGISTRY_PASSWORD" | docker login \
+    --username $CI_REGISTRY_USER \
+    --password-stdin \
+    $CI_REGISTRY
+
+# Pull images for the services:
+docker-compose pull
+
+# Restart the services:
+docker-compose up \
+    --detach \
+    --force-recreate \
+    --no-build \
+    --remove-orphans

@@ -1,0 +1,35 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: master
+    hooks:
+      - id: end-of-file-fixer
+        verbose: on
+      - id: trailing-whitespace
+        verbose: on
+  - repo: local
+    hooks:
+      - id: pylint
+        name: Running the code analysis
+        entry: pylint
+        language: python
+        types:
+          - python
+        args:
+          - --errors-only
+        require_serial: on
+        verbose: on
+  - repo: local
+    hooks:
+      - id: mypy
+        name: Running the static type checker
+        entry: mypy
+        language: python
+        types:
+          - python
+        args:
+          - --ignore-missing-imports
+          - --follow-imports
+          - silent
+          - --show-column-numbers
+        require_serial: on
+        verbose: on

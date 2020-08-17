@@ -1,0 +1,28 @@
+# Byte-compiled / optimized files:
+*.py[cod]
+__pycache__/
+
+# Environment / workspace settings:
+.env
+.venv/
+.vscode/
+
+# Distribution / packaging:
+*.egg
+*.egg-info/
+*.lock
+build/
+dist/
+
+# Code coverage:
+.coverage
+htmlcov/
+
+# Linting:
+.mypy_cache/
+
+# Django specific / miscellaneous:
+*.db
+*.db-journal
+mediafiles/
+staticfiles/

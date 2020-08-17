@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<uwsgi>
+  <module>readable.wsgi</module>
+  <optimize>2</optimize>
+
+  <processes>4</processes>
+  <threads>4</threads>
+
+  <socket>0.0.0.0:8000</socket>
+  <socket>0.0.0.0:8001</socket>
+  <socket>0.0.0.0:8002</socket>
+  <socket>0.0.0.0:8003</socket>
+
+  <map-socket>0:1</map-socket>
+  <map-socket>1:2</map-socket>
+  <map-socket>2:3</map-socket>
+  <map-socket>3:4</map-socket>
+
+  <post-buffering>8192</post-buffering>
+  <harakiri>300</harakiri>
+  <harakiri-verbose/>
+
+  <listen>65535</listen>
+  <so-keepalive/>
+  <tcp-nodelay/>
+
+  <master/>
+  <strict/>
+  <vacuum/>
+  <pcre-jit/>
+  <enable-threads/>
+  <disable-logging/>
+  <single-interpreter/>
+</uwsgi>

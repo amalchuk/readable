@@ -1,0 +1,13 @@
+from readable.settings.staging import *
+
+# Core Settings:
+
+ALLOWED_HOSTS = CSRF_TRUSTED_ORIGINS = ["readable.pw", "www.readable.pw"]
+
+CSRF_COOKIE_DOMAIN = SESSION_COOKIE_DOMAIN = "readable.pw"
+
+CSRF_COOKIE_HTTPONLY = SESSION_COOKIE_HTTPONLY = True
+
+CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE = True
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

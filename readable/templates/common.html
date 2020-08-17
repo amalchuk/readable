@@ -1,0 +1,30 @@
+{% spaceless %}
+{% load cache i18n meta_tags static %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <title>{% block title %}{% trans 'readable' %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    {% cache 86400 meta_description_keywords LANGUAGE_CODE %}
+    {% meta_description %}
+    {% meta_keywords %}
+    {% endcache %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    {# Bootstrap v4.5.2 => https://getbootstrap.com #}
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
+  </head>
+  <body class="d-flex flex-column vh-100">
+    <main role="main" class="flex-fill">
+      <div class="container">
+        {% block header %}{% include 'header.html' %}{% endblock %}
+        {% block messages %}{% include 'messages.html' %}{% endblock %}
+        <section>{% block content %}{% endblock %}</section>
+      </div>
+    </main>
+    {% block footer %}{% include 'footer.html' %}{% endblock %}
+    {% block scripts %}{% include 'scripts.html' %}{% endblock %}
+  </body>
+</html>
+{% endspaceless %}

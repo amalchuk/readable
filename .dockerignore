@@ -1,0 +1,9 @@
+# Byte-compiled / optimized files:
+**/*.py[cod]
+**/__pycache__
+
+# Django specific / miscellaneous:
+**/*.db
+**/*.db-journal
+**/mediafiles
+**/staticfiles

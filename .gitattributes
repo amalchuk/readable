@@ -1,0 +1,15 @@
+# All text files should have the "lf" (Unix) line endings:
+* text=auto eol=lf
+
+# Binary files:
+*.ico binary
+*.mo  binary
+*.png binary
+
+# Vendored dependencies:
+**/assets/bootstrap/bootstrap.css    linguist-vendored
+**/assets/bootstrap/bootstrap.js     linguist-vendored
+**/assets/fontawesome/brands.js      linguist-vendored
+**/assets/fontawesome/fontawesome.js linguist-vendored
+**/assets/fontawesome/solid.js       linguist-vendored
+**/assets/jquery/jquery.js           linguist-vendored

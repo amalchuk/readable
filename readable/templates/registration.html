@@ -1,0 +1,48 @@
+{% extends 'common.html' %}
+{% load i18n %}
+{% block title %}{% trans 'readable' %} &ndash; {% trans 'Registration' %}{% endblock %}
+{% block header %}{# empty header block #}{% endblock %}
+{% block messages %}{# empty messages block #}{% endblock %}
+{% block content %}
+<div class="row align-items-center vh-100">
+  <div class="col-md-5 mx-auto">
+    <div class="card bg-light my-3 my-md-4">
+      <h5 class="card-header text-center">{% trans 'Registration' %}</h5>
+      <div class="card-body">
+        <form method="POST" action="{% url 'registration' %}" novalidate>
+          <div class="input-group mb-3 mb-md-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="{{ form.username.id_for_label }}"><i class="fas fa-user fa-fw"></i></span>
+            </div>
+            <input class="form-control {% if form.username.errors %}is-invalid{% endif %}" placeholder="{{ form.username.label }}" aria-label="{{ form.username.label }}" aria-describedby="{{ form.username.id_for_label }}" name="{{ form.username.name }}" autofocus>
+            {% for error in form.username.errors %}
+            <div class="invalid-feedback">{{ error | escape }}</div>
+            {% endfor %}
+          </div>
+          <div class="input-group mb-3 mb-md-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="{{ form.password1.id_for_label }}"><i class="fas fa-lock fa-fw"></i></span>
+            </div>
+            <input class="form-control {% if form.password1.errors %}is-invalid{% endif %}" type="password" placeholder="{{ form.password1.label }}" aria-label="{{ form.password1.label }}" aria-describedby="{{ form.password1.id_for_label }}" name="{{ form.password1.name }}">
+            {% for error in form.password1.errors %}
+            <div class="invalid-feedback">{{ error | escape }}</div>
+            {% endfor %}
+          </div>
+          <div class="input-group mb-3 mb-md-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="{{ form.password2.id_for_label }}"><i class="fas fa-lock fa-fw"></i></span>
+            </div>
+            <input class="form-control {% if form.password2.errors %}is-invalid{% endif %}" type="password" placeholder="{{ form.password2.label }}" aria-label="{{ form.password2.label }}" aria-describedby="{{ form.password2.id_for_label }}" name="{{ form.password2.name }}">
+            {% for error in form.password2.errors %}
+            <div class="invalid-feedback">{{ error | escape }}</div>
+            {% endfor %}
+          </div>
+          {% csrf_token %}
+          <input class="btn btn-primary btn-block" type="submit" value="{% trans 'Create an account' %}">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block footer %}{# empty footer block #}{% endblock %}

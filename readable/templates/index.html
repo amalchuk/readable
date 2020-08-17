@@ -1,0 +1,130 @@
+{% extends 'common.html' %}
+{% load i18n %}
+{% block content %}
+{% for error in form.filename.errors %}
+<div class="alert alert-danger alert-dismissible my-3 my-md-4" role="alert">
+  <p class="text-truncate mb-0">{{ error | escape }}</p>
+  <button class="close" data-dismiss="alert" aria-label="{% trans 'Close' %}">
+    <span aria-hidden="true"><i class="fas fa-times fa-xs fa-fw"></i></span>
+  </button>
+</div>
+{% endfor %}
+{% if user.is_authenticated %}
+{% if documents.paginator.count > 0 %}
+<div class="card my-3 my-md-4">
+  <div class="card-header">
+    <div class="row row-cols-1 row-cols-md-3">
+      <div class="col col-md-6 text-truncate">{% trans 'Document' %}</div>
+      <div class="col col-md-2 text-truncate">{% trans 'Status' %}</div>
+      <div class="col col-md-4 text-truncate">{% trans 'Overall score' %}</div>
+    </div>
+  </div>
+  <div class="list-group list-group-flush">
+    {% for document in documents.object_list %}
+    {% if document.unavailable %}
+    <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">
+    {% else %}
+    <a href="{% url 'documents_detail' document.id %}" class="list-group-item list-group-item-action">
+    {% endif %}
+      <div class="row row-cols-1 row-cols-md-3">
+        <div class="col col-md-6 text-truncate" title="{{ document.realname }}">{{ document.realname }}</div>
+        <div class="col col-md-2 text-truncate" title="{{ document.get_status_display }}">{{ document.get_status_display }}</div>
+        <div class="col col-md-4 d-flex align-items-center">
+          {% with document.metrics.overall_index as score %}
+          <div class="progress flex-fill">
+            {% if score >= 80.0 %}
+            <div class="progress-bar bg-success text-white w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score }}">{{ score | floatformat }}&percnt;</div>
+            {% elif score >= 60.0 %}
+            <div class="progress-bar bg-info text-white w-75" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score }}">{{ score | floatformat }}&percnt;</div>
+            {% elif score >= 40.0 %}
+            <div class="progress-bar bg-warning text-dark w-50" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score }}">{{ score | floatformat }}&percnt;</div>
+            {% else %}
+            <div class="progress-bar bg-danger text-white w-25" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score | default:0 }}">{{ score | floatformat | default:0 }}&percnt;</div>
+            {% endif %}
+          </div>
+          {% endwith %}
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<div class="jumbotron my-3 my-md-4">
+  <h1 class="display-4">{% trans 'You have not uploaded documents yet' %}</h1>
+  <p class="lead">{% trans 'Get started today' %}&excl;</p>
+</div>
+{% endif %}
+<div class="row row-cols-1 row-cols-md-2 my-3 my-md-4">
+  <nav class="col col-md-9">
+    {% if documents.has_other_pages %}
+    <ul class="pagination justify-content-center justify-content-md-start">
+      {% if documents.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="{% url 'index' %}?page={{ documents.previous_page_number }}" aria-label="{% trans 'Previous' %}">
+          <span aria-hidden="true"><i class="fas fa-chevron-left fa-fw"></i></span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+          <span aria-hidden="true"><i class="fas fa-chevron-left fa-fw"></i></span>
+        </a>
+      </li>
+      {% endif %}
+      {% if documents.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{% url 'index' %}?page={{ documents.next_page_number }}" aria-label="{% trans 'Next' %}">
+          <span aria-hidden="true"><i class="fas fa-chevron-right fa-fw"></i></span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+          <span aria-hidden="true"><i class="fas fa-chevron-right fa-fw"></i></span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </nav>
+  <div class="col col-md-3">
+    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#add_document"><i class="fas fa-file-alt fa-fw"></i>&nbsp;{% trans 'Add document' %}</button>
+  </div>
+</div>
+<div class="modal" id="add_document" tabindex="-1" role="dialog" aria-labelledby="add_document_title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_document_title">{% trans 'Choose file' %}</h5>
+      </div>
+      <form method="POST" enctype="multipart/form-data" novalidate>
+        <div class="modal-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="search-file-input"><i class="fas fa-search fa-fw"></i></span>
+            </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="{{ form.filename.id_for_label }}" name="{{ form.filename.name }}" aria-describedby="search-file-input">
+              <label class="custom-file-label text-truncate" for="{{ form.filename.id_for_label }}" data-browse="{% trans 'Browse' %}"></label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          {% csrf_token %}
+          <button class="btn btn-outline-secondary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>&nbsp;{% trans 'Close' %}</button>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-upload fa-fw"></i>&nbsp;{% trans 'Upload' %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="jumbotron my-3 my-md-4">
+  <h1 class="display-4">{% trans 'Great readability' %}</h1>
+  <p class="lead">{% trans 'This tool will quickly test the readability, spelling and grammar of your text' %}&period;</p>
+  <hr class="my-3 my-md-4">
+  <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">{% trans 'Learn more' %}</a>
+</div>
+{% endif %}
+{% endblock %}

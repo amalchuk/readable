@@ -1,0 +1,49 @@
+stages:
+  - testing
+  - building
+  - publishing
+
+code quality:
+  image: python:3.8.5-buster
+  stage: testing
+  script:
+    - make pip-install-development
+    - make pre-commit-hooks
+    - make coverage
+  after_script:
+    - make clean
+
+build images:
+  image: docker/compose:1.26.2
+  services:
+    - docker:18.09.7-dind
+  stage: building
+  variables:
+    DJANGO_SETTINGS_MODULE: readable.settings.development
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker-compose build --compress --force-rm --pull
+    - docker-compose push
+  only:
+    - master
+    - schedules
+    - tags
+
+deployment:
+  image:
+    name: docker/compose:1.26.2
+    entrypoint:
+      - /bin/sh
+      - -c
+  stage: publishing
+  variables:
+    DOCKER_TLS_VERIFY: 1
+    DJANGO_SETTINGS_MODULE: readable.settings.production
+  script: deployment/docker-publishing
+  environment:
+    name: production
+    url: https://readable.pw
+  only:
+    - master
+    - schedules
+    - tags

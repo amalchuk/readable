@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a pipeline returns a non-zero status:
+set -e
+
+# Collect static files in a single location:
+python manage.py collectstatic \
+    --no-input \
+    --clear >> /dev/null
+
+# Update database schema:
+python manage.py migrate \
+    --no-input >> /dev/null
+
+exec "$@"
