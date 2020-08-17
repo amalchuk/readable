@@ -2,9 +2,10 @@
 * text=auto eol=lf
 
 # Binary files:
-*.ico binary
-*.mo  binary
-*.png binary
+*.ico  binary
+*.mo   binary
+*.png  binary
+*.woff binary
 
 # Vendored dependencies:
 **/assets/bootstrap/bootstrap.css    linguist-vendored
