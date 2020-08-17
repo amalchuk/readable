@@ -41,5 +41,5 @@ coverage: test
 
 clean:
 	@echo "Delete all temporary files"
-	@find readable -type f -name '*.py[cod]' | xargs rm --force
-	@find readable -type d -name '__pycache__' | xargs rm --force --recursive
+	@find readable tests -type f -name '*.py[cod]' | xargs rm --force
+	@find readable tests -type d -name '__pycache__' | xargs rm --force --recursive

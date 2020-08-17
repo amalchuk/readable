@@ -20,7 +20,7 @@ services:
 
   postgresql:
     <<: *default-settings
-    image: postgres:12.3-alpine
+    image: postgres:12.4-alpine
     environment:
       # PostgreSQL environment variables:
       - POSTGRES_USER
