@@ -37,9 +37,9 @@ services:
     image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
     environment:
       # PostgreSQL environment variables:
-      - POSTGRESQL_USER
-      - POSTGRESQL_PASSWORD
-      - POSTGRESQL_DATABASE
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
       # Django environment variables:
       - DJANGO_SETTINGS_MODULE
       - DJANGO_SECRET_KEY
