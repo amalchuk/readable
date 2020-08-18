@@ -55,11 +55,11 @@ CACHES = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "USER": environ["POSTGRESQL_USER"],
-        "PASSWORD": environ["POSTGRESQL_PASSWORD"],
+        "USER": environ["POSTGRES_USER"],
+        "PASSWORD": environ["POSTGRES_PASSWORD"],
         "HOST": "postgresql",
         "PORT": "5432",
-        "NAME": environ["POSTGRESQL_DATABASE"],
+        "NAME": environ["POSTGRES_DB"],
         "OPTIONS": {  # type: ignore
             "isolation_level": import_string("psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE")
         }
