@@ -1,4 +1,4 @@
-from readable.utils import clamp
+from readable.utils.comparable import clamp
 from readable.utils.decorators import no_exception
 
 

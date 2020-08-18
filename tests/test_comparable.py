@@ -1,9 +1,9 @@
 from django.test.testcases import SimpleTestCase as TestCase
 
-from readable.utils import clamp
+from readable.utils.comparable import clamp
 
 
-class TestUtils(TestCase):
+class TestComparable(TestCase):
     def test_clamp(self) -> None:
         self.assertEqual(clamp(0.0, 1.0, 2.0), 1.0)
         self.assertEqual(clamp(1.0, 1.0, 2.0), 1.0)
