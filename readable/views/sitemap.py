@@ -1,8 +1,8 @@
 from typing import Any, Dict, Iterable, List
 
+from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
 from django.views.generic.base import TemplateView
-from django.http.response import HttpResponse
 
 
 class SitemapView(TemplateView):

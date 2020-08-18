@@ -18,7 +18,7 @@ ALLOWED_HOSTS = ["*"]
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.dummy.DummyCache"
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
     }
 }
 
@@ -85,12 +85,18 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "generic",
             "stream": "ext://sys.stdout"
+        },
+        "blank": {
+            "class": "logging.NullHandler"
         }
     },
     "loggers": {
         "django": {
             "handlers": ["console"],
             "level": "INFO"
+        },
+        "django.security.DisallowedHost": {
+            "handlers": ["blank"]
         }
     },
     "root": {
