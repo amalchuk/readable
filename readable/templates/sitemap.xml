@@ -1,8 +1,6 @@
 {% spaceless %}
-{% load cache %}
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  {% cache 86400 sitemap_locations %}
   {% now 'Y-m-d' as current_date %}
   {% for location in locations %}
   <url>
@@ -10,6 +8,5 @@
     <lastmod>{{ current_date }}</lastmod>
   </url>
   {% endfor %}
-  {% endcache %}
 </urlset>
 {% endspaceless %}
