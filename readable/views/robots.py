@@ -13,6 +13,10 @@ class RobotsView(TemplateView):
     template_name = "robots.txt"
 
     @property
+    def _allowed(self) -> List[str]:
+        return ["index", "login", "registration"]
+
+    @property
     def _disallowed(self) -> List[str]:
         return ["admin:index", "admin:login", "admin:logout"]
 
@@ -21,11 +25,11 @@ class RobotsView(TemplateView):
         return ["sitemap"]
 
     def _locations(self, urls: List[str]) -> List[str]:
-        reversed_urls: Iterable[str] = map(reverse_lazy, urls)
-        return list(map(self.request.build_absolute_uri, reversed_urls))
+        return list(map(reverse_lazy, urls))
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super(RobotsView, self).get_context_data(**kwargs)
+        context["allowed"] = self._locations(self._allowed)
         context["disallowed"] = self._locations(self._disallowed)
         context["sitemaps"] = self._locations(self._sitemaps)
         return context
