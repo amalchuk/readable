@@ -8,24 +8,24 @@ R = TypeVar("R")
 
 
 class ThreadPoolExecutor(Generic[R]):
-    __slots__ = ("max_queue_size", "executor", "semaphore")
+    __slots__ = ("_max_queue_size", "_executor", "_semaphore")
 
     def __init__(self, *, max_queue_size: Optional[int] = None) -> None:
-        self.max_queue_size = int(max_queue_size or cpu_count() * 2 + 1)
-        self.executor = Executor(self.max_queue_size)
-        self.semaphore = Semaphore(self.max_queue_size)
+        self._max_queue_size = int(max_queue_size or cpu_count() * 2 + 1)
+        self._executor = Executor(self._max_queue_size)
+        self._semaphore = Semaphore(self._max_queue_size)
 
     def _acquire(self) -> None:
         """
         Acquire the semaphore.
         """
-        self.semaphore.acquire()
+        self._semaphore.acquire()
 
     def _release(self, *args: Any, **kwargs: Any) -> None:
         """
         Release the semaphore.
         """
-        self.semaphore.release()
+        self._semaphore.release()
 
     def submit(self, user_function: Callable[..., R], /, *args: Any, **kwargs: Any) -> "Future[R]":
         """
@@ -33,7 +33,7 @@ class ThreadPoolExecutor(Generic[R]):
         """
         self._acquire()
         try:
-            future = self.executor.submit(user_function, *args, **kwargs)
+            future = self._executor.submit(user_function, *args, **kwargs)
 
         except:
             self._release()

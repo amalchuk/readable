@@ -8,22 +8,32 @@ from readable.utils.decorators import x_robots_tag
 
 
 @method_decorator(x_robots_tag, name="dispatch")
-class SitemapView(TemplateView):
-    content_type = "application/xml"
-    template_name = "sitemap.xml"
+class RobotsView(TemplateView):
+    content_type = "text/plain"
+    template_name = "robots.txt"
 
     @property
-    def _urls(self) -> List[str]:
+    def _allowed(self) -> List[str]:
         return ["index", "login", "registration"]
+
+    @property
+    def _disallowed(self) -> List[str]:
+        return ["admin:index"]
+
+    @property
+    def _sitemaps(self) -> List[str]:
+        return ["sitemap"]
 
     def _locations(self, urls: List[str]) -> List[str]:
         reversed_urls: Iterable[str] = map(reverse_lazy, urls)
         return list(map(self.request.build_absolute_uri, reversed_urls))
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        context = super(SitemapView, self).get_context_data(**kwargs)
-        context["locations"] = self._locations(self._urls)
+        context = super(RobotsView, self).get_context_data(**kwargs)
+        context["allowed"] = self._locations(self._allowed)
+        context["disallowed"] = self._locations(self._disallowed)
+        context["sitemaps"] = self._locations(self._sitemaps)
         return context
 
 
-sitemap_view = SitemapView.as_view()
+robots_view = RobotsView.as_view()
