@@ -21,8 +21,9 @@ class RobotsView(TemplateView):
         return ["admin:index", "admin:login", "admin:logout"]
 
     @property
-    def _sitemaps(self) -> List[str]:
-        return ["sitemap"]
+    def _sitemap(self) -> str:
+        sitemap_location: str = reverse_lazy("sitemap")
+        return self.request.build_absolute_uri(sitemap_location)
 
     def _locations(self, urls: List[str]) -> List[str]:
         return list(map(reverse_lazy, urls))
@@ -31,7 +32,7 @@ class RobotsView(TemplateView):
         context = super(RobotsView, self).get_context_data(**kwargs)
         context["allowed"] = self._locations(self._allowed)
         context["disallowed"] = self._locations(self._disallowed)
-        context["sitemaps"] = self._locations(self._sitemaps)
+        context["sitemap"] = self._sitemap
         return context
 
 

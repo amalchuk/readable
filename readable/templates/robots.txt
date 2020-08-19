@@ -1,4 +1,4 @@
 {% load string %}User-agent: *
 {{ allowed | line_breaks:'Allow: ' }}
 {{ disallowed | line_breaks:'Disallow: ' }}
-{{ sitemaps | line_breaks:'Sitemap: ' }}
+Sitemap: {{ sitemap }}
