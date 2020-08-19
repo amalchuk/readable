@@ -13,12 +13,8 @@ class RobotsView(TemplateView):
     template_name = "robots.txt"
 
     @property
-    def _allowed(self) -> List[str]:
-        return ["index", "login", "registration"]
-
-    @property
     def _disallowed(self) -> List[str]:
-        return ["admin:index"]
+        return ["admin:index", "admin:login", "admin:logout"]
 
     @property
     def _sitemaps(self) -> List[str]:
@@ -30,7 +26,6 @@ class RobotsView(TemplateView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super(RobotsView, self).get_context_data(**kwargs)
-        context["allowed"] = self._locations(self._allowed)
         context["disallowed"] = self._locations(self._disallowed)
         context["sitemaps"] = self._locations(self._sitemaps)
         return context
