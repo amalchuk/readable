@@ -10,26 +10,26 @@ class SitemapView(TemplateView):
     template_name = "sitemap.xml"
 
     @property
-    def robots(self) -> List[str]:
+    def _robots(self) -> List[str]:
         return ["noindex", "noarchive"]
 
     @property
-    def urls(self) -> List[str]:
+    def _urls(self) -> List[str]:
         return ["index", "login", "registration"]
 
     @property
-    def locations(self) -> List[str]:
-        urls: Iterable[str] = map(reverse_lazy, self.urls)
+    def _locations(self) -> List[str]:
+        urls: Iterable[str] = map(reverse_lazy, self._urls)
         return list(map(self.request.build_absolute_uri, urls))
 
     def dispatch(self, *args: Any, **kwargs: Any) -> HttpResponse:
         response = super(SitemapView, self).dispatch(*args, **kwargs)
-        response["X-Robots-Tag"] = ", ".join(self.robots)
+        response["X-Robots-Tag"] = ", ".join(self._robots)
         return response
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super(SitemapView, self).get_context_data(**kwargs)
-        context["locations"] = self.locations
+        context["locations"] = self._locations
         return context
 
 

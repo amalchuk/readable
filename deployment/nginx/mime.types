@@ -39,7 +39,6 @@ types {
     text/csv                        csv;
     text/html                       html htm;
     text/markdown                   md markdown;
-    text/php                        php phtml;
     text/plain                      txt;
 
     video/mp4                       m4v;

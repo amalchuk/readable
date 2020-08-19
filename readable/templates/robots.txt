@@ -1,0 +1,4 @@
+{% load cache string %}{% cache 86400 robots_locations %}User-Agent: *
+{{ allowed | line_breaks:'Allow: ' }}
+{{ disallowed | line_breaks:'Disallow: ' }}
+{{ sitemaps | line_breaks:'Sitemap: ' }}{% endcache %}
