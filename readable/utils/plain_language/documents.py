@@ -1,4 +1,4 @@
-from os import PathLike
+from os import PathLike, linesep as separator
 from pathlib import Path
 from typing import Callable, Iterator, Optional
 
@@ -37,6 +37,6 @@ def text_document(filename: PathLike) -> Iterator[str]:
 def read_document(filename: PathLike) -> Optional[str]:
     @no_exception(Exception, default=None)
     def callback(user_function: Callable[[PathLike], Iterator[str]]) -> str:
-        return "\n".join(user_function(filename))
+        return separator.join(user_function(filename))
 
     return callback(microsoft_word_document) or callback(pdf_document) or callback(text_document)
