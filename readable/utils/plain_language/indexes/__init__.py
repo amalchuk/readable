@@ -1,13 +1,7 @@
 from readable.utils.plain_language.indexes import english, russian
 
 
-def flesch_reading_ease_score(
-    sentences: int,
-    words: int,
-    syllables: int,
-    *,
-    is_russian: bool = False
-) -> float:
+def flesch_reading_ease_score(sentences: int, words: int, syllables: int, *, is_russian: bool = False) -> float:
     """
     Calculate the Flesch-Kincaid score.
     """
@@ -15,13 +9,7 @@ def flesch_reading_ease_score(
     return _(sentences, words, syllables)
 
 
-def automated_readability_index(
-    sentences: int,
-    words: int,
-    letters: int,
-    *,
-    is_russian: bool = False
-) -> float:
+def automated_readability_index(sentences: int, words: int, letters: int, *, is_russian: bool = False) -> float:
     """
     Calculate the Automated readability index.
     """
@@ -29,13 +17,7 @@ def automated_readability_index(
     return _(sentences, words, letters)
 
 
-def coleman_liau_index(
-    sentences: int,
-    words: int,
-    letters: int,
-    *,
-    is_russian: bool = False
-) -> float:
+def coleman_liau_index(sentences: int, words: int, letters: int, *, is_russian: bool = False) -> float:
     """
     Calculate the Coleman-Liau index.
     """

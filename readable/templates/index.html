@@ -15,8 +15,8 @@
   <div class="card-header">
     <div class="row row-cols-1 row-cols-md-3">
       <div class="col col-md-6 text-truncate">{% trans 'Document' %}</div>
-      <div class="col col-md-2 text-truncate">{% trans 'Status' %}</div>
-      <div class="col col-md-4 text-truncate">{% trans 'Overall score' %}</div>
+      <div class="col col-md-2 text-truncate text-md-center">{% trans 'Status' %}</div>
+      <div class="col col-md-4 text-truncate text-md-center">{% trans 'Overall score' %}</div>
     </div>
   </div>
   <div class="list-group list-group-flush">
@@ -28,18 +28,18 @@
     {% endif %}
       <div class="row row-cols-1 row-cols-md-3">
         <div class="col col-md-6 text-truncate" title="{{ document.realname }}">{{ document.realname }}</div>
-        <div class="col col-md-2 text-truncate" title="{{ document.get_status_display }}">{{ document.get_status_display }}</div>
+        <div class="col col-md-2 text-truncate text-md-center" title="{{ document.get_status_display }}">{{ document.get_status_display }}</div>
         <div class="col col-md-4 d-flex align-items-center">
           {% with document.metrics.overall_index as score %}
           <div class="progress flex-fill">
             {% if score >= 80.0 %}
-            <div class="progress-bar bg-success text-white w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score }}">{{ score | floatformat }}&percnt;</div>
+            <div class="progress-bar bg-success text-white" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score | floatformat }}">{{ score | floatformat }}&percnt;</div>
             {% elif score >= 60.0 %}
-            <div class="progress-bar bg-info text-white w-75" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score }}">{{ score | floatformat }}&percnt;</div>
+            <div class="progress-bar bg-info text-white" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score | floatformat }}">{{ score | floatformat }}&percnt;</div>
             {% elif score >= 40.0 %}
-            <div class="progress-bar bg-warning text-dark w-50" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score }}">{{ score | floatformat }}&percnt;</div>
+            <div class="progress-bar bg-warning text-dark" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score | floatformat }}">{{ score | floatformat }}&percnt;</div>
             {% else %}
-            <div class="progress-bar bg-danger text-white w-25" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score | default:0 }}">{{ score | floatformat | default:0 }}&percnt;</div>
+            <div class="progress-bar bg-danger text-white" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score | floatformat | default:0 }}">{{ score | floatformat | default:0 }}&percnt;</div>
             {% endif %}
           </div>
           {% endwith %}

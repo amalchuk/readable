@@ -14,7 +14,7 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://redis:6379/0",
-        "OPTIONS": {  # type: ignore
+        "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
             "CONNECTION_POOL_KWARGS": {
@@ -27,7 +27,7 @@ CACHES = {
     "session": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://redis:6379/1",
-        "OPTIONS": {  # type: ignore
+        "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
             "CONNECTION_POOL_KWARGS": {
@@ -40,7 +40,7 @@ CACHES = {
     "internal": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://redis:6379/2",
-        "OPTIONS": {  # type: ignore
+        "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
             "CONNECTION_POOL_KWARGS": {
@@ -60,7 +60,7 @@ DATABASES = {
         "HOST": "postgresql",
         "PORT": "5432",
         "NAME": environ["POSTGRES_DB"],
-        "OPTIONS": {  # type: ignore
+        "OPTIONS": {
             "isolation_level": import_string("psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE")
         }
     }

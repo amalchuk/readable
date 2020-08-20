@@ -1,5 +1,6 @@
 from pathlib import Path
 from secrets import token_hex as get_random_string
+from typing import Any, Dict, Final, Sequence, Tuple
 
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
@@ -10,13 +11,13 @@ from readable.utils.executors import ThreadPoolExecutor
 
 BASE_DIR = Path(__file__).parent.parent
 
-RESOURCES_DIR = (BASE_DIR / "resources").resolve(strict=True)
+RESOURCES_DIR = BASE_DIR.joinpath("resources").resolve(strict=True)
 
 # Core Settings:
 
 ALLOWED_HOSTS = ["*"]
 
-CACHES = {
+CACHES: Dict[str, Any] = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
     }
@@ -26,10 +27,10 @@ CSRF_COOKIE_AGE = SESSION_COOKIE_AGE = 604800  # 1 week
 
 CSRF_COOKIE_NAME = "csrf_token"
 
-DATABASES = {
+DATABASES: Dict[str, Any] = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": (RESOURCES_DIR / "readable.db").as_posix()
+        "NAME": RESOURCES_DIR.joinpath("readable.db").as_posix()
     }
 }
 
@@ -41,7 +42,7 @@ DATE_INPUT_FORMATS = [
 
 DATETIME_FORMAT = SHORT_DATETIME_FORMAT = "d.m.Y H:i:s"
 
-DATETIME_INPUT_FORMATS = [
+DATETIME_INPUT_FORMATS: Final[Sequence[str]] = [
     r"%d.%m.%Y %H:%M:%S",
     r"%d.%m.%Y %H:%M"
 ]
@@ -50,7 +51,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 megabytes
 
 FIRST_DAY_OF_WEEK = 1
 
-INSTALLED_APPS = [
+INSTALLED_APPS: Final[Sequence[str]] = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -60,15 +61,15 @@ INSTALLED_APPS = [
     "readable"
 ]
 
-LANGUAGE_CODE = "ru"
+LANGUAGE_CODE: Final[str] = "ru"
 
-LANGUAGES = [
+LANGUAGES: Final[Sequence[Tuple[str, str]]] = [
     ("ru", _("Russian")),
     ("en", _("English"))
 ]
 
 LOCALE_PATHS = [
-    (RESOURCES_DIR / "translations").as_posix()
+    RESOURCES_DIR.joinpath("translations").as_posix()
 ]
 
 LOGGING = {
@@ -105,7 +106,7 @@ LOGGING = {
     }
 }
 
-MIDDLEWARE = [
+MIDDLEWARE: Final[Sequence[str]] = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -116,7 +117,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware"
 ]
 
-ROOT_URLCONF = "readable.urls"
+ROOT_URLCONF: Final[str] = "readable.urls"
 
 SECRET_KEY = get_random_string(25)
 
@@ -135,7 +136,7 @@ TEMPLATES = [
     }
 ]
 
-TIME_INPUT_FORMATS = [
+TIME_INPUT_FORMATS: Final[Sequence[str]] = [
     r"%H:%M:%S",
     r"%H:%M"
 ]
@@ -163,7 +164,7 @@ LOGIN_REDIRECT_URL = LOGOUT_REDIRECT_URL = "index"
 
 LOGIN_URL = "login"
 
-PASSWORD_HASHERS = ["readable.utils.hashers.SHA256PasswordHasher"]
+PASSWORD_HASHERS: Final[Sequence[str]] = ["readable.utils.hashers.SHA256PasswordHasher"]
 
 # Messages:
 
@@ -185,16 +186,16 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # Static Files:
 
-MEDIA_ROOT = (RESOURCES_DIR / "mediafiles").as_posix()
+MEDIA_ROOT = RESOURCES_DIR.joinpath("mediafiles").as_posix()
 
 MEDIA_URL = "/media/"
 
-STATIC_ROOT = (RESOURCES_DIR / "staticfiles").as_posix()
+STATIC_ROOT = RESOURCES_DIR.joinpath("staticfiles").as_posix()
 
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    (RESOURCES_DIR / "assets").as_posix()
+    RESOURCES_DIR.joinpath("assets").as_posix()
 ]
 
 # Miscellaneous:
@@ -223,4 +224,4 @@ READABLE_META_KEYWORDS = [
     _("Words")
 ]
 
-READABLE_POOL_EXECUTOR = ThreadPoolExecutor()  # type: ignore
+READABLE_POOL_EXECUTOR: Final[ThreadPoolExecutor[Any]] = ThreadPoolExecutor()
