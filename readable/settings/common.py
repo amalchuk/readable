@@ -1,6 +1,6 @@
 from pathlib import Path
 from secrets import token_hex as get_random_string
-from typing import Any, Final, Sequence, Tuple
+from typing import Any, Dict, Final, Sequence, Tuple
 
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
@@ -11,13 +11,13 @@ from readable.utils.executors import ThreadPoolExecutor
 
 BASE_DIR = Path(__file__).parent.parent
 
-RESOURCES_DIR = (BASE_DIR / "resources").resolve(strict=True)
+RESOURCES_DIR = BASE_DIR.joinpath("resources").resolve(strict=True)
 
 # Core Settings:
 
 ALLOWED_HOSTS = ["*"]
 
-CACHES = {
+CACHES: Dict[str, Any] = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
     }
@@ -27,10 +27,10 @@ CSRF_COOKIE_AGE = SESSION_COOKIE_AGE = 604800  # 1 week
 
 CSRF_COOKIE_NAME = "csrf_token"
 
-DATABASES = {
+DATABASES: Dict[str, Any] = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": (RESOURCES_DIR / "readable.db").as_posix()
+        "NAME": RESOURCES_DIR.joinpath("readable.db").as_posix()
     }
 }
 
@@ -69,7 +69,7 @@ LANGUAGES: Final[Sequence[Tuple[str, str]]] = [
 ]
 
 LOCALE_PATHS = [
-    (RESOURCES_DIR / "translations").as_posix()
+    RESOURCES_DIR.joinpath("translations").as_posix()
 ]
 
 LOGGING = {
@@ -186,16 +186,16 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # Static Files:
 
-MEDIA_ROOT = (RESOURCES_DIR / "mediafiles").as_posix()
+MEDIA_ROOT = RESOURCES_DIR.joinpath("mediafiles").as_posix()
 
 MEDIA_URL = "/media/"
 
-STATIC_ROOT = (RESOURCES_DIR / "staticfiles").as_posix()
+STATIC_ROOT = RESOURCES_DIR.joinpath("staticfiles").as_posix()
 
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    (RESOURCES_DIR / "assets").as_posix()
+    RESOURCES_DIR.joinpath("assets").as_posix()
 ]
 
 # Miscellaneous:
