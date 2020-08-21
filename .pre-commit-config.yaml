@@ -20,6 +20,18 @@ repos:
         verbose: on
   - repo: local
     hooks:
+      - id: isort
+        name: Trying to check correct ordering of imports
+        entry: isort
+        language: python
+        types:
+          - python
+        args:
+          - --check-only
+        require_serial: on
+        verbose: on
+  - repo: local
+    hooks:
       - id: mypy
         name: Running the static type checker
         entry: mypy

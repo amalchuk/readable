@@ -10,7 +10,7 @@ class SHA256PasswordHasher(BasePasswordHasher):
     algorithm = "sha3_256"
     encoding = "utf-8"
 
-    def salt(self) -> str:
+    def salt(self) -> str:  # pragma: no cover
         return get_random_string(0b110)
 
     def verify(self, password: str, encoded: str) -> bool:
@@ -27,7 +27,7 @@ class SHA256PasswordHasher(BasePasswordHasher):
         value = hash_object.hexdigest()
         return f"{self.algorithm}\x24{salt}\x24{value}"
 
-    def safe_summary(self, encoded: str) -> Dict[str, str]:
+    def safe_summary(self, encoded: str) -> Dict[str, str]:  # pragma: no cover
         algorithm, salt, value = encoded.split("\x24", 0b10)
         assert algorithm == self.algorithm
         return {
