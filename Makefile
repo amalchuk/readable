@@ -34,10 +34,10 @@ pre-commit-hooks:
 test:
 	@echo "Running the test cases"
 	@coverage run manage.py test --no-input --failfast
-	@coverage report
 
-coverage:
+coverage: test
 	@echo "Analyzing the code coverage for all test cases"
+	@coverage report
 	@coverage html
 
 clean:

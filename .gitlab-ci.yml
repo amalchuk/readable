@@ -9,11 +9,11 @@ code quality:
   script:
     - make pip-install-development
     - make pre-commit-hooks
-    - make test
-  cache:
-    key: coverage_report
+    - make coverage
+  artifacts:
     paths:
-      - .coverage
+      - htmlcov
+    expire_in: 10 days
 
 build images:
   image: docker/compose:1.26.2
@@ -52,16 +52,14 @@ deployment:
 
 pages:
   stage: publishing
+  dependencies:
+    - code quality
   script:
-    - make coverage
-  cache:
-    key: coverage_report
-    paths:
-      - .coverage
-    policy: pull
+    - rm --force --recursive public
+    - cp --recursive htmlcov public
   artifacts:
     paths:
       - public
-    expire_in: 1 week
+    expire_in: 30 days
   only:
     - master
