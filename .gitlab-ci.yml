@@ -9,13 +9,29 @@ code quality:
   script:
     - make pip-install-development
     - make pre-commit-hooks
+    - make test
+  cache:
+    key: coverage_report
+    paths:
+      - .coverage
+
+pages:
+  stage: testing
+  dependencies:
+    - code quality
+  script:
     - make coverage
-  after_script:
-    - make clean
+  cache:
+    key: coverage_report
+    paths:
+      - .coverage
+    policy: pull
   artifacts:
     paths:
-      - htmlcov/
+      - public
     expire_in: 1 week
+  only:
+    - master
 
 build images:
   image: docker/compose:1.26.2
