@@ -54,9 +54,6 @@ source = ["readable"]
 precision    = 2
 skip_covered = true
 
-[tool.coverage.html]
-directory = "public"
-
 [build-system]
 requires = ["pip", "setuptools", "wheel"]
 build-backend = "setuptools.build_meta"

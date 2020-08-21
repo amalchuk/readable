@@ -16,7 +16,7 @@ dist/
 
 # Code coverage:
 .coverage
-public/
+htmlcov/
 
 # Linting:
 .mypy_cache/
