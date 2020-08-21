@@ -15,24 +15,6 @@ code quality:
     paths:
       - .coverage
 
-pages:
-  stage: testing
-  dependencies:
-    - code quality
-  script:
-    - make coverage
-  cache:
-    key: coverage_report
-    paths:
-      - .coverage
-    policy: pull
-  artifacts:
-    paths:
-      - public
-    expire_in: 1 week
-  only:
-    - master
-
 build images:
   image: docker/compose:1.26.2
   services:
@@ -67,3 +49,19 @@ deployment:
     - master
     - schedules
     - tags
+
+pages:
+  stage: publishing
+  script:
+    - make coverage
+  cache:
+    key: coverage_report
+    paths:
+      - .coverage
+    policy: pull
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+  only:
+    - master
