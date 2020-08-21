@@ -13,7 +13,7 @@ code quality:
   artifacts:
     paths:
       - htmlcov
-    expire_in: 10 days
+    expire_in: 1 week
 
 build images:
   image: docker/compose:1.26.2
@@ -51,6 +51,7 @@ deployment:
     - tags
 
 pages:
+  image: debian:latest
   stage: publishing
   dependencies:
     - code quality
@@ -60,6 +61,6 @@ pages:
   artifacts:
     paths:
       - public
-    expire_in: 30 days
+    expire_in: 1 week
   only:
     - master
