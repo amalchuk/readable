@@ -24,8 +24,7 @@ deployment = ["django-redis", "psycopg2", "uwsgi"]
 
 [tool.poetry.dev-dependencies]
 docker-compose  = ">=1.26"
-git-filter-repo = ">=2.28"
-pre-commit      = ">=2.6"
+pre-commit      = ">=2.7"
 pylint          = ">=2.5.3, <3.0"
 coverage        = { version = ">=5.2", extras = ["toml"]}
 isort           = { version = ">=4.3.5, <5.0", extras = ["pyproject"]}
