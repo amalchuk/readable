@@ -1,11 +1,11 @@
 readable
 ========
-[![pipeline status][pipeline]][readable]
-[![coverage report][coverage]][readable]
+[![pipeline status][pipeline]][readable_coverage]
+[![coverage report][coverage]][readable_coverage]
 
 Check and improve the spelling and grammar of documents.
 
-[![showcase][showcase]][homepage]
+[![showcase][showcase]][readable_homepage]
 
 Installation
 ------------
@@ -21,9 +21,9 @@ Distribution
 ------------
 This project is licensed under the terms of the [MIT License](LICENSE).
 
-[readable]: <https://gitlab.com/amalchuk/readable>
+[readable_homepage]: <https://readable.pw>
+[readable_coverage]: <https://coverage.readable.pw>
+
 [pipeline]: <https://gitlab.com/amalchuk/readable/badges/master/pipeline.svg?style=flat-square>
 [coverage]: <https://gitlab.com/amalchuk/readable/badges/master/coverage.svg?style=flat-square>
-
-[homepage]: <https://readable.pw>
 [showcase]: <showcase/homepage.png>
