@@ -13,7 +13,7 @@ code quality:
   artifacts:
     paths:
       - htmlcov
-    expire_in: 1 week
+    expire_in: 3 days
 
 build images:
   image: docker/compose:1.26.2
@@ -58,6 +58,9 @@ pages:
   script:
     - rm --force --recursive public
     - cp --recursive htmlcov public
+  environment:
+    name: coverage
+    url: https://coverage.readable.pw
   artifacts:
     paths:
       - public
