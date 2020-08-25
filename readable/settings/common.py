@@ -97,7 +97,8 @@ LOGGING = {
             "level": "INFO"
         },
         "django.security.DisallowedHost": {
-            "handlers": ["blank"]
+            "handlers": ["blank"],
+            "propagate": False
         }
     },
     "root": {

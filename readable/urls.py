@@ -6,8 +6,7 @@ from readable.views.authorization import login_view, logout_view, registration_v
 from readable.views.documents_detail import documents_detail_view
 from readable.views.index import index_view
 from readable.views.profile import profile_view
-from readable.views.robots import robots_view
-from readable.views.sitemap import sitemap_view
+from readable.views.seo import robots_view, sitemap_view
 
 # AdminSite settings:
 
