@@ -30,7 +30,7 @@
         <div class="col col-md-6 text-truncate" title="{{ document.realname }}">{{ document.realname }}</div>
         <div class="col col-md-2 text-truncate text-md-center" title="{{ document.get_status_display }}">{{ document.get_status_display }}</div>
         <div class="col col-md-4 d-flex align-items-center">
-          {% with document.metrics.overall_index as score %}
+          {% with document.metrics.indexes.flesch_reading_ease_score as score %}
           <div class="progress flex-fill">
             {% if score >= 80.0 %}
             <div class="progress-bar bg-success text-white" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score | floatformat }}">{{ score | floatformat }}&percnt;</div>

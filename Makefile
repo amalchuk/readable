@@ -24,8 +24,8 @@ pip-install: pip-update-setuptools
 update:
 	@echo "Downloading the latest versions of the dependencies"
 	@poetry update --lock --quiet --no-interaction
-	@poetry export --format requirements.txt --output $(REQUIREMENTS_DEVELOPMENT) --dev
-	@poetry export --format requirements.txt --output $(REQUIREMENTS_PRODUCTION) --extras deployment
+	@poetry export --format requirements.txt --output $(REQUIREMENTS_DEVELOPMENT) --without-hashes --dev
+	@poetry export --format requirements.txt --output $(REQUIREMENTS_PRODUCTION) --without-hashes --extras deployment
 
 pre-commit-hooks:
 	@echo "Running the Git hooks"

@@ -11,7 +11,7 @@ from django.db.models.fields.files import FileField
 from django.db.models.fields.related import ForeignKey, OneToOneField
 from django.utils.text import get_valid_filename
 from django.utils.translation import gettext_lazy as _
-from scienco.indexes import Indexes, compute_indexes
+from scienco import Indexes, compute_indexes
 
 
 def documents_upload_directory(instance: "Documents", filename: str) -> str:
@@ -90,20 +90,3 @@ class Metrics(Model):
     @cached_property
     def indexes(self) -> Indexes:
         return compute_indexes(self.sentences, self.words, self.letters, self.syllables, is_russian=self.is_russian)
-
-    @cached_property
-    def flesch_reading_ease_score(self) -> float:
-        return self.indexes.get("flesch_reading_ease_score", 0.0)
-
-    @cached_property
-    def automated_readability_index(self) -> float:
-        return self.indexes.get("automated_readability_index", 0.0)
-
-    @cached_property
-    def coleman_liau_index(self) -> float:
-        return self.indexes.get("coleman_liau_index", 0.0)
-
-    @cached_property
-    def overall_index(self) -> float:
-        # TODO: In Progress
-        return self.indexes.get("flesch_reading_ease_score", 0.0)

@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.1.0"
+version     = "0.1.1"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -12,12 +12,12 @@ include     = ["manage.py"]
 
 [tool.poetry.dependencies]
 python       = "3.8.5"
-django       = "3.1"
+django       = "3.1.1"
 pymupdf      = "1.17.6"
 python-docx  = "0.8.10"
-scienco      = { git = "https://gitlab.com/amalchuk/scienco.git", tag = "v0.1.0" }
+scienco      = { git = "https://gitlab.com/amalchuk/scienco.git", tag = "v0.1.4" }
 django-redis = { version = "4.12.1", platform = "linux", optional = true }
-psycopg2     = { version = "2.8.5", platform = "linux", optional = true }
+psycopg2     = { version = "2.8.6", platform = "linux", optional = true }
 uwsgi        = { version = "*", platform = "linux", optional = true }
 
 [tool.poetry.extras]

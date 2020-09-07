@@ -3,7 +3,7 @@ from typing import Any, Optional, Tuple, Union
 
 from django.db.utils import DatabaseError
 from django.utils.timezone import now as utcnow
-from scienco.metrics import compute_metrics
+from scienco import compute_metrics
 
 from readable.models import Documents, Metrics, Staff
 from readable.utils.decorators import no_exception, run_in_executor
@@ -28,7 +28,13 @@ def file_processing(instance: Documents) -> ProcessingReturn:
     def update_or_create() -> Optional[Metrics]:
         if (text := read_document(instance.path)):
             metrics = compute_metrics(text)  # type: ignore
-            obj, _ = Metrics.objects.update_or_create(document=instance, defaults=metrics)
+            obj, _ = Metrics.objects.update_or_create(document=instance, defaults={
+                "is_russian": metrics.is_russian,
+                "sentences": metrics.sentences,
+                "words": metrics.words,
+                "letters": metrics.letters,
+                "syllables": metrics.syllables
+            })
             return obj
 
         return None
