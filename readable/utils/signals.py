@@ -3,11 +3,11 @@ from typing import Any, Optional, Tuple, Union
 
 from django.db.utils import DatabaseError
 from django.utils.timezone import now as utcnow
+from scienco import compute_metrics
 
 from readable.models import Documents, Metrics, Staff
 from readable.utils.decorators import no_exception, run_in_executor
-from readable.utils.plain_language.documents import read_document
-from readable.utils.plain_language.metrics import compute
+from readable.utils.read_documents import read_document
 
 ProcessingReturn = Tuple[Documents, Union[Metrics, Exception, None]]
 
@@ -27,8 +27,14 @@ def user_logged_in_out(*args: Any, **kwargs: Any) -> None:
 def file_processing(instance: Documents) -> ProcessingReturn:
     def update_or_create() -> Optional[Metrics]:
         if (text := read_document(instance.path)):
-            metrics = compute(text)  # type: ignore
-            obj, _ = Metrics.objects.update_or_create(document=instance, defaults=metrics)
+            metrics = compute_metrics(text)  # type: ignore
+            obj, _ = Metrics.objects.update_or_create(document=instance, defaults={
+                "is_russian": metrics.is_russian,
+                "sentences": metrics.sentences,
+                "words": metrics.words,
+                "letters": metrics.letters,
+                "syllables": metrics.syllables
+            })
             return obj
 
         return None

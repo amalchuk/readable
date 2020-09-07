@@ -11,6 +11,7 @@ from django.db.models.fields.files import FileField
 from django.db.models.fields.related import ForeignKey, OneToOneField
 from django.utils.text import get_valid_filename
 from django.utils.translation import gettext_lazy as _
+from scienco import Indexes, compute_indexes
 
 
 def documents_upload_directory(instance: "Documents", filename: str) -> str:
@@ -87,25 +88,5 @@ class Metrics(Model):
         return f"{self.document}"
 
     @cached_property
-    def flesch_reading_ease_score(self) -> float:
-        from readable.utils.plain_language.indexes import flesch_reading_ease_score as _
-        return _(self.sentences, self.words, self.syllables, is_russian=self.is_russian)
-
-    @cached_property
-    def automated_readability_index(self) -> float:
-        from readable.utils.plain_language.indexes import automated_readability_index as _
-        return _(self.sentences, self.words, self.letters, is_russian=self.is_russian)
-
-    @cached_property
-    def coleman_liau_index(self) -> float:
-        from readable.utils.plain_language.indexes import coleman_liau_index as _
-        return _(self.sentences, self.words, self.letters, is_russian=self.is_russian)
-
-    @cached_property
-    def overall_index(self) -> float:
-        from readable.utils.plain_language.indexes import overall_index as _
-        return _(
-            flesch_reading_ease_score=self.flesch_reading_ease_score,
-            automated_readability_index=self.automated_readability_index,
-            coleman_liau_index=self.coleman_liau_index,
-            is_russian=self.is_russian)
+    def indexes(self) -> Indexes:
+        return compute_indexes(self.sentences, self.words, self.letters, self.syllables, is_russian=self.is_russian)

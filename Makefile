@@ -11,21 +11,21 @@ install:
 
 pip-update-setuptools:
 	@echo "Updating the pip, setuptools and wheel packages"
-	@python -m pip install pip setuptools wheel --upgrade --force-reinstall --quiet --no-cache-dir
+	@python -m pip install pip setuptools wheel --upgrade --quiet --no-cache-dir
 
 pip-install-development: pip-update-setuptools
 	@echo "Installing the dependencies for development"
-	@pip install --requirement $(REQUIREMENTS_DEVELOPMENT) --no-deps --upgrade --require-hashes --quiet --no-cache-dir
+	@pip install --requirement $(REQUIREMENTS_DEVELOPMENT) --no-deps --upgrade --quiet --no-cache-dir
 
 pip-install: pip-update-setuptools
 	@echo "Installing the dependencies"
-	@pip install --requirement $(REQUIREMENTS_PRODUCTION) --no-deps --upgrade --require-hashes --quiet --no-cache-dir
+	@pip install --requirement $(REQUIREMENTS_PRODUCTION) --no-deps --upgrade --quiet --no-cache-dir
 
 update:
 	@echo "Downloading the latest versions of the dependencies"
 	@poetry update --lock --quiet --no-interaction
-	@poetry export --format requirements.txt --output $(REQUIREMENTS_DEVELOPMENT) --dev
-	@poetry export --format requirements.txt --output $(REQUIREMENTS_PRODUCTION) --extras deployment
+	@poetry export --format requirements.txt --output $(REQUIREMENTS_DEVELOPMENT) --without-hashes --dev
+	@poetry export --format requirements.txt --output $(REQUIREMENTS_PRODUCTION) --without-hashes --extras deployment
 
 pre-commit-hooks:
 	@echo "Running the Git hooks"

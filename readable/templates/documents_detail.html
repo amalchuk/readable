@@ -32,19 +32,19 @@
     <li class="list-group-item">
       <div class="row row-cols-1 row-cols-md-2">
         <div class="col text-truncate">{% trans 'Flesch-Kincaid score' %}&colon;</div>
-        <div class="col">{{ document.metrics.flesch_reading_ease_score | floatformat | default:0 }}&percnt;</div>
+        <div class="col">{{ document.metrics.indexes.flesch_reading_ease_score | floatformat | default:0 }}&percnt;</div>
       </div>
     </li>
     <li class="list-group-item">
       <div class="row row-cols-1 row-cols-md-2">
         <div class="col text-truncate">{% trans 'Automated readability index' %}&colon;</div>
-        <div class="col">{{ document.metrics.automated_readability_index | floatformat | default:0 }}</div>
+        <div class="col">{{ document.metrics.indexes.automated_readability_index | floatformat | default:0 }}</div>
       </div>
     </li>
     <li class="list-group-item">
       <div class="row row-cols-1 row-cols-md-2">
         <div class="col text-truncate">{% trans 'Coleman-Liau index' %}&colon;</div>
-        <div class="col">{{ document.metrics.coleman_liau_index | floatformat | default:0 }}</div>
+        <div class="col">{{ document.metrics.indexes.coleman_liau_index | floatformat | default:0 }}</div>
       </div>
     </li>
   </ul>

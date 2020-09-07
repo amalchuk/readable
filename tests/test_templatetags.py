@@ -10,10 +10,10 @@ from readable.templatetags.string import line_breaks
 class TestTemplateTags(TestCase):
     def test_create_meta(self) -> None:
         author: str = create_meta(name="author", content=_("Andrew Malchuk"))
-        self.assertEqual(author, "<meta name=\"author\" content=\"Andrew Malchuk\">")
+        self.assertHTMLEqual(author, "<meta name=\"author\" content=\"Andrew Malchuk\">")
 
         custom: str = create_meta(name="custom", content=_("custom meta tag"), additional=_("additional"))
-        self.assertEqual(custom, "<meta name=\"custom\" content=\"custom meta tag\" additional=\"additional\">")
+        self.assertHTMLEqual(custom, "<meta name=\"custom\" content=\"custom meta tag\" additional=\"additional\">")
 
     def test_string_join(self) -> None:
         by_comma: str = string_join(", ", (_("bounce"), _("release"), _("absolute")))
