@@ -3,21 +3,12 @@ from typing import Callable, TypeVar
 
 from django.test.testcases import SimpleTestCase as TestCase
 
-from readable.utils.decorators import cacheable, no_exception, run_in_executor
+from readable.utils.decorators import no_exception, run_in_executor
 
 R = TypeVar("R")
 
 
 class TestDecorators(TestCase):
-    def test_cacheable(self) -> None:
-        @cacheable
-        def decorated(value: R) -> R:
-            return value
-
-        self.assertTrue(decorated(True))
-        self.assertFalse(decorated(False))
-        self.assertIsNone(decorated(None))
-
     def test_no_exception(self) -> None:
         @no_exception(ZeroDivisionError, default=None)
         def decorated(a: float, b: float) -> float:

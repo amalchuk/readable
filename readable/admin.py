@@ -88,4 +88,4 @@ class DocumentsAdmin(ModelAdmin):
             obj.status = Documents.Status.IN_PROGRESS
 
         obj.uploaded_by = request.user.staff
-        super(DocumentsAdmin, self).save_model(request, obj, *args, **kwargs)
+        obj.save()

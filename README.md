@@ -2,6 +2,7 @@ readable
 ========
 [![pipeline status][pipeline]][readable_coverage]
 [![coverage report][coverage]][readable_coverage]
+[![distribution][license]](LICENSE)
 
 Check and improve the spelling and grammar of documents.
 
@@ -26,4 +27,5 @@ This project is licensed under the terms of the [MIT License](LICENSE).
 
 [pipeline]: <https://gitlab.com/amalchuk/readable/badges/master/pipeline.svg?style=flat-square>
 [coverage]: <https://gitlab.com/amalchuk/readable/badges/master/coverage.svg?style=flat-square>
+[license]: <https://img.shields.io/github/license/amalchuk/readable?color=blue&style=flat-square>
 [showcase]: <showcase/homepage.png>
