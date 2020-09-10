@@ -22,6 +22,13 @@ Distribution
 ------------
 This project is licensed under the terms of the [MIT License](LICENSE).
 
+Links
+-----
+- Website: <https://readable.pw>
+- Coverage report: <https://coverage.readable.pw>
+- Code: <https://gitlab.com/amalchuk/readable>
+- GitHub mirror: <https://github.com/amalchuk/readable>
+
 [readable_homepage]: <https://readable.pw>
 [readable_coverage]: <https://coverage.readable.pw>
 

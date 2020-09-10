@@ -16,7 +16,7 @@ code quality:
     expire_in: 3 days
 
 build images:
-  image: docker/compose:1.27.0
+  image: docker/compose:1.27.2
   services:
     - docker:18.09.7-dind
   stage: building
@@ -33,7 +33,7 @@ build images:
 
 deployment:
   image:
-    name: docker/compose:1.27.0
+    name: docker/compose:1.27.2
     entrypoint:
       - /bin/sh
       - -c
@@ -51,7 +51,7 @@ deployment:
     - tags
 
 pages:
-  image: debian:latest
+  image: debian:buster
   stage: publishing
   dependencies:
     - code quality

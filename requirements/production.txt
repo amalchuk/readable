@@ -7,6 +7,6 @@ pymupdf==1.17.6
 python-docx==0.8.10
 pytz==2020.1
 redis==3.5.3; sys_platform == "linux"
--e git+https://gitlab.com/amalchuk/scienco.git@63ee587e929efdd386b39e1db12d3a5141f624b9#egg=scienco
+-e git+https://gitlab.com/amalchuk/scienco.git@7152786aee3dc639ae1d2b706512d06508865dec#egg=scienco
 sqlparse==0.3.1
 uwsgi==2.0.19.1; sys_platform == "linux"
