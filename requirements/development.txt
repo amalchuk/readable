@@ -3,23 +3,23 @@ asgiref==3.2.10
 astroid==2.4.2
 attrs==20.2.0
 bcrypt==3.2.0
-cached-property==1.5.1
+cached-property==1.5.2
 certifi==2020.6.20
-cffi==1.14.2
+cffi==1.14.3
 cfgv==3.2.0
 chardet==3.0.4
 colorama==0.4.3; sys_platform == "win32"
-coverage==5.2.1
-cryptography==3.1
+coverage==5.3
+cryptography==3.1.1
 distlib==0.3.1
 distro==1.5.0
 django==3.1.1
 docker==4.3.1
-docker-compose==1.27.0
+docker-compose==1.27.4
 dockerpty==0.4.1
 docopt==0.6.2
 filelock==3.0.12
-identify==1.5.0
+identify==1.5.5
 idna==2.10
 isort==4.3.21
 jsonschema==3.2.0
@@ -33,16 +33,16 @@ paramiko==2.7.2
 pre-commit==2.7.1
 pycparser==2.20
 pylint==2.6.0
-pymupdf==1.17.6
+pymupdf==1.17.7
 pynacl==1.4.0
-pyrsistent==0.16.0
+pyrsistent==0.17.3
 python-docx==0.8.10
 python-dotenv==0.14.0
 pytz==2020.1
 pywin32==227; sys_platform == "win32"
 pyyaml==5.3.1
 requests==2.24.0
--e git+https://gitlab.com/amalchuk/scienco.git@63ee587e929efdd386b39e1db12d3a5141f624b9#egg=scienco
+-e git+https://gitlab.com/amalchuk/scienco.git@7152786aee3dc639ae1d2b706512d06508865dec#egg=scienco
 six==1.15.0
 sqlparse==0.3.1
 texttable==1.6.3

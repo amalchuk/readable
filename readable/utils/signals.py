@@ -27,7 +27,7 @@ def user_logged_in_out(*args: Any, **kwargs: Any) -> None:
 def file_processing(instance: Documents) -> ProcessingReturn:
     def update_or_create() -> Optional[Metrics]:
         if (text := read_document(instance.path)):
-            metrics = compute_metrics(text)  # type: ignore
+            metrics = compute_metrics(text)
             obj, _ = Metrics.objects.update_or_create(document=instance, defaults={
                 "is_russian": metrics.is_russian,
                 "sentences": metrics.sentences,
