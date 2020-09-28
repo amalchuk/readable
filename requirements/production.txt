@@ -3,7 +3,7 @@ django==3.1.1
 django-redis==4.12.1; sys_platform == "linux"
 lxml==4.5.2
 psycopg2==2.8.6; sys_platform == "linux"
-pymupdf==1.17.6
+pymupdf==1.17.7
 python-docx==0.8.10
 pytz==2020.1
 redis==3.5.3; sys_platform == "linux"
