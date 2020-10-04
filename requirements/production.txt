@@ -1,5 +1,5 @@
 asgiref==3.2.10
-django==3.1.1
+django==3.1.2
 django-redis==4.12.1; sys_platform == "linux"
 lxml==4.5.2
 psycopg2==2.8.6; sys_platform == "linux"
@@ -7,6 +7,6 @@ pymupdf==1.17.7
 python-docx==0.8.10
 pytz==2020.1
 redis==3.5.3; sys_platform == "linux"
--e git+https://gitlab.com/amalchuk/scienco.git@7152786aee3dc639ae1d2b706512d06508865dec#egg=scienco
+-e git+https://gitlab.com/amalchuk/scienco.git@8ac286491dc9b74b2594410216c24b8e74154d86#egg=scienco
 sqlparse==0.3.1
 uwsgi==2.0.19.1; sys_platform == "linux"

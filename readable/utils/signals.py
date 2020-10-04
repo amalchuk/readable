@@ -13,7 +13,7 @@ ProcessingReturn = Tuple[Documents, Union[Metrics, Exception, None]]
 
 
 @no_exception(AttributeError, DatabaseError)
-def user_logged_in_out(*args: Any, **kwargs: Any) -> None:
+def user_logged_in_out(*args: Any, **kwargs: Any) -> None:  # pragma: no cover
     """
     Sent when the ``login`` and ``logout`` methods is called.
     """
@@ -29,11 +29,11 @@ def file_processing(instance: Documents) -> ProcessingReturn:
         if (text := read_document(instance.path)):
             metrics = compute_metrics(text)
             obj, _ = Metrics.objects.update_or_create(document=instance, defaults={
-                "is_russian": metrics.is_russian,
                 "sentences": metrics.sentences,
                 "words": metrics.words,
                 "letters": metrics.letters,
-                "syllables": metrics.syllables
+                "syllables": metrics.syllables,
+                "is_russian": metrics.is_russian
             })
             return obj
 
