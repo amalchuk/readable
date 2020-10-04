@@ -13,7 +13,7 @@ coverage==5.3
 cryptography==3.1.1
 distlib==0.3.1
 distro==1.5.0
-django==3.1.1
+django==3.1.2
 docker==4.3.1
 docker-compose==1.27.4
 dockerpty==0.4.1
@@ -42,7 +42,7 @@ pytz==2020.1
 pywin32==227; sys_platform == "win32"
 pyyaml==5.3.1
 requests==2.24.0
--e git+https://gitlab.com/amalchuk/scienco.git@7152786aee3dc639ae1d2b706512d06508865dec#egg=scienco
+-e git+https://gitlab.com/amalchuk/scienco.git@8ac286491dc9b74b2594410216c24b8e74154d86#egg=scienco
 six==1.15.0
 sqlparse==0.3.1
 texttable==1.6.3
@@ -50,6 +50,6 @@ toml==0.10.1
 typed-ast==1.4.1
 typing-extensions==3.7.4.3
 urllib3==1.25.10
-virtualenv==20.0.31
+virtualenv==20.0.32
 websocket-client==0.57.0
 wrapt==1.12.1
