@@ -35,7 +35,7 @@ class ThreadPoolExecutor(Generic[R]):
         try:
             future = self._executor.submit(user_function, *args, **kwargs)
 
-        except:  # pragma: no cover
+        except:
             self._release()
             raise
 

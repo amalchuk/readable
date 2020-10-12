@@ -8,7 +8,7 @@ COPY ["requirements/production.txt", "/application/requirements.txt"]
 COPY ["readable", "/application/readable/"]
 
 ENV PIP_NO_CACHE_DIR="1" PIP_DISABLE_PIP_VERSION_CHECK="1" UWSGI_XML="/application/uwsgi.xml"
-RUN ["pip", "install", "--requirement", "requirements.txt", "--no-deps", "--quiet"]
+RUN ["pip", "install", "--requirement", "requirements.txt", "--no-deps", "--require-hashes", "--quiet"]
 
 EXPOSE 8000-8003/tcp
 ENTRYPOINT ["docker-entrypoint"]
