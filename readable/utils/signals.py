@@ -1,7 +1,6 @@
 from typing import Any
 
 from django.db.utils import DatabaseError
-from django.utils.timezone import now
 
 from readable.models import Documents, Staff
 from readable.tasks import file_processing
@@ -20,9 +19,8 @@ def user_logged_in_out(*args: Any, **kwargs: Any) -> None:  # pragma: no cover
 
 
 def documents_uploaded(*args: Any, **kwargs: Any) -> None:
+    is_created: bool = kwargs.pop("created")
     instance: Documents = kwargs.pop("instance")
 
-    if instance.unavailable:
-        status = Documents.Status.IN_PROGRESS
-        Documents.objects.filter(id=instance.id).update(status=status, updated_at=now())
+    if is_created and instance.unavailable:
         file_processing.delay(instance.id)
