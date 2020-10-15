@@ -1,11 +1,6 @@
-from concurrent.futures import Future
-from typing import Callable, TypeVar
-
 from django.test.testcases import SimpleTestCase as TestCase
 
-from readable.utils.decorators import no_exception, run_in_executor
-
-R = TypeVar("R")
+from readable.utils.decorators import no_exception
 
 
 class TestDecorators(TestCase):
@@ -21,11 +16,3 @@ class TestDecorators(TestCase):
         decorated = no_exception(ModuleNotFoundError)(import_module)
         self.assertNotIsInstance(decorated("sys"), ModuleNotFoundError)
         self.assertIsInstance(decorated("unknown_library"), ModuleNotFoundError)
-
-    def test_run_in_executor(self) -> None:
-        @run_in_executor
-        def decorated(a: float, b: float) -> float:
-            return a / b
-
-        self.assertIsInstance(decorated(10.0, 2.0), Future)
-        self.assertIsInstance(decorated(10.0, 0.0).exception(timeout=10.0), ZeroDivisionError)

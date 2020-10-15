@@ -13,54 +13,24 @@ ADMINS = [
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": [
-            "redis://redis:6379/0",
-            "redis://redis:6379/1",
-            "redis://redis:6379/2",
-            "redis://redis:6379/3"
-        ],
+        "LOCATION": "redis://redis:6379/5",
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.sharded.ShardClient",
+            "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
             "CONNECTION_POOL_KWARGS": {
                 "health_check_interval": 1800,
-                "max_connections": 4096,
                 "retry_on_timeout": True
             }
         }
     },
     "session": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": [
-            "redis://redis:6379/4",
-            "redis://redis:6379/5",
-            "redis://redis:6379/6",
-            "redis://redis:6379/7"
-        ],
+        "LOCATION": "redis://redis:6379/6",
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.sharded.ShardClient",
+            "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
             "CONNECTION_POOL_KWARGS": {
                 "health_check_interval": 1800,
-                "max_connections": 4096,
-                "retry_on_timeout": True
-            }
-        }
-    },
-    "internal": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": [
-            "redis://redis:6379/8",
-            "redis://redis:6379/9",
-            "redis://redis:6379/10",
-            "redis://redis:6379/11"
-        ],
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.sharded.ShardClient",
-            "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
-            "CONNECTION_POOL_KWARGS": {
-                "health_check_interval": 1800,
-                "max_connections": 4096,
                 "retry_on_timeout": True
             }
         }
@@ -94,7 +64,3 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # Static Files:
 
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-
-# Miscellaneous:
-
-READABLE_INTERNAL_CACHE_ALIAS = "internal"

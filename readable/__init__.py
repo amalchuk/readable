@@ -5,6 +5,8 @@
 Check and improve the spelling and grammar of documents.
 """
 
-__version__ = "0.1.1"
+from readable.crontab import application as celery
+
+__all__ = ("celery", "default_app_config")
 
 default_app_config = "readable.apps.Configuration"
