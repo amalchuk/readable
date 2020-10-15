@@ -10,10 +10,36 @@ x-default: &default-settings
       soft: 32767
       hard: 65535
 
+x-application: &application-settings
+  image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
+  environment:
+    # PostgreSQL environment variables:
+    - POSTGRES_USER
+    - POSTGRES_PASSWORD
+    - POSTGRES_DB
+    # Django environment variables:
+    - DJANGO_SETTINGS_MODULE
+    - DJANGO_SECRET_KEY
+  volumes:
+    - type: volume
+      source: mediafiles
+      target: /application/readable/resources/mediafiles
+      volume:
+        nocopy: true
+    - type: volume
+      source: staticfiles
+      target: /application/readable/resources/staticfiles
+      volume:
+        nocopy: true
+  depends_on:
+    - redis
+    - postgresql
+
 services:
   redis:
     <<: *default-settings
     image: redis:6.0-alpine
+    container_name: redis
     tmpfs:
       - /data
       - /tmp
@@ -21,6 +47,7 @@ services:
   postgresql:
     <<: *default-settings
     image: postgres:13.0-alpine
+    container_name: postgresql
     environment:
       # PostgreSQL environment variables:
       - POSTGRES_USER
@@ -33,35 +60,33 @@ services:
 
   readable:
     <<: *default-settings
+    <<: *application-settings
     build: .
-    image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
-    environment:
-      # PostgreSQL environment variables:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB
-      # Django environment variables:
-      - DJANGO_SETTINGS_MODULE
-      - DJANGO_SECRET_KEY
-    volumes:
-      - type: volume
-        source: mediafiles
-        target: /application/readable/resources/mediafiles
-        volume:
-          nocopy: true
-      - type: volume
-        source: staticfiles
-        target: /application/readable/resources/staticfiles
-        volume:
-          nocopy: true
-    depends_on:
-      - redis
-      - postgresql
+    container_name: readable
+    command: uwsgi
+    expose:
+      - 8000
+      - 8001
+      - 8002
+      - 8003
+
+  celery_worker:
+    <<: *default-settings
+    <<: *application-settings
+    container_name: celery_worker
+    command: celery -A readable worker --loglevel INFO
+
+  celery_beat:
+    <<: *default-settings
+    <<: *application-settings
+    container_name: celery_beat
+    command: celery -A readable beat --loglevel INFO
 
   nginx:
     <<: *default-settings
     build: ./deployment/nginx
     image: $CI_REGISTRY/$CI_PROJECT_PATH/nginx:latest
+    container_name: nginx
     volumes:
       - type: volume
         source: mediafiles

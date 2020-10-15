@@ -3,13 +3,10 @@
 # Exit immediately if a pipeline returns a non-zero status:
 set -e
 
-# Collect static files in a single location:
-python manage.py collectstatic \
-    --no-input \
-    --clear >> /dev/null
-
-# Update database schema:
-python manage.py migrate \
-    --no-input >> /dev/null
+if [ "$1" == "uwsgi" ]; then
+  for subcommand in collectstatic migrate; do
+    python manage.py $subcommand --no-input >> /dev/null
+  done
+fi
 
 exec "$@"

@@ -1,11 +1,10 @@
+from datetime import timedelta
 from pathlib import Path
 from secrets import token_hex as get_random_string
 from typing import Any, Dict, Final, Sequence, Tuple
 
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
-
-from readable.utils.executors import ThreadPoolExecutor
 
 # Common Settings:
 
@@ -92,6 +91,10 @@ LOGGING = {
         }
     },
     "loggers": {
+        "celery": {
+            "handlers": ["console"],
+            "level": "INFO"
+        },
         "django": {
             "handlers": ["console"],
             "level": "INFO"
@@ -199,11 +202,28 @@ STATICFILES_DIRS = [
     RESOURCES_DIR.joinpath("assets").as_posix()
 ]
 
+# Celery Settings:
+
+CRONTAB_BROKER_URL = [
+    "redis://redis:6379/0",
+    "redis://redis:6379/1",
+    "redis://redis:6379/2",
+    "redis://redis:6379/3"
+]
+
+CRONTAB_REDIS_SOCKET_KEEPALIVE = True
+
+CRONTAB_RESULT_BACKEND = "redis://redis:6379/4"
+
+CRONTAB_RESULT_EXPIRES = timedelta(hours=1)
+
+CRONTAB_TASK_TIME_LIMIT = 1800.0
+
+CRONTAB_TASK_TRACK_STARTED = True
+
 # Miscellaneous:
 
 READABLE_DOCUMENTS_PAGINATE_BY = 10
-
-READABLE_INTERNAL_CACHE_ALIAS = "default"
 
 READABLE_META_DESCRIPTION = _("This tool will quickly test the readability, spelling and grammar of your text")
 
@@ -224,5 +244,3 @@ READABLE_META_KEYWORDS = [
     _("Text"),
     _("Words")
 ]
-
-READABLE_POOL_EXECUTOR: Final[ThreadPoolExecutor[Any]] = ThreadPoolExecutor()
