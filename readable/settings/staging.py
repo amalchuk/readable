@@ -13,7 +13,7 @@ ADMINS = [
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/5",
+        "LOCATION": "redis://redis:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
@@ -25,7 +25,7 @@ CACHES = {
     },
     "session": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/6",
+        "LOCATION": "redis://redis:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",

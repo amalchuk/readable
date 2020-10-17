@@ -1,4 +1,3 @@
-from datetime import timedelta
 from pathlib import Path
 from secrets import token_hex as get_random_string
 from typing import Any, Dict, Final, Sequence, Tuple
@@ -91,10 +90,6 @@ LOGGING = {
         }
     },
     "loggers": {
-        "celery": {
-            "handlers": ["console"],
-            "level": "INFO"
-        },
         "django": {
             "handlers": ["console"],
             "level": "INFO"
@@ -201,25 +196,6 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     RESOURCES_DIR.joinpath("assets").as_posix()
 ]
-
-# Celery Settings:
-
-CRONTAB_BROKER_URL = [
-    "redis://redis:6379/0",
-    "redis://redis:6379/1",
-    "redis://redis:6379/2",
-    "redis://redis:6379/3"
-]
-
-CRONTAB_REDIS_SOCKET_KEEPALIVE = True
-
-CRONTAB_RESULT_BACKEND = "redis://redis:6379/4"
-
-CRONTAB_RESULT_EXPIRES = timedelta(hours=1)
-
-CRONTAB_TASK_TIME_LIMIT = 1800.0
-
-CRONTAB_TASK_TRACK_STARTED = True
 
 # Miscellaneous:
 
