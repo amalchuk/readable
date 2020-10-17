@@ -16,10 +16,10 @@ django       = "3.1.2"
 pymupdf      = "1.18.0"
 python-docx  = "0.8.10"
 scienco      = "0.2.0"
-celery       = { version = "5.0.0", extras = ["redis"]}
-django-redis = { version = "4.12.1", optional = true }
-psycopg2     = { version = "2.8.6", optional = true }
-uwsgi        = { version = "*", allow-prereleases = true, optional = true }
+simplethread = "0.1.1"
+django-redis = { version = "4.12.1", platform = "linux", optional = true }
+psycopg2     = { version = "2.8.6", platform = "linux", optional = true }
+uwsgi        = { version = "*", platform = "linux", optional = true }
 
 [tool.poetry.extras]
 deployment = ["django-redis", "psycopg2", "uwsgi"]
@@ -35,7 +35,7 @@ mypy           = { version = "*", allow-prereleases = true }
 [tool.isort]
 combine_as_imports = true
 combine_star       = true
-known_third_party  = ["django", "docx", "fitz", "scienco"]
+known_third_party  = ["django", "docx", "fitz", "scienco", "simplethread"]
 line_length        = 125
 multi_line_output  = 2
 

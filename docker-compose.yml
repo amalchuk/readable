@@ -10,31 +10,6 @@ x-default: &default-settings
       soft: 32767
       hard: 65535
 
-x-application: &application-settings
-  image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
-  environment:
-    # PostgreSQL environment variables:
-    - POSTGRES_USER
-    - POSTGRES_PASSWORD
-    - POSTGRES_DB
-    # Django environment variables:
-    - DJANGO_SETTINGS_MODULE
-    - DJANGO_SECRET_KEY
-  volumes:
-    - type: volume
-      source: mediafiles
-      target: /application/readable/resources/mediafiles
-      volume:
-        nocopy: true
-    - type: volume
-      source: staticfiles
-      target: /application/readable/resources/staticfiles
-      volume:
-        nocopy: true
-  depends_on:
-    - redis
-    - postgresql
-
 services:
   redis:
     <<: *default-settings
@@ -60,27 +35,31 @@ services:
 
   readable:
     <<: *default-settings
-    <<: *application-settings
     build: .
+    image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
     container_name: readable
-    command: uwsgi
-    expose:
-      - 8000
-      - 8001
-      - 8002
-      - 8003
-
-  celery_worker:
-    <<: *default-settings
-    <<: *application-settings
-    container_name: celery_worker
-    command: celery -A readable worker --loglevel INFO
-
-  celery_beat:
-    <<: *default-settings
-    <<: *application-settings
-    container_name: celery_beat
-    command: celery -A readable beat --loglevel INFO
+    environment:
+      # PostgreSQL environment variables:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      # Django environment variables:
+      - DJANGO_SETTINGS_MODULE
+      - DJANGO_SECRET_KEY
+    volumes:
+      - type: volume
+        source: mediafiles
+        target: /application/readable/resources/mediafiles
+        volume:
+          nocopy: true
+      - type: volume
+        source: staticfiles
+        target: /application/readable/resources/staticfiles
+        volume:
+          nocopy: true
+    depends_on:
+      - redis
+      - postgresql
 
   nginx:
     <<: *default-settings
