@@ -68,7 +68,7 @@ class Documents(Model):
 
     @property
     def path(self) -> Path:
-        return Path(self.filename.path)  # pylint: disable=no-member
+        return Path(self.filename.path)
 
 
 class Metrics(Model):

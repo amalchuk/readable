@@ -11,7 +11,7 @@ license     = "MIT"
 include     = ["manage.py"]
 
 [tool.poetry.dependencies]
-python       = "3.8.6"
+python       = "3.9.*"
 django       = "3.1.2"
 pymupdf      = "1.18.0"
 python-docx  = "0.8.10"
@@ -27,9 +27,8 @@ deployment = ["django-redis", "psycopg2", "uwsgi"]
 [tool.poetry.dev-dependencies]
 docker-compose = ">=1.27"
 pre-commit     = ">=2.7"
-pylint         = ">=2.5.3, <3.0"
 coverage       = { version = ">=5.3", extras = ["toml"]}
-isort          = { version = ">=4.3.5, <5.0", extras = ["pyproject"]}
+isort          = { version = "*", allow-prereleases = true }
 mypy           = { version = "*", allow-prereleases = true }
 
 [tool.isort]
