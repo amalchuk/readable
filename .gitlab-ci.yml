@@ -1,10 +1,11 @@
+image: python:3.9-buster
+
 stages:
   - testing
   - building
   - publishing
 
 code quality:
-  image: python:3.8.6-buster
   stage: testing
   script:
     - make pip-install-development
@@ -51,7 +52,6 @@ deployment:
     - tags
 
 pages:
-  image: debian:buster
   stage: publishing
   dependencies:
     - code quality

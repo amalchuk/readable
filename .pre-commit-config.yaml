@@ -8,18 +8,6 @@ repos:
         verbose: on
   - repo: local
     hooks:
-      - id: pylint
-        name: Running the code analysis
-        entry: pylint
-        language: python
-        types:
-          - python
-        args:
-          - --errors-only
-        require_serial: on
-        verbose: on
-  - repo: local
-    hooks:
       - id: isort
         name: Trying to check correct ordering of imports
         entry: isort
