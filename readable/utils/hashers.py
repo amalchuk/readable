@@ -1,5 +1,6 @@
 from hashlib import new as hash_new
-from secrets import compare_digest as constant_time_compare, token_hex as get_random_string
+from secrets import compare_digest as constant_time_compare
+from secrets import token_hex as get_random_string
 from typing import Dict
 
 from django.contrib.auth.hashers import BasePasswordHasher

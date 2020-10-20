@@ -5,7 +5,9 @@ from django.utils.timezone import now
 from scienco import compute_metrics
 from simplethread import threaded
 
-from readable.models import Documents, Metrics, Staff
+from readable.models import Documents
+from readable.models import Metrics
+from readable.models import Staff
 from readable.utils.decorators import no_exception
 from readable.utils.read_documents import read_document
 
@@ -48,7 +50,7 @@ def file_processing(document: Documents) -> None:
 
 def documents_uploaded(*args: Any, **kwargs: Any) -> None:
     is_created: bool = kwargs.pop("created")
-    instance: Documents = kwargs.pop("instance")
+    document: Documents = kwargs.pop("instance")
 
-    if is_created and instance.unavailable:
-        file_processing(instance)
+    if is_created and document.unavailable:
+        file_processing(document)

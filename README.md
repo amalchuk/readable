@@ -1,12 +1,11 @@
 readable
 ========
-[![pipeline status][pipeline]][readable_coverage]
-[![coverage report][coverage]][readable_coverage]
-[![distribution][license]](LICENSE)
+[![pipeline status][pipeline]][homepage]
+[![coverage report][coverage]][homepage]
 
 Check and improve the spelling and grammar of documents.
 
-[![showcase][showcase]][readable_homepage]
+[![showcase][showcase]][homepage]
 
 Installation
 ------------
@@ -29,10 +28,7 @@ Links
 - Code: <https://gitlab.com/amalchuk/readable>
 - GitHub mirror: <https://github.com/amalchuk/readable>
 
-[readable_homepage]: <https://readable.pw>
-[readable_coverage]: <https://coverage.readable.pw>
-
+[homepage]: <https://gitlab.com/amalchuk/readable>
 [pipeline]: <https://gitlab.com/amalchuk/readable/badges/master/pipeline.svg?style=flat-square>
 [coverage]: <https://gitlab.com/amalchuk/readable/badges/master/coverage.svg?style=flat-square>
-[license]: <https://img.shields.io/github/license/amalchuk/readable?color=blue&style=flat-square>
 [showcase]: <showcase/homepage.png>

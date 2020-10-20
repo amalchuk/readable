@@ -6,12 +6,19 @@ from django.contrib.auth.models import User
 from django.db.models.base import Model as BaseModel
 from django.db.models.deletion import CASCADE
 from django.db.models.enums import IntegerChoices
-from django.db.models.fields import BooleanField, CharField, DateTimeField, GenericIPAddressField, IntegerField, UUIDField
+from django.db.models.fields import BooleanField
+from django.db.models.fields import CharField
+from django.db.models.fields import DateTimeField
+from django.db.models.fields import GenericIPAddressField
+from django.db.models.fields import IntegerField
+from django.db.models.fields import UUIDField
 from django.db.models.fields.files import FileField
-from django.db.models.fields.related import ForeignKey, OneToOneField
+from django.db.models.fields.related import ForeignKey
+from django.db.models.fields.related import OneToOneField
 from django.utils.text import get_valid_filename
 from django.utils.translation import gettext_lazy as _
-from scienco import Indexes, compute_indexes
+from scienco import Indexes
+from scienco import compute_indexes
 
 
 def documents_upload_directory(instance: "Documents", filename: str) -> str:

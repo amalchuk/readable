@@ -1,9 +1,10 @@
-import xml.etree.ElementTree as etree
 from typing import Any, Iterable
+import xml.etree.ElementTree as etree
 
 from django.conf import settings
 from django.template.library import Library
-from django.utils.encoding import force_str, smart_str
+from django.utils.encoding import force_str
+from django.utils.encoding import smart_str
 from django.utils.functional import keep_lazy_text
 from django.utils.safestring import mark_safe
 

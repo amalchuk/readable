@@ -3,7 +3,9 @@
 # Exit immediately if a pipeline returns a non-zero status:
 set -e
 
-# Test configuration file:
-nginx -t
+if [ "$1" == "nginx" ]; then
+  # Test configuration file:
+  nginx -t
+fi
 
 exec "$@"

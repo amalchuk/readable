@@ -3,7 +3,8 @@ from os import linesep as separator
 from django.test.testcases import SimpleTestCase as TestCase
 from django.utils.translation import gettext_noop as _
 
-from readable.templatetags.meta_tags import create_meta, string_join
+from readable.templatetags.meta_tags import create_meta
+from readable.templatetags.meta_tags import string_join
 from readable.templatetags.string import line_breaks
 
 

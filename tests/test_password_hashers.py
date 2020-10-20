@@ -1,4 +1,7 @@
-from django.contrib.auth.hashers import check_password, identify_hasher, is_password_usable, make_password
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import identify_hasher
+from django.contrib.auth.hashers import is_password_usable
+from django.contrib.auth.hashers import make_password
 from django.test.testcases import SimpleTestCase as TestCase
 
 
