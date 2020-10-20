@@ -2,11 +2,14 @@ from django.contrib.admin.sites import site as default_site
 from django.urls.conf import path
 from django.utils.translation import gettext_lazy as _
 
-from readable.views.authorization import login_view, logout_view, registration_view
+from readable.views.authorization import login_view
+from readable.views.authorization import logout_view
+from readable.views.authorization import registration_view
 from readable.views.documents_detail import documents_detail_view
 from readable.views.index import index_view
 from readable.views.profile import profile_view
-from readable.views.seo import robots_view, sitemap_view
+from readable.views.seo import robots_view
+from readable.views.seo import sitemap_view
 
 # AdminSite settings:
 

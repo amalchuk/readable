@@ -1,7 +1,9 @@
 from typing import Any, Dict, List, Optional, Tuple
 
 from django.contrib.admin.decorators import register
-from django.contrib.admin.options import InlineModelAdmin, ModelAdmin, StackedInline
+from django.contrib.admin.options import InlineModelAdmin
+from django.contrib.admin.options import ModelAdmin
+from django.contrib.admin.options import StackedInline
 from django.contrib.admin.sites import site as default_site
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
@@ -9,7 +11,9 @@ from django.db.models.query import QuerySet
 from django.http.request import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
-from readable.models import Documents, Metrics, Staff
+from readable.models import Documents
+from readable.models import Metrics
+from readable.models import Staff
 
 # Re-register UserAdmin:
 default_site.unregister(User)

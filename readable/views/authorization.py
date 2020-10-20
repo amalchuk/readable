@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView as BaseLoginView, LogoutView as BaseLogoutView
+from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.contrib.messages.api import success as add_success_message
 from django.urls.base import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import CreateView
 
-from readable.forms import AuthorizationForm, RegistrationForm
+from readable.forms import AuthorizationForm
+from readable.forms import RegistrationForm
 
 
 class LoginView(BaseLoginView):

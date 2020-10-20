@@ -1,9 +1,9 @@
 REQUIREMENTS_DEVELOPMENT := requirements/development.txt
 REQUIREMENTS_PRODUCTION := requirements/production.txt
 
-.PHONY: all install pip-update-setuptools pip-install-development pip-install update pre-commit-hooks test coverage clean
+.PHONY: all install pip-update-setuptools pip-install-development pip-install freeze pre-commit-hooks test coverage clean
 
-all: install test clean
+all: install clean
 
 install:
 	@echo "Installing the dependencies"
@@ -11,17 +11,17 @@ install:
 
 pip-update-setuptools:
 	@echo "Updating the pip, setuptools and wheel packages"
-	@python -m pip install pip setuptools wheel --upgrade --quiet --no-cache-dir
+	@python -m pip install pip setuptools wheel --upgrade --force-reinstall --quiet --no-cache-dir
 
 pip-install-development: pip-update-setuptools
 	@echo "Installing the dependencies for development"
-	@pip install --requirement $(REQUIREMENTS_DEVELOPMENT) --no-deps --upgrade --quiet --no-cache-dir
+	@pip install --requirement $(REQUIREMENTS_DEVELOPMENT) --no-deps --upgrade --force-reinstall --quiet --no-cache-dir
 
 pip-install: pip-update-setuptools
 	@echo "Installing the dependencies"
-	@pip install --requirement $(REQUIREMENTS_PRODUCTION) --no-deps --upgrade --quiet --no-cache-dir
+	@pip install --requirement $(REQUIREMENTS_PRODUCTION) --no-deps --upgrade --force-reinstall --quiet --no-cache-dir
 
-update:
+freeze:
 	@echo "Downloading the latest versions of the dependencies"
 	@poetry update --lock --quiet --no-interaction
 	@poetry export --format requirements.txt --output $(REQUIREMENTS_DEVELOPMENT) --dev

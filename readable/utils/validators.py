@@ -1,6 +1,7 @@
 import re
 
-from django.core.validators import FileExtensionValidator, RegexValidator
+from django.core.validators import FileExtensionValidator
+from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
 validate_username = RegexValidator(

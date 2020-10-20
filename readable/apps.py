@@ -1,5 +1,6 @@
 from django.apps.config import AppConfig
-from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.contrib.auth.signals import user_logged_in
+from django.contrib.auth.signals import user_logged_out
 from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
 

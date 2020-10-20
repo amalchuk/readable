@@ -1,4 +1,5 @@
-from os import PathLike, linesep as separator
+from os import PathLike
+from os import linesep as separator
 from pathlib import Path
 from typing import Callable, Iterator, Optional
 
