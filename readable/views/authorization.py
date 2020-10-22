@@ -18,6 +18,7 @@ from readable.forms import RegistrationForm
 
 class LoginView(BaseLoginView):
     form_class = AuthorizationForm
+    redirect_authenticated_user = True
     template_name = "login.html"
 
 
@@ -36,7 +37,7 @@ class RegistrationView(CreateView):
 
     def form_valid(self, form: RegistrationForm) -> HttpResponse:
         response = super(RegistrationView, self).form_valid(form)
-        profile: Optional[User] = self.object
+        profile: Optional[User] = getattr(self, "object", None)
 
         if profile is not None:
             # Authenticate the user:
