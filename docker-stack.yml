@@ -1,0 +1,108 @@
+version: "3.7"
+
+x-default: &default-settings
+  sysctls:
+    net.core.somaxconn: 65535
+
+x-deploy: &deploy-settings
+  deploy:
+    mode: replicated
+    replicas: 2
+    restart_policy:
+      condition: on-failure
+      max_attempts: 5
+      window: 1m
+
+x-manager: &manager-settings
+  deploy:
+    mode: global
+    placement:
+      constraints:
+        - node.role == manager
+    restart_policy:
+      condition: on-failure
+      max_attempts: 5
+      window: 1m
+
+services:
+  redis:
+    <<: *default-settings
+    <<: *manager-settings
+    image: redis:6.0-alpine
+
+  postgresql:
+    <<: *default-settings
+    <<: *manager-settings
+    image: postgres:13.0-alpine
+    environment:
+      # PostgreSQL environment variables:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    volumes:
+      - type: volume
+        source: datafiles
+        target: /var/lib/postgresql/data
+
+  readable:
+    <<: *default-settings
+    <<: *deploy-settings
+    image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
+    environment:
+      # PostgreSQL environment variables:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      # Django environment variables:
+      - DJANGO_SETTINGS_MODULE
+      - DJANGO_SECRET_KEY
+    volumes:
+      - type: volume
+        source: mediafiles
+        target: /application/readable/resources/mediafiles
+        volume:
+          nocopy: true
+      - type: volume
+        source: staticfiles
+        target: /application/readable/resources/staticfiles
+        volume:
+          nocopy: true
+
+  nginx:
+    <<: *default-settings
+    <<: *deploy-settings
+    image: $CI_REGISTRY/$CI_PROJECT_PATH/nginx:latest
+    volumes:
+      - type: volume
+        source: mediafiles
+        target: /application/readable/resources/mediafiles
+        volume:
+          nocopy: true
+      - type: volume
+        source: staticfiles
+        target: /application/readable/resources/staticfiles
+        volume:
+          nocopy: true
+    ports:
+      - target: 80
+        published: 8000
+        protocol: tcp
+        mode: ingress
+
+volumes:
+  datafiles:
+    driver: local
+  mediafiles:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+  staticfiles:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+
+networks:
+  default:
+    driver: overlay
