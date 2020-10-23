@@ -1,7 +1,12 @@
+from typing import Optional
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.contrib.messages.api import success as add_success_message
+from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -13,6 +18,7 @@ from readable.forms import RegistrationForm
 
 class LoginView(BaseLoginView):
     form_class = AuthorizationForm
+    redirect_authenticated_user = True
     template_name = "login.html"
 
 
@@ -26,8 +32,18 @@ class LogoutView(BaseLogoutView):
 
 class RegistrationView(CreateView):
     form_class = RegistrationForm
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("index")
     template_name = "registration.html"
+
+    def form_valid(self, form: RegistrationForm) -> HttpResponse:
+        response = super(RegistrationView, self).form_valid(form)
+        profile: Optional[User] = getattr(self, "object", None)
+
+        if profile is not None:
+            # Authenticate the user:
+            login(self.request, profile)
+
+        return response
 
 
 login_view = LoginView.as_view()

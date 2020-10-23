@@ -1,6 +1,7 @@
 from typing import Any
 
-from django.db.utils import DatabaseError
+from django.contrib.auth.models import User
+from django.http.request import HttpRequest
 from django.utils.timezone import now
 from scienco import compute_metrics
 from simplethread import threaded
@@ -8,18 +9,21 @@ from simplethread import threaded
 from readable.models import Documents
 from readable.models import Metrics
 from readable.models import Staff
-from readable.utils.decorators import no_exception
 from readable.utils.read_documents import read_document
 
 
-@no_exception(AttributeError, DatabaseError)
-def user_logged_in_out(*args: Any, **kwargs: Any) -> None:  # pragma: no cover
+def user_logged_in_out(*args: Any, **kwargs: Any) -> None:
     """
     Sent when the ``login`` and ``logout`` methods is called.
     """
-    Staff.objects.update_or_create(user=kwargs["user"], defaults={
-        "user_agent": kwargs["request"].META.get("HTTP_USER_AGENT", None),
-        "ip_address": kwargs["request"].META.get("REMOTE_ADDR", None)
+    profile: User = kwargs.pop("user")
+    request: HttpRequest = kwargs.pop("request")
+
+    # Execute a update_or_create in a separate thread:
+    update_or_create = threaded(Staff.objects.update_or_create)
+    update_or_create(user=profile, defaults={
+        "user_agent": request.META.get("HTTP_USER_AGENT", None),
+        "ip_address": request.META.get("REMOTE_ADDR", None)
     })
 
 

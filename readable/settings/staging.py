@@ -60,7 +60,3 @@ USE_X_FORWARDED_HOST = True
 SESSION_CACHE_ALIAS = "session"
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-
-# Static Files:
-
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
