@@ -19,17 +19,17 @@ scienco      = "0.2.1"
 simplethread = "0.1.2"
 django-redis = { version = "4.12.1", optional = true }
 psycopg2     = { version = "2.8.6", optional = true }
-uwsgi        = { version = "*", allow-prereleases = true, optional = true }
+uwsgi        = { version = "*", optional = true }
 
 [tool.poetry.extras]
 deployment = ["django-redis", "psycopg2", "uwsgi"]
 
 [tool.poetry.dev-dependencies]
-coverage       = { version = "^5.3", allow-prereleases = true, extras = ["toml"]}
-isort          = { version = "^5.6", allow-prereleases = true }
-pre-commit     = { version = "^2.7", allow-prereleases = true }
-docker-compose = { version = "*", allow-prereleases = true }
-mypy           = { version = "*", allow-prereleases = true }
+coverage       = { version = "^5.3", extras = ["toml"]}
+isort          = "^5.6"
+pre-commit     = "^2.7"
+docker-compose = "*"
+mypy           = "*"
 
 [tool.coverage.run]
 branch = true

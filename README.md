@@ -17,6 +17,32 @@ $ make install
 $ make pip-install-development
 ```
 
+Development
+-----------
+```shell
+# Create a virtual machine:
+docker-machine create \
+    --driver virtualbox \
+    --virtualbox-cpu-count 2 \
+    --virtualbox-disk-size 20480 \
+    --virtualbox-memory 2048 \
+    readable
+
+# Build or rebuild the services:
+docker-compose build \
+    --no-cache \
+    --parallel \
+    --pull \
+    --quiet
+
+# Start or restart the services:
+docker-compose up \
+    --detach \
+    --force-recreate \
+    --no-build \
+    --remove-orphans
+```
+
 Distribution
 ------------
 This project is licensed under the terms of the [MIT License](LICENSE).
