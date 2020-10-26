@@ -1,5 +1,0 @@
-{% load cache string %}{% cache 86400 robots_urls %}User-agent: *
-{{ allowed | line_breaks:'Allow: ' }}
-{{ disallowed | line_breaks:'Disallow: ' }}
-Sitemap: {{ sitemap }}
-{% endcache %}
