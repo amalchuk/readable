@@ -1,4 +1,4 @@
-image: python:3.9.0-buster
+image: python:3.9-buster
 
 stages:
   - testing
@@ -9,7 +9,7 @@ code quality:
   stage: testing
   script:
     - make pip-install-development
-    - make pre-commit-hooks
+    - make isort mypy
     - make coverage
   artifacts:
     paths:

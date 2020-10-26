@@ -11,25 +11,24 @@ license     = "MIT"
 include     = ["manage.py"]
 
 [tool.poetry.dependencies]
-python       = "3.9.0"
-django       = "3.1.2"
-pymupdf      = "1.18.1"
-python-docx  = "0.8.10"
-scienco      = "0.2.1"
-simplethread = "0.1.2"
-django-redis = { version = "4.12.1", optional = true }
-psycopg2     = { version = "2.8.6", optional = true }
+python       = "^3.8"
+django       = "^3.1"
+pymupdf      = "^1.18"
+python-docx  = "^0.8"
+scienco      = ">=0.2"
+simplethread = ">=0.1"
+django-redis = { version = "^4.12", optional = true }
+psycopg2     = { version = "^2.8", optional = true }
 uwsgi        = { version = "*", optional = true }
 
 [tool.poetry.extras]
 deployment = ["django-redis", "psycopg2", "uwsgi"]
 
 [tool.poetry.dev-dependencies]
-coverage       = { version = "^5.3", extras = ["toml"]}
-isort          = "^5.6"
-pre-commit     = "^2.7"
-docker-compose = "*"
-mypy           = "*"
+docker-compose = ">=1.27"
+isort          = ">=5.6"
+coverage       = { version = ">=5.3", extras = ["toml"]}
+mypy           = { version = "*", allow-prereleases = true }
 
 [tool.coverage.run]
 branch = true
@@ -44,12 +43,14 @@ omit   = [
 source = ["readable"]
 
 [tool.coverage.report]
-precision  = 2
-skip_empty = true
+precision    = 2
+skip_covered = true
+skip_empty   = true
 
 [tool.isort]
 force_single_line          = true
 force_sort_within_sections = true
 known_third_party          = ["django", "docx", "fitz", "scienco", "simplethread"]
 lexicographical            = true
+line_length                = 125
 single_line_exclusions     = ["typing"]

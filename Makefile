@@ -1,7 +1,7 @@
 REQUIREMENTS_DEVELOPMENT := requirements/development.txt
 REQUIREMENTS_PRODUCTION := requirements/production.txt
 
-.PHONY: all install pip-update-setuptools pip-install-development pip-install freeze pre-commit-hooks test coverage clean
+.PHONY: all install pip-update-setuptools pip-install-development pip-install freeze isort mypy test coverage clean
 
 all: install clean
 
@@ -27,9 +27,13 @@ freeze:
 	@poetry export --format requirements.txt --output $(REQUIREMENTS_DEVELOPMENT) --dev
 	@poetry export --format requirements.txt --output $(REQUIREMENTS_PRODUCTION) --extras deployment
 
-pre-commit-hooks:
-	@echo "Running the Git hooks"
-	@pre-commit run --all-files
+isort:
+	@echo "Trying to check correct ordering of imports"
+	@isort readable tests manage.py --check-only
+
+mypy:
+	@echo "Running the static type checker"
+	@mypy readable tests manage.py
 
 test:
 	@echo "Running the test cases"

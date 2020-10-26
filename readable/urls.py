@@ -8,8 +8,6 @@ from readable.views.authorization import registration_view
 from readable.views.documents_detail import documents_detail_view
 from readable.views.index import index_view
 from readable.views.profile import profile_view
-from readable.views.seo import robots_view
-from readable.views.seo import sitemap_view
 
 # AdminSite settings:
 
@@ -26,7 +24,5 @@ urlpatterns = [
     path("profile/logout/", logout_view, name="logout"),
     path("profile/registration/", registration_view, name="registration"),
     path("profile/", profile_view, name="profile"),
-    path("sitemap.xml", sitemap_view, name="sitemap"),
-    path("robots.txt", robots_view, name="robots"),
     path("dashboard/", default_site.urls)
 ]
