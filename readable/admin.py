@@ -34,7 +34,7 @@ class StaffInline(StackedInline):
 class UserAdmin(BaseUserAdmin):
     def get_inlines(self, request: HttpRequest, obj: Optional[User]) -> List[InlineModelAdmin]:
         inlines: List[InlineModelAdmin] = super(UserAdmin, self).get_inlines(request, obj).copy()
-        if obj:
+        if obj is not None:
             inlines.append(StaffInline)
         return inlines
 
@@ -75,11 +75,11 @@ class DocumentsAdmin(ModelAdmin):
         return request.user.is_superuser and obj is not None and obj.unavailable
 
     def get_fieldsets(self, request: HttpRequest, obj: Optional[Documents] = None) -> List[Tuple[Optional[str], Dict[str, List[str]]]]:
-        return self.add_fieldsets if not obj else super(DocumentsAdmin, self).get_fieldsets(request, obj)
+        return self.add_fieldsets if obj is None else super(DocumentsAdmin, self).get_fieldsets(request, obj)
 
     def get_inlines(self, request: HttpRequest, obj: Optional[Documents]) -> List[InlineModelAdmin]:
         inlines: List[InlineModelAdmin] = super(DocumentsAdmin, self).get_inlines(request, obj).copy()
-        if obj:
+        if obj is not None:
             inlines.append(MetricsInline)
         return inlines
 

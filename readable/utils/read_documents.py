@@ -39,8 +39,8 @@ def pdf_document(filename: Path) -> Iterator[str]:
 def text_document(filename: Path) -> Iterator[str]:
     try:
         with filename.open(encoding="utf-8") as istream:
-            while text := istream.read(8192).strip():
-                yield text
+            while text := istream.read(4096):
+                yield text.strip()
 
     except Exception as exception:
         logger.exception(exception)
