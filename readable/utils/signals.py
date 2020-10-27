@@ -12,31 +12,15 @@ from readable.models import Staff
 from readable.utils.read_documents import read_document
 
 
-def user_logged_in_out(*args: Any, **kwargs: Any) -> None:
-    """
-    Sent when the ``login`` and ``logout`` methods is called.
-    """
-    profile: User = kwargs.pop("user")
-    request: HttpRequest = kwargs.pop("request")
-
-    # Execute a update_or_create in a separate thread:
-    update_or_create = threaded(Staff.objects.update_or_create)
-    update_or_create(user=profile, defaults={
-        "user_agent": request.META.get("HTTP_USER_AGENT", None),
-        "ip_address": request.META.get("REMOTE_ADDR", None)
-    })
-
-
 @threaded
 def file_processing(document: Documents) -> None:
     document.status = Documents.Status.IN_PROGRESS
     document.updated_at = now()
     document.save(update_fields=("status", "updated_at"))
 
-    text = read_document(document.path)
     is_finished = False
 
-    if text:
+    if text := read_document(document.path):
         metrics = compute_metrics(text)
         Metrics.objects.update_or_create(document=document, defaults={
             "is_russian": metrics.is_russian,
@@ -58,3 +42,15 @@ def documents_uploaded(*args: Any, **kwargs: Any) -> None:
 
     if is_created and document.unavailable:
         file_processing(document)
+
+
+def user_logged_in_out(*args: Any, **kwargs: Any) -> None:
+    """
+    Sent when the ``login`` and ``logout`` methods is called.
+    """
+    profile: User = kwargs.pop("user")
+    request: HttpRequest = kwargs.pop("request")
+    Staff.objects.update_or_create(user=profile, defaults={
+        "user_agent": request.META.get("HTTP_USER_AGENT", None),
+        "ip_address": request.META.get("REMOTE_ADDR", None)
+    })

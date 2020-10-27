@@ -1,11 +1,8 @@
-from os import linesep as separator
-
 from django.test.testcases import SimpleTestCase as TestCase
 from django.utils.translation import gettext_noop as _
 
 from readable.templatetags.meta_tags import create_meta
 from readable.templatetags.meta_tags import string_join
-from readable.templatetags.string import line_breaks
 
 
 class TestTemplateTags(TestCase):
@@ -22,8 +19,3 @@ class TestTemplateTags(TestCase):
 
         by_slash: str = string_join(" / ", (_("bounce"), _("release"), _("absolute")))
         self.assertEqual(by_slash, "bounce / release / absolute")
-
-    def test_line_breaks(self) -> None:
-        keywords: str = line_breaks((_("bounce"), _("release"), _("absolute")), "prefix_")
-        self.assertIn(separator, keywords)
-        self.assertEqual(keywords.split(separator), ["prefix_bounce", "prefix_release", "prefix_absolute"])
