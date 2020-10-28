@@ -18,12 +18,15 @@ from readable.forms import RegistrationForm
 
 class LoginView(BaseLoginView):
     form_class = AuthorizationForm
+    http_method_names = ["get", "post"]
     redirect_authenticated_user = True
     template_name = "login.html"
 
 
-@method_decorator(login_required, name="dispatch")
+@method_decorator(login_required, name="get")
 class LogoutView(BaseLogoutView):
+    http_method_names = ["get"]
+
     def get_next_page(self) -> str:
         next_page = super(LogoutView, self).get_next_page()
         add_success_message(self.request, _("You have successfully logged out."))
@@ -32,6 +35,7 @@ class LogoutView(BaseLogoutView):
 
 class RegistrationView(CreateView):
     form_class = RegistrationForm
+    http_method_names = ["get", "post"]
     success_url = reverse_lazy("index")
     template_name = "registration.html"
 

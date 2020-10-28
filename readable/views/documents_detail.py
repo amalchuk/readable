@@ -6,9 +6,10 @@ from django.views.generic.detail import DetailView
 from readable.models import Documents
 
 
-@method_decorator(login_required, name="dispatch")
+@method_decorator(login_required, name="get")
 class DocumentsDetailView(DetailView):
     context_object_name = "document"
+    http_method_names = ["get"]
     model = Documents
     template_name = "documents_detail.html"
 

@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path as P
 from secrets import token_hex as get_random_string
 from tempfile import mkdtemp as temporary_directory
 from typing import Any, Dict, Final, Sequence, Tuple
@@ -8,9 +8,9 @@ from django.utils.translation import gettext_lazy as _
 
 # Common Settings:
 
-BASE_DIR = Path(__file__).parent.parent
+BASE_DIR = P(__file__).parent.parent
 
-RESOURCES_DIR = BASE_DIR.joinpath("resources").resolve(strict=True)
+RESOURCES_DIR = BASE_DIR / "resources"
 
 # Core Settings:
 
@@ -19,15 +19,21 @@ ALLOWED_HOSTS = ["*"]
 CACHES: Final[Dict[str, Any]] = {
     "default": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
-        "KEY_FUNCTION": lambda key, key_prefix, version: f"{key}\x24{key_prefix}\x24{version}",
+        "KEY_FUNCTION": lambda key, key_prefix, version: f"{key_prefix}\x5F{version}\x5F{key}",
         "KEY_PREFIX": "default",
-        "LOCATION": temporary_directory()
+        "LOCATION": temporary_directory(),
+        "OPTIONS": {
+            "size_limit": 1024 * 1024 * 256  # 256 megabytes
+        }
     },
     "session": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
-        "KEY_FUNCTION": lambda key, key_prefix, version: f"{key}\x24{key_prefix}\x24{version}",
+        "KEY_FUNCTION": lambda key, key_prefix, version: f"{key_prefix}\x5F{version}\x5F{key}",
         "KEY_PREFIX": "session",
-        "LOCATION": temporary_directory()
+        "LOCATION": temporary_directory(),
+        "OPTIONS": {
+            "size_limit": 1024 * 1024 * 256  # 256 megabytes
+        }
     }
 }
 
@@ -38,7 +44,7 @@ CSRF_COOKIE_NAME = "csrf_token"
 DATABASES: Dict[str, Any] = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": RESOURCES_DIR.joinpath("readable.db").as_posix()
+        "NAME": (RESOURCES_DIR / "readable.db").as_posix()
     }
 }
 
@@ -55,7 +61,7 @@ DATETIME_INPUT_FORMATS: Final[Sequence[str]] = [
     r"%d.%m.%Y %H:%M"
 ]
 
-FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 megabytes
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 50  # 50 megabytes
 
 FIRST_DAY_OF_WEEK = 1
 
@@ -77,7 +83,7 @@ LANGUAGES: Final[Sequence[Tuple[str, str]]] = [
 ]
 
 LOCALE_PATHS = [
-    RESOURCES_DIR.joinpath("translations").as_posix()
+    (RESOURCES_DIR / "translations").as_posix()
 ]
 
 LOGGING = {
@@ -197,16 +203,16 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Static Files:
 
-MEDIA_ROOT = RESOURCES_DIR.joinpath("mediafiles").as_posix()
+MEDIA_ROOT = (RESOURCES_DIR / "mediafiles").as_posix()
 
 MEDIA_URL = "/media/"
 
-STATIC_ROOT = RESOURCES_DIR.joinpath("staticfiles").as_posix()
+STATIC_ROOT = (RESOURCES_DIR / "staticfiles").as_posix()
 
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    RESOURCES_DIR.joinpath("assets").as_posix()
+    (RESOURCES_DIR / "assets").as_posix()
 ]
 
 # Miscellaneous:
