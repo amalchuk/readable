@@ -1,13 +1,11 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
-from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
 
 from readable.models import Documents
 
 
-@method_decorator(login_required, name="get")
-class DocumentsDetailView(DetailView):
+class DocumentsDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "document"
     http_method_names = ["get"]
     model = Documents

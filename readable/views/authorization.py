@@ -1,14 +1,13 @@
 from typing import Optional
 
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.contrib.messages.api import success as add_success_message
 from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import CreateView
 
@@ -23,8 +22,7 @@ class LoginView(BaseLoginView):
     template_name = "login.html"
 
 
-@method_decorator(login_required, name="get")
-class LogoutView(BaseLogoutView):
+class LogoutView(LoginRequiredMixin, BaseLogoutView):
     http_method_names = ["get"]
 
     def get_next_page(self) -> str:
