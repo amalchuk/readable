@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 
 from readable.forms import DocumentsForm
@@ -17,7 +18,7 @@ class IndexView(CreateView):
     success_url = reverse_lazy("index")
     template_name = "index.html"
 
-    @login_required
+    @method_decorator(login_required)
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         return super(IndexView, self).post(request, *args, **kwargs)
 
