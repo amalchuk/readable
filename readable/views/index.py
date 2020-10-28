@@ -14,6 +14,7 @@ from readable.forms import DocumentsForm
 @method_decorator(login_required, name="post")
 class IndexView(CreateView):
     form_class = DocumentsForm
+    http_method_names = ["get", "post"]
     success_url = reverse_lazy("index")
     template_name = "index.html"
 

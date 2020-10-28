@@ -16,6 +16,7 @@ from readable.forms import UserForm
 @method_decorator(login_required, name="dispatch")
 class ProfileView(UpdateView):
     form_class = UserForm
+    http_method_names = ["get", "post"]
     success_url = reverse_lazy("profile")
     template_name = "profile.html"
 

@@ -1,5 +1,5 @@
 from functools import cached_property
-from pathlib import Path
+from pathlib import Path as P
 from uuid import uuid4 as uuid
 
 from django.contrib.auth.models import User
@@ -74,8 +74,8 @@ class Documents(Model):
         return self.status != self.Status.FINISHED
 
     @property
-    def path(self) -> Path:
-        return Path(self.filename.path)
+    def path(self) -> P:
+        return P(self.filename.path)
 
 
 class Metrics(Model):
