@@ -21,6 +21,7 @@ build images:
   services:
     - docker:18.09.7-dind
   stage: building
+  dependencies: []
   variables:
     DJANGO_SETTINGS_MODULE: readable.settings.development
   script:
@@ -29,8 +30,6 @@ build images:
     - docker-compose push
   only:
     - master
-    - schedules
-    - tags
 
 deployment:
   image:
@@ -39,6 +38,7 @@ deployment:
       - /bin/sh
       - -c
   stage: publishing
+  dependencies: []
   variables:
     DOCKER_TLS_VERIFY: 1
     DJANGO_SETTINGS_MODULE: readable.settings.production
@@ -48,8 +48,6 @@ deployment:
     url: https://readable.pw
   only:
     - master
-    - schedules
-    - tags
 
 pages:
   stage: publishing
@@ -67,5 +65,3 @@ pages:
     expire_in: 1 week
   only:
     - master
-    - schedules
-    - tags
