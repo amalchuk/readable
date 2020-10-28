@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.1.3.3"
+version     = "0.1.3.4"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -11,18 +11,18 @@ license     = "MIT"
 include     = ["manage.py"]
 
 [tool.poetry.dependencies]
-python       = "3.9.*"
+python       = ">=3.8, <4.0"
+diskcache    = "5.0.3"
 django       = "3.1.2"
-pymupdf      = "1.18.1"
+pymupdf      = "1.18.2"
 python-docx  = "0.8.10"
 scienco      = { version = "*", allow-prereleases = true }
 simplethread = { version = "*", allow-prereleases = true }
-django-redis = { version = "4.12.1", optional = true }
-psycopg2     = { version = "2.8.6", optional = true }
-uwsgi        = { version = ">=2.0", allow-prereleases = true, optional = true }
+psycopg2     = { version = "*", allow-prereleases = true, optional = true }
+uwsgi        = { version = "*", allow-prereleases = true, optional = true }
 
 [tool.poetry.extras]
-deployment = ["django-redis", "psycopg2", "uwsgi"]
+deployment = ["psycopg2", "uwsgi"]
 
 [tool.poetry.dev-dependencies]
 docker-compose = ">=1.27"
