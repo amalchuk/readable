@@ -1,5 +1,6 @@
 from pathlib import Path
 from secrets import token_hex as get_random_string
+from tempfile import mkdtemp as temporary_directory
 from typing import Any, Dict, Final, Sequence, Tuple
 
 from django.contrib.messages import constants as message_constants
@@ -15,9 +16,18 @@ RESOURCES_DIR = BASE_DIR.joinpath("resources").resolve(strict=True)
 
 ALLOWED_HOSTS = ["*"]
 
-CACHES: Dict[str, Any] = {
+CACHES: Final[Dict[str, Any]] = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
+        "BACKEND": "diskcache.djangocache.DjangoCache",
+        "KEY_FUNCTION": lambda key, key_prefix, version: f"{key}\x24{key_prefix}\x24{version}",
+        "KEY_PREFIX": "default",
+        "LOCATION": temporary_directory()
+    },
+    "session": {
+        "BACKEND": "diskcache.djangocache.DjangoCache",
+        "KEY_FUNCTION": lambda key, key_prefix, version: f"{key}\x24{key_prefix}\x24{version}",
+        "KEY_PREFIX": "session",
+        "LOCATION": temporary_directory()
     }
 }
 
@@ -179,9 +189,11 @@ MESSAGE_TAGS = {
 
 # Sessions:
 
+SESSION_CACHE_ALIAS = "session"
+
 SESSION_COOKIE_NAME = "access_token"
 
-SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Static Files:
 

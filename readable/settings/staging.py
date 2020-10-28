@@ -10,33 +10,6 @@ ADMINS = [
     ("Andrew Malchuk", "andrew.malchuk@yandex.ru")
 ]
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/0",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
-            "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
-            "CONNECTION_POOL_KWARGS": {
-                "health_check_interval": 1800,
-                "retry_on_timeout": True
-            }
-        }
-    },
-    "session": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.default.DefaultClient",
-            "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
-            "CONNECTION_POOL_KWARGS": {
-                "health_check_interval": 1800,
-                "retry_on_timeout": True
-            }
-        }
-    }
-}
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -54,12 +27,6 @@ DATABASES = {
 SECRET_KEY = environ.get("DJANGO_SECRET_KEY", SECRET_KEY)
 
 USE_X_FORWARDED_HOST = True
-
-# Sessions:
-
-SESSION_CACHE_ALIAS = "session"
-
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Static Files:
 

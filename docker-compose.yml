@@ -11,14 +11,6 @@ x-default: &default-settings
       hard: 65535
 
 services:
-  redis:
-    <<: *default-settings
-    image: redis:6.0-alpine
-    container_name: redis
-    tmpfs:
-      - /data
-      - /tmp
-
   postgresql:
     <<: *default-settings
     image: postgres:13.0-alpine
@@ -46,6 +38,8 @@ services:
       # Django environment variables:
       - DJANGO_SETTINGS_MODULE
       - DJANGO_SECRET_KEY
+    tmpfs:
+      - /tmp
     volumes:
       - type: volume
         source: mediafiles
@@ -54,7 +48,6 @@ services:
         source: staticfiles
         target: /application/readable/resources/staticfiles
     depends_on:
-      - redis
       - postgresql
 
   nginx:
