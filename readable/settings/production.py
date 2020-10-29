@@ -1,13 +1,23 @@
+from typing import List, Tuple
+
 from readable.settings.staging import *
 
 # Core Settings:
 
-ALLOWED_HOSTS = CSRF_TRUSTED_ORIGINS = ["readable.pw", "www.readable.pw"]
+ALLOWED_HOSTS = ["readable.pw", "www.readable.pw"]
 
-CSRF_COOKIE_DOMAIN = SESSION_COOKIE_DOMAIN = "readable.pw"
+CSRF_COOKIE_DOMAIN: str = "readable.pw"
 
-CSRF_COOKIE_HTTPONLY = SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY: bool = True
 
-CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE: bool = True
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CSRF_TRUSTED_ORIGINS: List[str] = ["readable.pw", "www.readable.pw"]
+
+SECURE_PROXY_SSL_HEADER: Tuple[str, str] = ("HTTP_X_FORWARDED_PROTO", "https")
+
+SESSION_COOKIE_DOMAIN: str = "readable.pw"
+
+SESSION_COOKIE_HTTPONLY: bool = True
+
+SESSION_COOKIE_SECURE: bool = True

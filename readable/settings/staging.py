@@ -1,4 +1,5 @@
 from os import environ
+from typing import List, Tuple
 
 from django.utils.module_loading import import_string
 
@@ -6,7 +7,7 @@ from readable.settings.common import *
 
 # Core Settings:
 
-ADMINS = [
+ADMINS: List[Tuple[str, str]] = [
     ("Andrew Malchuk", "andrew.malchuk@yandex.ru")
 ]
 
@@ -26,8 +27,8 @@ DATABASES = {
 
 SECRET_KEY = environ.get("DJANGO_SECRET_KEY", SECRET_KEY)
 
-USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_HOST: bool = True
 
 # Static Files:
 
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+STATICFILES_STORAGE: str = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
