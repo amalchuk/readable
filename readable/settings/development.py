@@ -2,4 +2,6 @@ from readable.settings.common import *
 
 # Core Settings:
 
-DEBUG = DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG: bool = True
+
+DEBUG_PROPAGATE_EXCEPTIONS: bool = True

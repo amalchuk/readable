@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 
 from readable.forms import DocumentsForm
+from readable.models import Documents
 
 
 @method_decorator(login_required, name="post")
@@ -20,7 +21,7 @@ class IndexView(CreateView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         if self.request.user.is_authenticated:
-            documents = self.request.user.staff.documents.all()
+            documents = Documents.objects.filter(uploaded_by__user=self.request.user).all()
             paginator = Paginator(documents, settings.READABLE_DOCUMENTS_PAGINATE_BY)
 
             page = self.request.GET.get("page")

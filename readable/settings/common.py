@@ -1,25 +1,24 @@
 from pathlib import Path as P
 from secrets import token_hex as get_random_string
 from tempfile import mkdtemp as temporary_directory
-from typing import Any, Dict, Final, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
 
 # Common Settings:
 
-BASE_DIR = P(__file__).parent.parent
+BASE_DIR: P = P(__file__).parent.parent
 
-RESOURCES_DIR = BASE_DIR / "resources"
+RESOURCES_DIR: P = BASE_DIR / "resources"
 
 # Core Settings:
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS: List[str] = ["*"]
 
-CACHES: Final[Dict[str, Any]] = {
+CACHES: Dict[str, Any] = {
     "default": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
-        "KEY_FUNCTION": lambda key, key_prefix, version: f"{key_prefix}\x5F{version}\x5F{key}",
         "KEY_PREFIX": "default",
         "LOCATION": temporary_directory(),
         "OPTIONS": {
@@ -28,7 +27,6 @@ CACHES: Final[Dict[str, Any]] = {
     },
     "session": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
-        "KEY_FUNCTION": lambda key, key_prefix, version: f"{key_prefix}\x5F{version}\x5F{key}",
         "KEY_PREFIX": "session",
         "LOCATION": temporary_directory(),
         "OPTIONS": {
@@ -37,9 +35,9 @@ CACHES: Final[Dict[str, Any]] = {
     }
 }
 
-CSRF_COOKIE_AGE = SESSION_COOKIE_AGE = 604800  # 1 week
+CSRF_COOKIE_AGE: int = 3600 * 24 * 7  # 1 week
 
-CSRF_COOKIE_NAME = "csrf_token"
+CSRF_COOKIE_NAME: str = "csrf_token"
 
 DATABASES: Dict[str, Any] = {
     "default": {
@@ -48,24 +46,28 @@ DATABASES: Dict[str, Any] = {
     }
 }
 
-DATE_FORMAT = SHORT_DATE_FORMAT = "d.m.Y"
+DATA_UPLOAD_MAX_MEMORY_SIZE: Optional[int] = None
 
-DATE_INPUT_FORMATS = [
+DATE_FORMAT: str = "d.m.Y"  # 01.01.1999
+
+DATE_INPUT_FORMATS: List[str] = [
     r"%d.%m.%Y"
 ]
 
-DATETIME_FORMAT = SHORT_DATETIME_FORMAT = "d.m.Y H:i:s"
+DATETIME_FORMAT: str = "d.m.Y H:i:s"  # 01.01.1999 00:00:00
 
-DATETIME_INPUT_FORMATS: Final[Sequence[str]] = [
+DATETIME_INPUT_FORMATS: List[str] = [
     r"%d.%m.%Y %H:%M:%S",
     r"%d.%m.%Y %H:%M"
 ]
 
-FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 50  # 50 megabytes
+FILE_UPLOAD_MAX_MEMORY_SIZE: int = 1024 * 1024 * 50  # 50 megabytes
 
-FIRST_DAY_OF_WEEK = 1
+FILE_UPLOAD_TEMP_DIR: str = temporary_directory()
 
-INSTALLED_APPS: Final[Sequence[str]] = [
+FIRST_DAY_OF_WEEK: int = 1  # Monday
+
+INSTALLED_APPS: List[str] = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -75,18 +77,18 @@ INSTALLED_APPS: Final[Sequence[str]] = [
     "readable"
 ]
 
-LANGUAGE_CODE: Final[str] = "ru"
+LANGUAGE_CODE: str = "ru"
 
-LANGUAGES: Final[Sequence[Tuple[str, str]]] = [
+LANGUAGES: List[Tuple[str, str]] = [
     ("ru", _("Russian")),
     ("en", _("English"))
 ]
 
-LOCALE_PATHS = [
+LOCALE_PATHS: List[str] = [
     (RESOURCES_DIR / "translations").as_posix()
 ]
 
-LOGGING = {
+LOGGING: Dict[str, Any] = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
@@ -121,7 +123,7 @@ LOGGING = {
     }
 }
 
-MIDDLEWARE: Final[Sequence[str]] = [
+MIDDLEWARE: List[str] = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -132,11 +134,15 @@ MIDDLEWARE: Final[Sequence[str]] = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware"
 ]
 
-ROOT_URLCONF: Final[str] = "readable.urls"
+ROOT_URLCONF: str = "readable.urls"
 
-SECRET_KEY = get_random_string(25)
+SECRET_KEY: str = get_random_string(25)
 
-TEMPLATES = [
+SHORT_DATE_FORMAT: str = "d.m.Y"  # 01.01.1999
+
+SHORT_DATETIME_FORMAT = "d.m.Y H:i:s"  # 01.01.1999 00:00:00
+
+TEMPLATES: List[Dict[str, Any]] = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "APP_DIRS": True,
@@ -151,18 +157,20 @@ TEMPLATES = [
     }
 ]
 
-TIME_INPUT_FORMATS: Final[Sequence[str]] = [
+TIME_FORMAT: str = "H:i:s"  # 00:00:00
+
+TIME_INPUT_FORMATS: List[str] = [
     r"%H:%M:%S",
     r"%H:%M"
 ]
 
-TIME_ZONE = "UTC"
+TIME_ZONE: str = "UTC"
 
-USE_TZ = True
+USE_TZ: bool = True
 
 # Authorization:
 
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS: List[Dict[str, Any]] = [
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"
     },
@@ -175,17 +183,19 @@ AUTH_PASSWORD_VALIDATORS = [
     }
 ]
 
-LOGIN_REDIRECT_URL = LOGOUT_REDIRECT_URL = "index"
+LOGIN_REDIRECT_URL: str = "index"
 
-LOGIN_URL = "login"
+LOGIN_URL: str = "login"
 
-PASSWORD_HASHERS: Final[Sequence[str]] = ["readable.utils.hashers.SHA256PasswordHasher"]
+LOGOUT_REDIRECT_URL: str = "index"
+
+PASSWORD_HASHERS: List[str] = ["readable.utils.hashers.SHA256PasswordHasher"]
 
 # Messages:
 
-MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+MESSAGE_STORAGE: str = "django.contrib.messages.storage.session.SessionStorage"
 
-MESSAGE_TAGS = {
+MESSAGE_TAGS: Dict[int, str] = {
     message_constants.DEBUG: "alert-secondary",
     message_constants.INFO: "alert-info",
     message_constants.SUCCESS: "alert-success",
@@ -195,33 +205,35 @@ MESSAGE_TAGS = {
 
 # Sessions:
 
-SESSION_CACHE_ALIAS = "session"
+SESSION_CACHE_ALIAS: str = "session"
 
-SESSION_COOKIE_NAME = "access_token"
+SESSION_COOKIE_AGE: int = 3600 * 24 * 7  # 1 week
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_COOKIE_NAME: str = "access_token"
+
+SESSION_ENGINE: str = "django.contrib.sessions.backends.cache"
 
 # Static Files:
 
-MEDIA_ROOT = (RESOURCES_DIR / "mediafiles").as_posix()
+MEDIA_ROOT: str = (RESOURCES_DIR / "mediafiles").as_posix()
 
-MEDIA_URL = "/media/"
+MEDIA_URL: str = "/media/"
 
-STATIC_ROOT = (RESOURCES_DIR / "staticfiles").as_posix()
+STATIC_ROOT: str = (RESOURCES_DIR / "staticfiles").as_posix()
 
-STATIC_URL = "/static/"
+STATIC_URL: str = "/static/"
 
-STATICFILES_DIRS = [
+STATICFILES_DIRS: List[str] = [
     (RESOURCES_DIR / "assets").as_posix()
 ]
 
 # Miscellaneous:
 
-READABLE_DOCUMENTS_PAGINATE_BY = 10
+READABLE_DOCUMENTS_PAGINATE_BY: int = 10
 
-READABLE_META_DESCRIPTION = _("This tool will quickly test the readability, spelling and grammar of your text")
+READABLE_META_DESCRIPTION: str = _("This tool will quickly test the readability, spelling and grammar of your text")
 
-READABLE_META_KEYWORDS = [
+READABLE_META_KEYWORDS: List[str] = [
     _("Add document"),
     _("Automated readability index"),
     _("Coleman-Liau index"),
