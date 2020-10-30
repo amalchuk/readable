@@ -45,7 +45,7 @@ class Staff(Model):
         verbose_name_plural = _("Users' additional information")
         ordering = ["-created_at", "-updated_at"]
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         return f"{self.user}"
 
 
@@ -66,7 +66,7 @@ class Documents(Model):
         verbose_name_plural = _("Documents")
         ordering = ["-created_at", "-updated_at"]
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         return f"{self.realname}"
 
     @property
@@ -91,9 +91,9 @@ class Metrics(Model):
         verbose_name_plural = _("Metrics")
         ordering = ["-created_at", "-updated_at"]
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         return f"{self.document}"
 
     @cached_property
-    def indexes(self) -> Indexes:
+    def indexes(self) -> Indexes:  # pragma: no cover
         return compute_indexes(self.sentences, self.words, self.letters, self.syllables, is_russian=self.is_russian)
