@@ -6,7 +6,6 @@ from django.test.testcases import TestCase
 
 from readable.forms import AuthenticationForm
 from readable.forms import UserCreationForm
-from readable.forms import UserForm
 
 
 class TestAuthenticationForm(TestCase):
