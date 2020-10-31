@@ -28,7 +28,7 @@ class TestAuthenticationForm(TestCase):
 class TestUserCreationForm(TestCase):
     def setUp(self) -> None:
         self.username = "TestCase"
-        self.password = get_random_string()
+        self.password = get_random_string(25)
 
     def test_clean_username(self) -> None:
         form = UserCreationForm(data={
