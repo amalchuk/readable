@@ -44,7 +44,6 @@ source = ["readable"]
 
 [tool.coverage.report]
 precision    = 2
-skip_covered = true
 skip_empty   = true
 
 [tool.isort]
