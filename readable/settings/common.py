@@ -168,6 +168,8 @@ TIME_ZONE: str = "UTC"
 
 USE_TZ: bool = True
 
+WSGI_APPLICATION: str = "readable.wsgi.application"
+
 # Authorization:
 
 AUTH_PASSWORD_VALIDATORS: List[Dict[str, Any]] = [

@@ -1,7 +1,7 @@
 from unicodedata import normalize
 
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
+from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
 from django.contrib.auth.models import User
 from django.forms.fields import CharField
 from django.forms.fields import FileField
@@ -23,7 +23,7 @@ class DocumentsForm(Form):
         fields = ["filename"]
 
 
-class AuthorizationForm(AuthenticationForm):
+class AuthenticationForm(BaseAuthenticationForm):
     def clean_username(self) -> str:
         """
         All case-based characters of the username field will be lowercased.
@@ -31,7 +31,7 @@ class AuthorizationForm(AuthenticationForm):
         return normalize("NFKC", self.cleaned_data["username"]).lower()
 
 
-class RegistrationForm(UserCreationForm):
+class UserCreationForm(BaseUserCreationForm):
     username = CharField(label=_("Login"), min_length=6, max_length=50, validators=[validate_username])
 
     class Meta:
@@ -42,28 +42,10 @@ class RegistrationForm(UserCreationForm):
         """
         All case-based characters of the username field will be lowercased.
         """
-        return normalize("NFKC", self.cleaned_data["username"]).lower()
+        return self.cleaned_data["username"].lower()
 
 
 class UserForm(Form):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email"]
-
-    def clean_first_name(self) -> str:
-        """
-        The first character of the first_name field will be capitalized.
-        """
-        return normalize("NFKC", self.cleaned_data["first_name"]).title()
-
-    def clean_last_name(self) -> str:
-        """
-        The first character of the last_name field will be capitalized.
-        """
-        return normalize("NFKC", self.cleaned_data["last_name"]).title()
-
-    def clean_email(self) -> str:
-        """
-        All case-based characters will be lowercased.
-        """
-        return normalize("NFKC", self.cleaned_data["email"]).lower()

@@ -15,7 +15,8 @@ $(function() {
   // Set the width of a progress bar dynamically:
   $(".progress-bar").each(function() {
     var progress_bar = $(this);
-    var width = Math.max(20.0, Math.min(progress_bar.attr("aria-valuenow"), 100.0));
+    var value = parseFloat(progress_bar.attr("aria-valuenow"));
+    var width = Math.max(20.0, Math.min(value, 100.0));
     progress_bar.width(`${width}%`);
   });
 });

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -11,12 +9,12 @@ from django.urls.base import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import CreateView
 
-from readable.forms import AuthorizationForm
-from readable.forms import RegistrationForm
+from readable.forms import AuthenticationForm
+from readable.forms import UserCreationForm
 
 
 class LoginView(BaseLoginView):
-    form_class = AuthorizationForm
+    form_class = AuthenticationForm
     http_method_names = ["get", "post"]
     redirect_authenticated_user = True
     template_name = "login.html"
@@ -32,19 +30,15 @@ class LogoutView(LoginRequiredMixin, BaseLogoutView):
 
 
 class RegistrationView(CreateView):
-    form_class = RegistrationForm
+    form_class = UserCreationForm
     http_method_names = ["get", "post"]
     success_url = reverse_lazy("index")
     template_name = "registration.html"
 
-    def form_valid(self, form: RegistrationForm) -> HttpResponse:
+    def form_valid(self, form: UserCreationForm) -> HttpResponse:
         response = super(RegistrationView, self).form_valid(form)
-        profile: Optional[User] = getattr(self, "object", None)
-
-        if profile is not None:
-            # Authenticate the user:
-            login(self.request, profile)
-
+        profile: User = getattr(self, "object")
+        login(self.request, profile)
         return response
 
 
