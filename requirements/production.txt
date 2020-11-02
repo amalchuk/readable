@@ -78,9 +78,9 @@ pymupdf==1.18.2 \
     --hash=sha256:9eb9d1ab0fdf21634dbb76594f859abc933b5a7d678819472fd348aae6b37e30
 python-docx==0.8.10 \
     --hash=sha256:bc76ecac6b2d00ce6442a69d03a6f35c71cd72293cd8405a7472dfe317920024
-pytz==2020.1; python_version >= "3.6" \
-    --hash=sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed \
-    --hash=sha256:c35965d010ce31b23eeb663ed3cc8c906275d6be1a34393a1d73a41febf4a048
+pytz==2020.4; python_version >= "3.6" \
+    --hash=sha256:5c55e189b682d420be27c6995ba6edce0c0a77dd67bfbe2ae6607134d5851ffd \
+    --hash=sha256:3e6b7dd2d1e0a59084bcee14a17af60c5c562cdc16d828e8eba2e683d3a7e268
 scienco==0.2.1.1; python_version >= "3.6" and python_version < "4.0" \
     --hash=sha256:1b89e98d8b79c28f46dd808689a0bcfe5ed4a87a123f152de16e050146d7bf2c
 simplethread==0.1.2.1; python_version >= "3.6" and python_version < "4.0" \

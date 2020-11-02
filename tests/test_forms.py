@@ -10,12 +10,12 @@ from readable.forms import UserCreationForm
 
 class TestAuthenticationForm(TestCase):
     def setUp(self) -> None:
-        self.username = "future"
-        self.password = get_random_string(25)
+        self.username: str = "future"
+        self.password: str = get_random_string(25)
         User.objects.create_user(username=self.username, password=self.password)
 
     def test_clean_username(self) -> None:
-        form = AuthenticationForm(data={
+        form: AuthenticationForm = AuthenticationForm(data={
             "username": "\uFF26\uFF55\uFF54\uFF55\uFF52\uFF45",
             "password": self.password
         })
@@ -27,11 +27,11 @@ class TestAuthenticationForm(TestCase):
 
 class TestUserCreationForm(TestCase):
     def setUp(self) -> None:
-        self.username = "TestCase"
-        self.password = get_random_string(25)
+        self.username: str = "TestCase"
+        self.password: str = get_random_string(25)
 
     def test_clean_username(self) -> None:
-        form = UserCreationForm(data={
+        form: UserCreationForm = UserCreationForm(data={
             "username": self.username,
             "password1": self.password,
             "password2": self.password

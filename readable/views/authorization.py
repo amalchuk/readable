@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -39,12 +37,8 @@ class RegistrationView(CreateView):
 
     def form_valid(self, form: UserCreationForm) -> HttpResponse:
         response = super(RegistrationView, self).form_valid(form)
-        profile: Optional[User] = getattr(self, "object", None)
-
-        if profile is not None:
-            # Authenticate the user:
-            login(self.request, profile)
-
+        profile: User = getattr(self, "object")
+        login(self.request, profile)
         return response
 
 
