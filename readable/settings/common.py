@@ -1,4 +1,4 @@
-from pathlib import Path as P
+from pathlib import PurePath as _P
 from secrets import token_hex as get_random_string
 from tempfile import mkdtemp as temporary_directory
 from typing import Any, Dict, List, Optional, Tuple
@@ -8,9 +8,9 @@ from django.utils.translation import gettext_lazy as _
 
 # Common Settings:
 
-BASE_DIR: P = P(__file__).parent.parent
+BASE_DIR: _P = _P(__file__).parent.parent
 
-RESOURCES_DIR: P = BASE_DIR / "resources"
+RESOURCES_DIR: _P = BASE_DIR / "resources"
 
 # Core Settings:
 
