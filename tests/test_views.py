@@ -1,4 +1,5 @@
 from http import HTTPStatus
+import logging
 from secrets import token_hex as get_random_string
 
 from django.contrib.auth.models import User
@@ -50,6 +51,7 @@ class TestRegistrationView(TestCase):
 class TestDocumentsDetailView(TestCase):
     def setUp(self) -> None:
         self.response: HttpResponse
+        logging.disable(logging.WARNING)
 
         self.user1: User = User.objects.create_user(username="staff1", password="staff1")
         self.staff1: Staff = Staff.objects.create(user=self.user1)
@@ -75,6 +77,9 @@ class TestDocumentsDetailView(TestCase):
         document.save(update_fields=["uploaded_by"])
         self.response = self.client.get(reverse("documents_detail", args=[document.id]))
         self.assertEqual(self.response.status_code, HTTPStatus.NOT_FOUND)
+
+    def tearDown(self) -> None:
+        logging.disable(logging.NOTSET)
 
 
 class TestProfileView(TestCase):
