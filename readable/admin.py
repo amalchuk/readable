@@ -88,8 +88,5 @@ class DocumentsAdmin(ModelAdmin):
         return qs if request.user.is_superuser else qs.filter(uploaded_by__user=request.user)
 
     def save_model(self, request: HttpRequest, obj: Documents, *args: Any, **kwargs: Any) -> None:
-        if obj.status == Documents.Status.FINISHED:
-            obj.status = Documents.Status.IN_PROGRESS
-
         obj.uploaded_by = request.user.staff
-        obj.save()
+        return super(DocumentsAdmin, self).save_model(request, obj, *args, **kwargs)

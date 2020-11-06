@@ -1,26 +1,23 @@
 from http import HTTPStatus
-from secrets import token_hex as get_random_string
+import logging
 
-from django.contrib.auth.models import User
 from django.contrib.messages.api import get_messages
 from django.contrib.messages.storage.base import Message
 from django.core.files.base import ContentFile
-from django.db.models.signals import post_save
 from django.http.response import HttpResponse
-from django.test.testcases import TestCase
 from django.urls.base import reverse
 from django.utils.translation import gettext_lazy as _
 
 from readable.models import Documents
-from readable.models import Staff
-from readable.utils.signals import documents_uploaded
+from tests.common import TestCase
 
 
 class TestLogoutView(TestCase):
     def setUp(self) -> None:
+        super(TestLogoutView, self).setUp()
         self.response: HttpResponse
-        self.user: User = User.objects.create_user(username="staff", password="staff")
-        self.staff: Staff = Staff.objects.create(user=self.user)
+
+        self.user, _ = self.create_user(username="staff", password=self.get_random_string())
         self.client.force_login(self.user)
 
     def test_get_next_page(self) -> None:
@@ -32,9 +29,11 @@ class TestLogoutView(TestCase):
 
 class TestRegistrationView(TestCase):
     def setUp(self) -> None:
+        super(TestRegistrationView, self).setUp()
         self.response: HttpResponse
-        self.username: str = "future"
-        self.password: str = get_random_string(25)
+
+        self.username = "future"
+        self.password = self.get_random_string()
 
     def test_form_valid(self) -> None:
         self.response = self.client.post(reverse("registration"), data={
@@ -49,21 +48,18 @@ class TestRegistrationView(TestCase):
 
 class TestDocumentsDetailView(TestCase):
     def setUp(self) -> None:
+        super(TestDocumentsDetailView, self).setUp()
         self.response: HttpResponse
+        logging.disable(logging.WARNING)
 
-        self.user1: User = User.objects.create_user(username="staff1", password="staff1")
-        self.staff1: Staff = Staff.objects.create(user=self.user1)
+        self.user1, self.staff1 = self.create_user(username="staff1", password=self.get_random_string())
+        _, self.staff2 = self.create_user(username="staff2", password=self.get_random_string())
         self.client.force_login(self.user1)
-
-        self.user2: User = User.objects.create_user(username="staff2", password="staff2")
-        self.staff2: Staff = Staff.objects.create(user=self.user2)
+        self.lorem = ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
 
     def test_get_queryset(self) -> None:
-        # Temporarily disable the "documents_uploaded" signal:
-        post_save.disconnect(documents_uploaded, Documents)
-
         self.response = self.client.post(reverse("index"), data={
-            "filename": ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
+            "filename": self.lorem
         })
         self.assertRedirects(self.response, reverse("index"))
 
@@ -76,12 +72,17 @@ class TestDocumentsDetailView(TestCase):
         self.response = self.client.get(reverse("documents_detail", args=[document.id]))
         self.assertEqual(self.response.status_code, HTTPStatus.NOT_FOUND)
 
+    def tearDown(self) -> None:
+        super(TestDocumentsDetailView, self).tearDown()
+        logging.disable(logging.NOTSET)
+
 
 class TestProfileView(TestCase):
     def setUp(self) -> None:
+        super(TestProfileView, self).setUp()
         self.response: HttpResponse
-        self.user: User = User.objects.create_user(username="staff", password="staff")
-        self.staff: Staff = Staff.objects.create(user=self.user)
+
+        self.user, _ = self.create_user(username="staff", password=self.get_random_string())
         self.client.force_login(self.user)
 
     def test_form_valid(self) -> None:
