@@ -2,26 +2,23 @@ from http import HTTPStatus
 from typing import Optional, Sequence
 
 from django.contrib.admin.options import InlineModelAdmin
-from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
-from django.db.models.signals import post_save
 from django.http.response import HttpResponse
-from django.test.testcases import TestCase
 from django.urls.base import reverse
 
 from readable.models import Documents
 from readable.models import Metrics
 from readable.models import Staff
-from readable.utils.signals import documents_uploaded
+from tests.common import TestCase
 
 
 class TestUserAdmin(TestCase):
     def setUp(self) -> None:
+        super(TestUserAdmin, self).setUp()
         self.response: HttpResponse
         self.inlines: Sequence[InlineModelAdmin]
 
-        self.user: User = User.objects.create_superuser(username="staff", password="staff")
-        self.staff: Staff = Staff.objects.create(user=self.user)
+        self.user, _ = self.create_user(username="staff", password=self.get_random_string(), is_superuser=True)
         self.client.force_login(self.user)
 
     def test_get_inlines(self) -> None:
@@ -40,16 +37,13 @@ class TestUserAdmin(TestCase):
 
 class TestDocumentsAdmin(TestCase):
     def setUp(self) -> None:
+        super(TestDocumentsAdmin, self).setUp()
         self.response: HttpResponse
         self.inlines: Sequence[InlineModelAdmin]
 
-        self.user: User = User.objects.create_superuser(username="staff", password="staff")
-        self.staff: Staff = Staff.objects.create(user=self.user)
+        self.user, self.staff = self.create_user(username="staff", password=self.get_random_string(), is_superuser=True)
         self.client.force_login(self.user)
-
-        # Temporarily disable the "documents_uploaded" signal:
-        post_save.disconnect(documents_uploaded, Documents)
-        self.lorem: ContentFile = ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
+        self.lorem = ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
 
     def test_get_inlines(self) -> None:
         self.response = self.client.get(reverse("admin:readable_documents_add"))

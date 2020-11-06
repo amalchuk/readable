@@ -1,21 +1,20 @@
-from secrets import token_hex as get_random_string
 from unicodedata import is_normalized
-
-from django.contrib.auth.models import User
-from django.test.testcases import TestCase
 
 from readable.forms import AuthenticationForm
 from readable.forms import UserCreationForm
+from tests.common import TestCase
 
 
 class TestAuthenticationForm(TestCase):
     def setUp(self) -> None:
-        self.username: str = "future"
-        self.password: str = get_random_string(25)
-        User.objects.create_user(username=self.username, password=self.password)
+        super(TestAuthenticationForm, self).setUp()
+
+        self.username = "future"
+        self.password = self.get_random_string()
+        self.create_user(username=self.username, password=self.password)
 
     def test_clean_username(self) -> None:
-        form: AuthenticationForm = AuthenticationForm(data={
+        form = AuthenticationForm(data={
             "username": "\uFF26\uFF55\uFF54\uFF55\uFF52\uFF45",
             "password": self.password
         })
@@ -27,11 +26,13 @@ class TestAuthenticationForm(TestCase):
 
 class TestUserCreationForm(TestCase):
     def setUp(self) -> None:
-        self.username: str = "TestCase"
-        self.password: str = get_random_string(25)
+        super(TestUserCreationForm, self).setUp()
+
+        self.username = "TestCase"
+        self.password = self.get_random_string()
 
     def test_clean_username(self) -> None:
-        form: UserCreationForm = UserCreationForm(data={
+        form = UserCreationForm(data={
             "username": self.username,
             "password1": self.password,
             "password2": self.password
