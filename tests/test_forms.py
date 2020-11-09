@@ -2,7 +2,8 @@ from unicodedata import is_normalized
 
 from readable.forms import AuthenticationForm
 from readable.forms import UserCreationForm
-from tests.common import TestCase
+
+from .common import TestCase
 
 
 class TestAuthenticationForm(TestCase):

@@ -1,13 +1,15 @@
 from django.core.files.base import ContentFile
 
 from readable.models import Documents
-from tests.common import TestCase
+
+from .common import TestCase
 
 
 class TestDocuments(TestCase):
     def setUp(self) -> None:
         super(TestDocuments, self).setUp()
-        self.user, self.staff = self.create_user(username="staff", password=self.get_random_string())
+        self.user = self.create_user(username="staff", password=self.get_random_string())
+        self.staff = self.create_staff(user=self.user)
         self.lorem = ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
 
     def test_upload_directory(self) -> None:
