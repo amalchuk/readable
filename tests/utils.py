@@ -1,5 +1,5 @@
 from secrets import token_hex
-from typing import Callable, Tuple
+from typing import Callable
 
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
@@ -24,12 +24,21 @@ class TestCase(BaseTestCase):
         user_logged_in.connect(user_logged_in_out)
         user_logged_out.connect(user_logged_in_out)
 
-    @classmethod
-    def get_random_string(cls) -> str:
+    @staticmethod
+    def get_random_string() -> str:
         return token_hex(25)
 
-    @classmethod
-    def create_user(cls, *, username: str, password: str, is_superuser: bool = False) -> Tuple[User, Staff]:
+    @staticmethod
+    def create_staff(user: User) -> Staff:
+        staff, _ = Staff.objects.get_or_create(user=user)
+        return staff
+
+    @staticmethod
+    def create_user(username: str, password: str, is_superuser: bool = False) -> User:
         create: Callable[..., User] = User.objects.create_superuser if is_superuser else User.objects.create_user
-        user = create(username=username, password=password)
-        return user, Staff.objects.create(user=user)
+        return create(username=username, password=password)
+
+
+get_random_string = TestCase.get_random_string
+create_staff = TestCase.create_staff
+create_user = TestCase.create_user
