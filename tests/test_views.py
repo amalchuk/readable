@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 from readable.models import Documents
 
-from .common import TestCase
+from .utils import TestCase
 
 
 class TestLogoutView(TestCase):

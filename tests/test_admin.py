@@ -10,7 +10,7 @@ from readable.models import Documents
 from readable.models import Metrics
 from readable.models import Staff
 
-from .common import TestCase
+from .utils import TestCase
 
 
 class TestUserAdmin(TestCase):

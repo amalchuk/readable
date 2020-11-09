@@ -2,7 +2,7 @@ from django.core.files.base import ContentFile
 
 from readable.models import Documents
 
-from .common import TestCase
+from .utils import TestCase
 
 
 class TestDocuments(TestCase):
