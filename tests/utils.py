@@ -34,7 +34,7 @@ class TestCase(BaseTestCase):
         return staff
 
     @staticmethod
-    def create_user(username: str, password: str, is_superuser: bool = False) -> User:
+    def create_user(username: str, password: str, *, is_superuser: bool = False) -> User:
         create: Callable[..., User] = User.objects.create_superuser if is_superuser else User.objects.create_user
         return create(username=username, password=password)
 

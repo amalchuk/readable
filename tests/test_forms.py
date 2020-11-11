@@ -12,7 +12,7 @@ class TestAuthenticationForm(TestCase):
 
         self.username = "future"
         self.password = self.get_random_string()
-        self.create_user(username=self.username, password=self.password)
+        self.create_user(self.username, self.password)
 
     def test_clean_username(self) -> None:
         form = AuthenticationForm(data={

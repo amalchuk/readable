@@ -23,8 +23,8 @@ class TestDocumentsUploaded(CommonTestCase):
         super(TestDocumentsUploaded, self).setUp()
         self.document: Documents
 
-        self.user = self.create_user(username="staff", password=self.get_random_string())
-        self.staff = self.create_staff(user=self.user)
+        self.user = self.create_user("staff", self.get_random_string())
+        self.staff = self.create_staff(self.user)
         self.lorem = ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
         self.empty = ContentFile("", "empty.txt")
 
@@ -45,7 +45,7 @@ class TestUserLoggedInOut(TestCase):
     def setUp(self) -> None:
         self.username = "staff"
         self.password = get_random_string()
-        self.user = create_user(username=self.username, password=self.password)
+        self.user = create_user(self.username, self.password)
         self.factory = RequestFactory()
 
     def test_login(self) -> None:
