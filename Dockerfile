@@ -10,6 +10,12 @@ COPY ["readable", "/application/readable/"]
 ENV PIP_NO_CACHE_DIR="1" PIP_DISABLE_PIP_VERSION_CHECK="1" UWSGI_XML="/application/uwsgi.xml"
 RUN ["pip", "install", "--requirement", "requirements.txt", "--no-deps", "--require-hashes"]
 
+# Explicitly set user/group IDs:
+RUN ["groupadd", "--system", "--gid", "666", "uwsgi"]
+RUN ["useradd", "--system", "--gid", "uwsgi", "--uid", "666", "--home-dir", "/application", "--shell", "/bin/bash", "uwsgi"]
+RUN ["chown", "--recursive", "uwsgi:uwsgi", "/application"]
+USER uwsgi
+
 EXPOSE 8000-8003/tcp
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["uwsgi"]
