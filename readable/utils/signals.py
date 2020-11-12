@@ -16,7 +16,7 @@ from readable.utils.read_documents import read_document
 def file_processing(document: Documents) -> None:
     document.status = Documents.Status.IN_PROGRESS
     document.updated_at = now()
-    document.save(update_fields=("status", "updated_at"))
+    document.save(update_fields=["status", "updated_at"])
 
     is_finished = False
 
@@ -33,7 +33,7 @@ def file_processing(document: Documents) -> None:
 
     document.status = Documents.Status.FINISHED if is_finished else Documents.Status.FAILED
     document.updated_at = now()
-    document.save(update_fields=("status", "updated_at"))
+    document.save(update_fields=["status", "updated_at"])
 
 
 def documents_uploaded(*args: Any, **kwargs: Any) -> None:

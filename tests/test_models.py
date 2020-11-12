@@ -8,8 +8,8 @@ from .utils import TestCase
 class TestDocuments(TestCase):
     def setUp(self) -> None:
         super(TestDocuments, self).setUp()
-        self.user = self.create_user(username="staff", password=self.get_random_string())
-        self.staff = self.create_staff(user=self.user)
+        self.user = self.create_user("staff", self.get_random_string())
+        self.staff = self.create_staff(self.user)
         self.lorem = ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
 
     def test_upload_directory(self) -> None:

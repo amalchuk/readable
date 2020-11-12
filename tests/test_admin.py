@@ -19,7 +19,7 @@ class TestUserAdmin(TestCase):
         self.response: HttpResponse
         self.inlines: Sequence[InlineModelAdmin]
 
-        self.user = self.create_user(username="staff", password=self.get_random_string(), is_superuser=True)
+        self.user = self.create_user("staff", self.get_random_string(), is_superuser=True)
         self.client.force_login(self.user)
 
     def test_get_inlines(self) -> None:
@@ -42,8 +42,8 @@ class TestDocumentsAdmin(TestCase):
         self.response: HttpResponse
         self.inlines: Sequence[InlineModelAdmin]
 
-        self.user = self.create_user(username="staff", password=self.get_random_string(), is_superuser=True)
-        self.staff = self.create_staff(user=self.user)
+        self.user = self.create_user("staff", self.get_random_string(), is_superuser=True)
+        self.staff = self.create_staff(self.user)
         self.client.force_login(self.user)
         self.lorem = ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
 

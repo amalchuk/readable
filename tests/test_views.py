@@ -18,7 +18,7 @@ class TestLogoutView(TestCase):
         super(TestLogoutView, self).setUp()
         self.response: HttpResponse
 
-        self.user = self.create_user(username="staff", password=self.get_random_string())
+        self.user = self.create_user("staff", self.get_random_string())
         self.client.force_login(self.user)
 
     def test_get_next_page(self) -> None:
@@ -53,10 +53,10 @@ class TestDocumentsDetailView(TestCase):
         self.response: HttpResponse
         logging.disable(logging.WARNING)
 
-        self.user1 = self.create_user(username="staff1", password=self.get_random_string())
-        self.user2 = self.create_user(username="staff2", password=self.get_random_string())
-        self.staff1 = self.create_staff(user=self.user1)
-        self.staff2 = self.create_staff(user=self.user2)
+        self.user1 = self.create_user("staff1", self.get_random_string())
+        self.user2 = self.create_user("staff2", self.get_random_string())
+        self.staff1 = self.create_staff(self.user1)
+        self.staff2 = self.create_staff(self.user2)
 
         self.client.force_login(self.user1)
         self.lorem = ContentFile("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "lorem.txt")
@@ -86,7 +86,7 @@ class TestProfileView(TestCase):
         super(TestProfileView, self).setUp()
         self.response: HttpResponse
 
-        self.user = self.create_user(username="staff", password=self.get_random_string())
+        self.user = self.create_user("staff", self.get_random_string())
         self.client.force_login(self.user)
 
     def test_form_valid(self) -> None:
