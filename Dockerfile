@@ -8,9 +8,8 @@ COPY ["requirements/production.txt", "/application/requirements.txt"]
 COPY ["readable", "/application/readable/"]
 
 ENV PIP_NO_CACHE_DIR="1" PIP_DISABLE_PIP_VERSION_CHECK="1" UWSGI_XML="/application/uwsgi.xml"
-RUN ["pip", "install", "--requirement", "requirements.txt", "--no-deps", "--require-hashes"]
+RUN ["python", "-m", "pip", "install", "--requirement", "requirements.txt", "--no-deps", "--require-hashes", "--quiet"]
 
-# Explicitly set user/group IDs:
 RUN ["groupadd", "--system", "--gid", "666", "uwsgi"]
 RUN ["useradd", "--system", "--gid", "uwsgi", "--uid", "666", "--home-dir", "/application", "--shell", "/bin/bash", "uwsgi"]
 RUN ["chown", "--recursive", "uwsgi:uwsgi", "/application"]
