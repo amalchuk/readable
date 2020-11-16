@@ -29,15 +29,15 @@ freeze:
 
 isort:
 	@echo "Trying to check correct ordering of imports"
-	@isort readable tests manage.py --check-only
+	@isort readable tests --check-only
 
 mypy:
 	@echo "Running the static type checker"
-	@mypy readable tests manage.py
+	@mypy readable tests
 
 test:
 	@echo "Running the test cases"
-	@coverage run manage.py test --no-input --failfast
+	@coverage run --module readable test --no-input --failfast
 
 coverage: test
 	@echo "Analyzing the code coverage for all test cases"

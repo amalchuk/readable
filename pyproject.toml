@@ -8,7 +8,6 @@ homepage    = "https://readable.pw"
 repository  = "https://gitlab.com/amalchuk/readable"
 readme      = "README.md"
 license     = "MIT"
-include     = ["manage.py"]
 
 [tool.poetry.dependencies]
 python       = ">=3.9, <4.0"

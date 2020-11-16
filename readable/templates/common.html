@@ -27,6 +27,7 @@
     {% block scripts %}{% include 'scripts.html' %}{% endblock %}
   </body>
 </html>
-<!-- Copyright 2020 Andrew Malchuk. All rights reserved. -->
+{% now 'Y' as current_year %}
+<!-- Copyright {{ current_year }} Andrew Malchuk. All rights reserved. -->
 <!-- This project is licensed under the terms of the MIT License. -->
 {% endspaceless %}
