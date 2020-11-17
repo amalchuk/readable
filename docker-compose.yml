@@ -13,8 +13,9 @@ x-default: &default-settings
 services:
   postgresql:
     <<: *default-settings
-    image: postgres:13.0-alpine
+    image: postgres:13.1-alpine
     container_name: postgresql
+    user: postgres:postgres
     environment:
       # PostgreSQL environment variables:
       - POSTGRES_USER
