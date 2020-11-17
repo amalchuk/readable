@@ -1,3 +1,4 @@
+from logging import getLogger as get_logger
 from typing import Any
 
 from django.contrib.auth.models import User
@@ -10,6 +11,8 @@ from readable.models import Documents
 from readable.models import Metrics
 from readable.models import Staff
 from readable.utils.read_documents import read_document
+
+logger = get_logger(__name__)
 
 
 @threaded
@@ -41,6 +44,7 @@ def documents_uploaded(*args: Any, **kwargs: Any) -> None:
     document: Documents = kwargs.pop("instance")
 
     if is_created and document.unavailable:
+        logger.info(f"Uploaded \"{document.realname}\" document by user {document.uploaded_by}")
         file_processing(document)
 
 
