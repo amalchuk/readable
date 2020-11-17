@@ -27,3 +27,7 @@ docker-compose up \
     --force-recreate \
     --no-build \
     --remove-orphans
+
+# Clear the variables:
+unset DOCKER_CERT_PATH
+unset DOCKER_HOST

@@ -4,12 +4,12 @@
 set -e
 
 if [ "$1" == "uwsgi" ]; then
-  echo "Collecting the static files in a single location"
+  # Collecting the static files in a single location:
   python manage.py collectstatic \
     --no-input \
     --clear >> /dev/null
 
-  echo "Updating the database schema"
+  # Updating the database schema:
   python manage.py migrate \
     --no-input >> /dev/null
 fi
