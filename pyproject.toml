@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.1.5.1"
+version     = "0.1.6"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -8,6 +8,7 @@ homepage    = "https://readable.pw"
 repository  = "https://gitlab.com/amalchuk/readable"
 readme      = "README.md"
 license     = "MIT"
+include     = ["manage.py"]
 
 [tool.poetry.dependencies]
 python       = ">=3.9, <4.0"
