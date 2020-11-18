@@ -1,10 +1,11 @@
 from pathlib import PurePath as _P
-from secrets import token_hex as get_random_string
-from tempfile import mkdtemp as temporary_directory
 from typing import Any, Dict, List, Optional, Tuple
 
 from django.contrib.messages import constants as message_constants
+from django.core.management.utils import get_random_secret_key
 from django.utils.translation import gettext_lazy as _
+
+from readable.utils.temporary import temporary_directory
 
 # Common Settings:
 
@@ -20,7 +21,7 @@ CACHES: Dict[str, Any] = {
     "default": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
         "KEY_PREFIX": "default",
-        "LOCATION": temporary_directory(),
+        "LOCATION": temporary_directory().as_posix(),
         "OPTIONS": {
             "size_limit": 1024 * 1024 * 256  # 256 megabytes
         }
@@ -28,7 +29,7 @@ CACHES: Dict[str, Any] = {
     "session": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
         "KEY_PREFIX": "session",
-        "LOCATION": temporary_directory(),
+        "LOCATION": temporary_directory().as_posix(),
         "OPTIONS": {
             "size_limit": 1024 * 1024 * 256  # 256 megabytes
         }
@@ -63,7 +64,7 @@ DATETIME_INPUT_FORMATS: List[str] = [
 
 FILE_UPLOAD_MAX_MEMORY_SIZE: int = 1024 * 1024 * 50  # 50 megabytes
 
-FILE_UPLOAD_TEMP_DIR: str = temporary_directory()
+FILE_UPLOAD_TEMP_DIR: str = temporary_directory().as_posix()
 
 FIRST_DAY_OF_WEEK: int = 1  # Monday
 
@@ -136,7 +137,7 @@ MIDDLEWARE: List[str] = [
 
 ROOT_URLCONF: str = "readable.urls"
 
-SECRET_KEY: str = get_random_string(25)
+SECRET_KEY: str = get_random_secret_key()
 
 SHORT_DATE_FORMAT: str = "d.m.Y"  # 01.01.1999
 
