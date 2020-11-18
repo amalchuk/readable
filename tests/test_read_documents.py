@@ -1,7 +1,6 @@
 import logging
 from os import urandom
 from pathlib import Path as P
-from tempfile import mkstemp as temporary_file
 from typing import List
 
 from django.test.testcases import SimpleTestCase as TestCase
@@ -12,6 +11,7 @@ from readable.utils.read_documents import microsoft_word_document
 from readable.utils.read_documents import pdf_document
 from readable.utils.read_documents import read_document
 from readable.utils.read_documents import text_document
+from readable.utils.temporary import temporary_directory
 
 
 class TestReadDocuments(TestCase):
@@ -24,9 +24,10 @@ class TestReadDocuments(TestCase):
             "Praesent venenatis metus a elit ullamcorper cursus.",
             "Etiam ullamcorper quam quis turpis accumsan, consequat maximus risus tristique."
         ]
+        self.temporary_directory = temporary_directory()
 
     def test_microsoft_word_document(self) -> None:
-        _, tempfile = temporary_file(suffix=".docx")
+        tempfile = (self.temporary_directory / "document.docx").as_posix()
 
         document = DOCXDocument()
         for paragraph in self.lorem:
@@ -37,7 +38,7 @@ class TestReadDocuments(TestCase):
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_pdf_document(self) -> None:
-        _, tempfile = temporary_file(suffix=".pdf")
+        tempfile = (self.temporary_directory / "document.pdf").as_posix()
 
         document = PDFDocument(tempfile)
         text_object = document.beginText(100, 100)
@@ -53,7 +54,7 @@ class TestReadDocuments(TestCase):
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_text_document(self) -> None:
-        _, tempfile = temporary_file(suffix=".txt")
+        tempfile = (self.temporary_directory / "document.txt").as_posix()
         document = P(tempfile)
         document.write_text("\n".join(self.lorem))
 
@@ -61,7 +62,7 @@ class TestReadDocuments(TestCase):
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_read_document(self) -> None:
-        _, tempfile = temporary_file(suffix=".txt")
+        tempfile = (self.temporary_directory / "document.txt").as_posix()
         document = P(tempfile)
         document.write_text("\n".join(self.lorem))
 
@@ -69,7 +70,7 @@ class TestReadDocuments(TestCase):
         self.assertIsNotNone(text)
         self.assertEqual(text, "\n".join(self.lorem))
 
-        _, tempfile = temporary_file(suffix=".bin")
+        tempfile = (self.temporary_directory / "document.bin").as_posix()
         document = P(tempfile)
         document.write_bytes(urandom(128))
         self.assertIsNone(read_document(document))
