@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.1.6"
+version     = "0.1.7"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
