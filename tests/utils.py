@@ -14,12 +14,16 @@ from readable.utils.signals import user_logged_in_out
 
 
 class TestCase(BaseTestCase):
-    def setUp(self) -> None:
+    @classmethod
+    def setUpClass(cls) -> None:
+        super(TestCase, cls).setUpClass()
         post_save.disconnect(documents_uploaded, Documents)
         user_logged_in.disconnect(user_logged_in_out)
         user_logged_out.disconnect(user_logged_in_out)
 
-    def tearDown(self) -> None:
+    @classmethod
+    def tearDownClass(cls) -> None:
+        super(TestCase, cls).tearDownClass()
         post_save.connect(documents_uploaded, Documents)
         user_logged_in.connect(user_logged_in_out)
         user_logged_out.connect(user_logged_in_out)

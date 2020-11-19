@@ -21,7 +21,7 @@ CACHES: Dict[str, Any] = {
     "default": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
         "KEY_PREFIX": "default",
-        "LOCATION": temporary_directory().as_posix(),
+        "LOCATION": str(temporary_directory()),
         "OPTIONS": {
             "size_limit": 1024 * 1024 * 256  # 256 megabytes
         }
@@ -29,7 +29,7 @@ CACHES: Dict[str, Any] = {
     "session": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
         "KEY_PREFIX": "session",
-        "LOCATION": temporary_directory().as_posix(),
+        "LOCATION": str(temporary_directory()),
         "OPTIONS": {
             "size_limit": 1024 * 1024 * 256  # 256 megabytes
         }
@@ -43,7 +43,7 @@ CSRF_COOKIE_NAME: str = "csrf_token"
 DATABASES: Dict[str, Any] = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": (RESOURCES_DIR / "readable.db").as_posix()
+        "NAME": str(RESOURCES_DIR / "readable.db")
     }
 }
 
@@ -64,7 +64,7 @@ DATETIME_INPUT_FORMATS: List[str] = [
 
 FILE_UPLOAD_MAX_MEMORY_SIZE: int = 1024 * 1024 * 50  # 50 megabytes
 
-FILE_UPLOAD_TEMP_DIR: str = temporary_directory().as_posix()
+FILE_UPLOAD_TEMP_DIR: str = str(temporary_directory())
 
 FIRST_DAY_OF_WEEK: int = 1  # Monday
 
@@ -86,7 +86,7 @@ LANGUAGES: List[Tuple[str, str]] = [
 ]
 
 LOCALE_PATHS: List[str] = [
-    (RESOURCES_DIR / "translations").as_posix()
+    str(RESOURCES_DIR / "translations")
 ]
 
 LOGGING: Dict[str, Any] = {
@@ -218,16 +218,16 @@ SESSION_ENGINE: str = "django.contrib.sessions.backends.cache"
 
 # Static Files:
 
-MEDIA_ROOT: str = (RESOURCES_DIR / "mediafiles").as_posix()
+MEDIA_ROOT: str = str(RESOURCES_DIR / "mediafiles")
 
 MEDIA_URL: str = "/media/"
 
-STATIC_ROOT: str = (RESOURCES_DIR / "staticfiles").as_posix()
+STATIC_ROOT: str = str(RESOURCES_DIR / "staticfiles")
 
 STATIC_URL: str = "/static/"
 
 STATICFILES_DIRS: List[str] = [
-    (RESOURCES_DIR / "assets").as_posix()
+    str(RESOURCES_DIR / "assets")
 ]
 
 # Miscellaneous:
