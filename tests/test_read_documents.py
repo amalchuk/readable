@@ -27,7 +27,7 @@ class TestReadDocuments(TestCase):
         self.temporary_directory = temporary_directory()
 
     def test_microsoft_word_document(self) -> None:
-        tempfile = (self.temporary_directory / "document.docx").as_posix()
+        tempfile = str(self.temporary_directory / "document01.docx")
 
         document = DOCXDocument()
         for paragraph in self.lorem:
@@ -38,7 +38,7 @@ class TestReadDocuments(TestCase):
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_pdf_document(self) -> None:
-        tempfile = (self.temporary_directory / "document.pdf").as_posix()
+        tempfile = str(self.temporary_directory / "document01.pdf")
 
         document = PDFDocument(tempfile)
         text_object = document.beginText(100, 100)
@@ -54,7 +54,7 @@ class TestReadDocuments(TestCase):
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_text_document(self) -> None:
-        tempfile = (self.temporary_directory / "document.txt").as_posix()
+        tempfile = str(self.temporary_directory / "document01.txt")
         document = P(tempfile)
         document.write_text("\n".join(self.lorem))
 
@@ -62,7 +62,7 @@ class TestReadDocuments(TestCase):
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_read_document(self) -> None:
-        tempfile = (self.temporary_directory / "document.txt").as_posix()
+        tempfile = str(self.temporary_directory / "document02.txt")
         document = P(tempfile)
         document.write_text("\n".join(self.lorem))
 
@@ -70,7 +70,7 @@ class TestReadDocuments(TestCase):
         self.assertIsNotNone(text)
         self.assertEqual(text, "\n".join(self.lorem))
 
-        tempfile = (self.temporary_directory / "document.bin").as_posix()
+        tempfile = str(self.temporary_directory / "document.bin")
         document = P(tempfile)
         document.write_bytes(urandom(128))
         self.assertIsNone(read_document(document))

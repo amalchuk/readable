@@ -8,7 +8,8 @@ from readable.settings.common import *
 # Core Settings:
 
 ADMINS: List[Tuple[str, str]] = [
-    ("Andrew Malchuk", "andrew.malchuk@yandex.ru")
+    ("Andrew Malchuk", "andrew.malchuk@yandex.ru"),
+    ("Andrew Malchuk", "webmaster@readable.pw")
 ]
 
 DATABASES = {
@@ -28,7 +29,3 @@ DATABASES = {
 SECRET_KEY = environ.get("DJANGO_SECRET_KEY", SECRET_KEY)
 
 USE_X_FORWARDED_HOST: bool = True
-
-# Static Files:
-
-STATICFILES_STORAGE: str = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
