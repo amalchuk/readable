@@ -35,7 +35,8 @@ def read_document(filename: _P) -> Optional[str]:
         ".txt": text_document
     }
     try:
-        callback = allowed_functions[filename.suffix]
+        extension = filename.suffix.lower()
+        callback = allowed_functions[extension]
         return "\n".join(callback(filename))
 
     except Exception as exception:

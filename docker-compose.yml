@@ -32,6 +32,7 @@ services:
     build: .
     image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
     container_name: readable
+    user: nobody:nogroup
     environment:
       # PostgreSQL environment variables:
       - POSTGRES_USER
@@ -57,8 +58,6 @@ services:
     build: ./deployment/nginx
     image: $CI_REGISTRY/$CI_PROJECT_PATH/nginx:latest
     container_name: nginx
-    tmpfs:
-      - /tmp
     volumes:
       - type: volume
         source: mediafiles
