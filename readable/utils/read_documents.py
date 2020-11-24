@@ -1,5 +1,5 @@
 from logging import getLogger as get_logger
-from pathlib import Path as P
+from pathlib import Path as _P
 from typing import Callable, Dict, Iterator, Optional
 
 from docx import Document as DOCXDocument
@@ -10,26 +10,26 @@ from fitz import TEXT_INHIBIT_SPACES
 logger = get_logger(__name__)
 
 
-def microsoft_word_document(filename: P) -> Iterator[str]:
+def microsoft_word_document(filename: _P) -> Iterator[str]:
     document: DOCXElement = DOCXDocument(filename)
     for paragraph in document.paragraphs:
         yield paragraph.text.strip()
 
 
-def pdf_document(filename: P) -> Iterator[str]:
+def pdf_document(filename: _P) -> Iterator[str]:
     document = PDFDocument(filename)
     for page in document:
         yield page.getText("text", flags=TEXT_INHIBIT_SPACES).strip()
 
 
-def text_document(filename: P) -> Iterator[str]:
+def text_document(filename: _P) -> Iterator[str]:
     with filename.open(encoding="utf-8") as istream:
         while text := istream.read(4096):
             yield text.strip()
 
 
-def read_document(filename: P) -> Optional[str]:
-    allowed_functions: Dict[str, Callable[[P], Iterator[str]]] = {
+def read_document(filename: _P) -> Optional[str]:
+    allowed_functions: Dict[str, Callable[[_P], Iterator[str]]] = {
         ".docx": microsoft_word_document,
         ".pdf": pdf_document,
         ".txt": text_document

@@ -1,6 +1,6 @@
 import logging
 from os import urandom
-from pathlib import Path as P
+from pathlib import Path as _P
 from typing import List
 
 from django.test.testcases import SimpleTestCase as TestCase
@@ -34,7 +34,7 @@ class TestReadDocuments(TestCase):
             document.add_paragraph(paragraph)
 
         document.save(tempfile)
-        text = "\n".join(microsoft_word_document(P(tempfile)))
+        text = "\n".join(microsoft_word_document(_P(tempfile)))
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_pdf_document(self) -> None:
@@ -50,28 +50,28 @@ class TestReadDocuments(TestCase):
         document.showPage()
         document.save()
 
-        text = "\n".join(pdf_document(P(tempfile)))
+        text = "\n".join(pdf_document(_P(tempfile)))
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_text_document(self) -> None:
         tempfile = str(self.temporary_directory / "document01.txt")
-        document = P(tempfile)
+        document = _P(tempfile)
         document.write_text("\n".join(self.lorem))
 
-        text = "\n".join(text_document(P(tempfile)))
+        text = "\n".join(text_document(_P(tempfile)))
         self.assertEqual(text, "\n".join(self.lorem))
 
     def test_read_document(self) -> None:
         tempfile = str(self.temporary_directory / "document02.txt")
-        document = P(tempfile)
+        document = _P(tempfile)
         document.write_text("\n".join(self.lorem))
 
-        text = read_document(P(tempfile))
+        text = read_document(_P(tempfile))
         self.assertIsNotNone(text)
         self.assertEqual(text, "\n".join(self.lorem))
 
         tempfile = str(self.temporary_directory / "document.bin")
-        document = P(tempfile)
+        document = _P(tempfile)
         document.write_bytes(urandom(128))
         self.assertIsNone(read_document(document))
 
