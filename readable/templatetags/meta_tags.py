@@ -25,11 +25,13 @@ def string_join(separator: str, iterable: Iterable[str]) -> str:
 
 @register.simple_tag
 def meta_description(*args: Any, **kwargs: Any) -> str:  # pragma: no cover
+    # Exclude from the code coverage 'cause it's already covered in create_meta function.
     description = smart_str(settings.READABLE_META_DESCRIPTION)
     return create_meta(name="description", content=description)
 
 
 @register.simple_tag
 def meta_keywords(*args: Any, **kwargs: Any) -> str:  # pragma: no cover
+    # Exclude from the code coverage 'cause it's already covered in create_meta function.
     keywords = string_join(", ", settings.READABLE_META_KEYWORDS)
     return create_meta(name="keywords", content=keywords)
