@@ -5,6 +5,6 @@
 Check and improve the spelling and grammar of documents.
 """
 
-__version__ = "0.1.8"
+__version__ = "0.1.9"
 
 default_app_config = "readable.apps.Configuration"

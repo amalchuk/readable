@@ -141,7 +141,7 @@ SECRET_KEY: str = get_random_secret_key()
 
 SHORT_DATE_FORMAT: str = "d.m.Y"  # 01.01.1999
 
-SHORT_DATETIME_FORMAT = "d.m.Y H:i:s"  # 01.01.1999 00:00:00
+SHORT_DATETIME_FORMAT: str = "d.m.Y H:i:s"  # 01.01.1999 00:00:00
 
 TEMPLATES: List[Dict[str, Any]] = [
     {

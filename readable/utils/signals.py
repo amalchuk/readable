@@ -36,7 +36,8 @@ def file_processing(document: Documents) -> None:
     document.save(update_fields=["status", "updated_at"])
 
 
-def documents_uploaded(*args: Any, **kwargs: Any) -> None:
+def documents_uploaded(*args: Any, **kwargs: Any) -> None:  # pragma: no cover
+    # Exclude from the code coverage 'cause it's called in another thread without additional conditions.
     is_created: bool = kwargs.pop("created")
     document: Documents = kwargs.pop("instance")
 

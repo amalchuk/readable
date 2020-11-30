@@ -1,5 +1,5 @@
 from functools import cached_property
-from pathlib import Path as P
+from pathlib import Path as _P
 from uuid import uuid4 as uuid
 
 from django.contrib.auth.models import User
@@ -46,6 +46,7 @@ class Staff(Model):
         ordering = ["-created_at", "-updated_at"]
 
     def __str__(self) -> str:  # pragma: no cover
+        # Exclude from the code coverage 'cause it's a string representation.
         return f"{self.user}"
 
 
@@ -67,6 +68,7 @@ class Documents(Model):
         ordering = ["-created_at", "-updated_at"]
 
     def __str__(self) -> str:  # pragma: no cover
+        # Exclude from the code coverage 'cause it's a string representation.
         return f"{self.realname}"
 
     @property
@@ -74,8 +76,8 @@ class Documents(Model):
         return self.status != self.Status.FINISHED
 
     @property
-    def path(self) -> P:
-        return P(self.filename.path)
+    def path(self) -> _P:
+        return _P(self.filename.path)
 
 
 class Metrics(Model):
@@ -92,8 +94,10 @@ class Metrics(Model):
         ordering = ["-created_at", "-updated_at"]
 
     def __str__(self) -> str:  # pragma: no cover
+        # Exclude from the code coverage 'cause it's a string representation.
         return f"{self.document}"
 
     @cached_property
     def indexes(self) -> Indexes:  # pragma: no cover
+        # Exclude from the code coverage 'cause it's an indexes representation.
         return compute_indexes(self.sentences, self.words, self.letters, self.syllables, is_russian=self.is_russian)
