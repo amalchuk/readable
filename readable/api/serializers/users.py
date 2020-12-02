@@ -6,6 +6,7 @@ from rest_framework.fields import CharField
 from rest_framework.serializers import ModelSerializer
 
 from readable.api.validators import validate_unique_username as is_unique_username
+from readable.models import Staff
 from readable.utils.validators import validate_ascii_username as is_ascii_username
 
 __all__ = ["UserCreateSerializer", "UserRetrieveUpdateSerializer"]
@@ -20,7 +21,9 @@ class UserCreateSerializer(ModelSerializer):
         fields = ["username", "password"]
 
     def create(self, validated_data: Dict[str, Any]) -> User:
-        return User.objects.create_user(**validated_data)
+        instance: User = User.objects.create_user(**validated_data)
+        Staff.objects.update_or_create(user=instance)
+        return instance
 
 
 class UserRetrieveUpdateSerializer(ModelSerializer):

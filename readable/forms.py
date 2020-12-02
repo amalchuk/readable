@@ -9,8 +9,8 @@ from django.forms.models import ModelForm as Form
 from django.utils.translation import gettext_lazy as _
 
 from readable.models import Documents
-from readable.utils.validators import validate_filename
 from readable.utils.validators import validate_ascii_username
+from readable.utils.validators import validate_filename
 
 
 class DocumentsForm(Form):
