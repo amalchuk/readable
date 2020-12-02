@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 from readable.models import Documents
 from readable.utils.validators import validate_filename
-from readable.utils.validators import validate_username
+from readable.utils.validators import validate_ascii_username
 
 
 class DocumentsForm(Form):
@@ -32,7 +32,7 @@ class AuthenticationForm(BaseAuthenticationForm):
 
 
 class UserCreationForm(BaseUserCreationForm):
-    username = CharField(label=_("Login"), min_length=6, max_length=50, validators=[validate_username])
+    username = CharField(label=_("Login"), min_length=6, max_length=50, validators=[validate_ascii_username])
 
     class Meta:
         model = User

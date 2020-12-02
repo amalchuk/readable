@@ -23,7 +23,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         add_success_message(self.request, _("Your account has been successfully updated."))
         return response
 
-    def get_object(self, queryset: Optional[QuerySet] = None) -> User:
+    def get_object(self, queryset: Optional["QuerySet[User]"] = None) -> User:
         return self.request.user
 
 

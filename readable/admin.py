@@ -83,7 +83,7 @@ class DocumentsAdmin(ModelAdmin):
             inlines.append(MetricsInline)
         return inlines
 
-    def get_queryset(self, request: HttpRequest) -> QuerySet:
+    def get_queryset(self, request: HttpRequest) -> "QuerySet[Documents]":
         qs: QuerySet = super(DocumentsAdmin, self).get_queryset(request)
         return qs if request.user.is_superuser else qs.filter(uploaded_by__user=request.user)
 
