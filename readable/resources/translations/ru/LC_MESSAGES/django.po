@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: readable\n"
 "POT-Creation-Date: 2020-03-21 00:00+0000\n"
-"PO-Revision-Date: 2020-08-17 00:00+0000\n"
+"PO-Revision-Date: 2020-12-02 00:00+0000\n"
 "Last-Translator: Andrew Malchuk <andrew.malchuk@yandex.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -11,14 +11,20 @@ msgstr ""
 msgid "Primary fields"
 msgstr "Первичные поля"
 
+msgid "Login"
+msgstr "Логин"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "A user with that username already exists."
+msgstr "Пользователь с таким именем уже существует."
+
 msgid "readable"
 msgstr "readable"
 
 msgid "No file was submitted."
 msgstr "Не выбрано ни одного файла."
-
-msgid "Login"
-msgstr "Логин"
 
 msgid "UUID"
 msgstr "Идентификатор"
@@ -87,10 +93,10 @@ msgid "Syllables"
 msgstr "Слогов"
 
 msgid "Metric"
-msgstr "Расчетный показатель"
+msgstr "Расчётный показатель"
 
 msgid "Metrics"
-msgstr "Расчетные показатели"
+msgstr "Расчётные показатели"
 
 msgid "Russian"
 msgstr "Русский"
@@ -168,7 +174,7 @@ msgid "Close"
 msgstr "Закрыть"
 
 msgid "You have not uploaded documents yet"
-msgstr "Вы еще не загрузили ни одного документа"
+msgstr "Вы ещё не загрузили ни одного документа"
 
 msgid "Get started today"
 msgstr "Начните сегодня"
@@ -198,7 +204,7 @@ msgid "Sign In"
 msgstr "Авторизация"
 
 msgid "Your username and password didn't match. Please try again."
-msgstr "Ваше имя пользователя и пароль не совпадают. Попробуйте еще раз."
+msgstr "Ваше имя пользователя и пароль не совпадают. Попробуйте ещё раз."
 
 msgid "Your account doesn't have access to this page. To proceed, please login with an account that has access."
 msgstr "У вас нет доступа к этой странице. Чтобы продолжить, войдите в систему."
@@ -210,7 +216,7 @@ msgid "Confirm identity"
 msgstr "Подтвердить"
 
 msgid "Don't have an account?"
-msgstr "Нет учетной записи?"
+msgstr "Нет учётной записи?"
 
 msgid "Register now"
 msgstr "Зарегистрируйтесь"
@@ -228,7 +234,7 @@ msgid "Registration"
 msgstr "Регистрация"
 
 msgid "Create an account"
-msgstr "Создать учетную запись"
+msgstr "Создать учётную запись"
 
 msgid "algorithm"
 msgstr "алгоритм"
@@ -243,10 +249,10 @@ msgid "The username should contain only Latin letters and digits 0 to 9."
 msgstr "Имя пользователя может содержать только латинские буквы и цифры от 0 до 9."
 
 msgid "Invalid file extension. Only \".docx\", \".pdf\" and \".txt\" are allowed."
-msgstr "Некорректный формат файла. Разрешенные форматы файлов: \".docx\", \".pdf\" и \".txt\"."
+msgstr "Некорректный формат файла. Разрешённые форматы файлов: \".docx\", \".pdf\" и \".txt\"."
 
 msgid "You have successfully logged out."
 msgstr "Вы успешно вышли из системы."
 
 msgid "Your account has been successfully updated."
-msgstr "Ваша учетная запись успешно обновлена."
+msgstr "Ваша учётная запись успешно обновлена."
