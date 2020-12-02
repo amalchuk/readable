@@ -7,6 +7,21 @@ from django.utils.translation import gettext_lazy as _
 
 from readable.utils.temporary import temporary_directory
 
+# Private Constant Settings:
+
+_DJANGO_STANDARD_LIBRARIES: List[str] = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.messages",
+    "django.contrib.sessions",
+    "django.contrib.staticfiles"
+]
+
+_DJANGO_THIRD_PARTY_LIBRARIES: List[str] = [
+    "rest_framework"
+]
+
 # Common Settings:
 
 BASE_DIR: _P = _P(__file__).parent.parent
@@ -68,15 +83,7 @@ FILE_UPLOAD_TEMP_DIR: str = str(temporary_directory())
 
 FIRST_DAY_OF_WEEK: int = 1  # Monday
 
-INSTALLED_APPS: List[str] = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.messages",
-    "django.contrib.sessions",
-    "django.contrib.staticfiles",
-    "readable"
-]
+INSTALLED_APPS: List[str] = _DJANGO_STANDARD_LIBRARIES + _DJANGO_THIRD_PARTY_LIBRARIES + ["readable"]
 
 LANGUAGE_CODE: str = "ru"
 
@@ -230,9 +237,56 @@ STATICFILES_DIRS: List[str] = [
     str(RESOURCES_DIR / "assets")
 ]
 
+# Django REST Framework Settings:
+
+REST_FRAMEWORK_DATE_FORMAT: str = r"%d.%m.%Y"
+
+REST_FRAMEWORK_DATE_INPUT_FORMATS: List[str] = [REST_FRAMEWORK_DATE_FORMAT]
+
+REST_FRAMEWORK_DATETIME_FORMAT: str = r"%d.%m.%Y %H:%M:%S"
+
+REST_FRAMEWORK_DATETIME_INPUT_FORMATS: List[str] = [REST_FRAMEWORK_DATETIME_FORMAT]
+
+REST_FRAMEWORK_AUTHENTICATION_CLASSES: List[str] = ["rest_framework.authentication.BasicAuthentication"]
+
+REST_FRAMEWORK_PAGINATION_CLASS: str = "rest_framework.pagination.PageNumberPagination"
+
+REST_FRAMEWORK_PARSER_CLASSES: List[str] = [
+    "rest_framework.parsers.JSONParser",
+    "rest_framework.parsers.MultiPartParser"
+]
+
+REST_FRAMEWORK_PERMISSION_CLASSES: List[str] = ["rest_framework.permissions.IsAuthenticated"]
+
+REST_FRAMEWORK_RENDERER_CLASSES: List[str] = ["rest_framework.renderers.JSONRenderer"]
+
+REST_FRAMEWORK_PAGE_SIZE: int = 10
+
+REST_FRAMEWORK_TIME_FORMAT: str = r"%H:%M:%S"
+
+REST_FRAMEWORK_TIME_INPUT_FORMATS: List[str] = [REST_FRAMEWORK_TIME_FORMAT]
+
+REST_FRAMEWORK_UNICODE_JSON: bool = False
+
+REST_FRAMEWORK: Dict[str, Any] = {
+    "DATE_FORMAT": REST_FRAMEWORK_DATE_FORMAT,
+    "DATE_INPUT_FORMATS": REST_FRAMEWORK_DATE_INPUT_FORMATS,
+    "DATETIME_FORMAT": REST_FRAMEWORK_DATETIME_FORMAT,
+    "DATETIME_INPUT_FORMATS": REST_FRAMEWORK_DATETIME_INPUT_FORMATS,
+    "DEFAULT_AUTHENTICATION_CLASSES": REST_FRAMEWORK_AUTHENTICATION_CLASSES,
+    "DEFAULT_PAGINATION_CLASS": REST_FRAMEWORK_PAGINATION_CLASS,
+    "DEFAULT_PARSER_CLASSES": REST_FRAMEWORK_PARSER_CLASSES,
+    "DEFAULT_PERMISSION_CLASSES": REST_FRAMEWORK_PERMISSION_CLASSES,
+    "DEFAULT_RENDERER_CLASSES": REST_FRAMEWORK_RENDERER_CLASSES,
+    "PAGE_SIZE": REST_FRAMEWORK_PAGE_SIZE,
+    "TIME_FORMAT": REST_FRAMEWORK_TIME_FORMAT,
+    "TIME_INPUT_FORMATS": REST_FRAMEWORK_TIME_INPUT_FORMATS,
+    "UNICODE_JSON": REST_FRAMEWORK_UNICODE_JSON
+}
+
 # Miscellaneous:
 
-READABLE_DOCUMENTS_PAGINATE_BY: int = 10
+READABLE_DOCUMENTS_PAGINATE_BY: int = REST_FRAMEWORK_PAGE_SIZE
 
 READABLE_META_DESCRIPTION: str = _("This tool will quickly test the readability, spelling and grammar of your text")
 

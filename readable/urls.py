@@ -1,4 +1,5 @@
 from django.contrib.admin.sites import site as default_site
+from django.urls.conf import include
 from django.urls.conf import path
 from django.utils.translation import gettext_lazy as _
 
@@ -24,5 +25,6 @@ urlpatterns = [
     path("profile/logout/", logout_view, name="logout"),
     path("profile/registration/", registration_view, name="registration"),
     path("profile/", profile_view, name="profile"),
-    path("dashboard/", default_site.urls)
+    path("dashboard/", default_site.urls),
+    path("api/", include("readable.api.urls"))
 ]

@@ -11,7 +11,7 @@ class DocumentsDetailView(LoginRequiredMixin, DetailView):
     model = Documents
     template_name = "documents_detail.html"
 
-    def get_queryset(self) -> QuerySet:
+    def get_queryset(self) -> "QuerySet[Documents]":
         return self.model.objects.filter(uploaded_by__user=self.request.user)
 
 
