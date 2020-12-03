@@ -1,9 +1,9 @@
 from django.urls.conf import path
 
-from readable.api.views import document_list_create_view
-from readable.api.views import document_retrieve_view
-from readable.api.views import user_create_view
-from readable.api.views import user_retrieve_update_view
+from readable.public_api.views import document_list_create_view
+from readable.public_api.views import document_retrieve_view
+from readable.public_api.views import user_create_view
+from readable.public_api.views import user_retrieve_update_view
 
 # URL Dispatcher:
 

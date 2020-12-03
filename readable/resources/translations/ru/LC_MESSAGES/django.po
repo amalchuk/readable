@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: readable\n"
 "POT-Creation-Date: 2020-03-21 00:00+0000\n"
-"PO-Revision-Date: 2020-12-02 00:00+0000\n"
+"PO-Revision-Date: 2020-12-03 00:00+0000\n"
 "Last-Translator: Andrew Malchuk <andrew.malchuk@yandex.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -11,20 +11,14 @@ msgstr ""
 msgid "Primary fields"
 msgstr "Первичные поля"
 
-msgid "Login"
-msgstr "Логин"
-
-msgid "Password"
-msgstr "Пароль"
-
-msgid "A user with that username already exists."
-msgstr "Пользователь с таким именем уже существует."
-
 msgid "readable"
 msgstr "readable"
 
 msgid "No file was submitted."
 msgstr "Не выбрано ни одного файла."
+
+msgid "Login"
+msgstr "Логин"
 
 msgid "UUID"
 msgstr "Идентификатор"
@@ -98,6 +92,21 @@ msgstr "Расчётный показатель"
 msgid "Metrics"
 msgstr "Расчётные показатели"
 
+msgid "Flesch-Kincaid score"
+msgstr "Индекс удобочитаемости Флеша"
+
+msgid "Automated readability index"
+msgstr "Автоматический индекс удобочитаемости"
+
+msgid "Coleman-Liau index"
+msgstr "Индекс удобочитаемости Колман-Лиау"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "The username already exists. Please use a different username."
+msgstr "Пользователь с таким именем уже существует. Используйте другое имя."
+
 msgid "Russian"
 msgstr "Русский"
 
@@ -109,15 +118,6 @@ msgstr "Данный сервис проверит читабельность, �
 
 msgid "Add document"
 msgstr "Добавить документ"
-
-msgid "Automated readability index"
-msgstr "Автоматический индекс удобочитаемости"
-
-msgid "Coleman-Liau index"
-msgstr "Индекс удобочитаемости Колман-Лиау"
-
-msgid "Flesch-Kincaid score"
-msgstr "Индекс удобочитаемости Флеша"
 
 msgid "Grammar"
 msgstr "Грамматика"
