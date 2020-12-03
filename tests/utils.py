@@ -11,6 +11,7 @@ from readable.models import Documents
 from readable.models import Staff
 from readable.utils.signals import documents_uploaded
 from readable.utils.signals import user_logged_in_out
+from readable.utils.signals import user_staff_is_created
 
 
 class TestCase(BaseTestCase):
@@ -20,6 +21,7 @@ class TestCase(BaseTestCase):
         post_save.disconnect(documents_uploaded, Documents)
         user_logged_in.disconnect(user_logged_in_out)
         user_logged_out.disconnect(user_logged_in_out)
+        post_save.disconnect(user_staff_is_created, User)
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -27,6 +29,7 @@ class TestCase(BaseTestCase):
         post_save.connect(documents_uploaded, Documents)
         user_logged_in.connect(user_logged_in_out)
         user_logged_out.connect(user_logged_in_out)
+        post_save.connect(user_staff_is_created, User)
 
     @staticmethod
     def get_random_string() -> str:

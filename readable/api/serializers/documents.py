@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework.fields import CharField
 from rest_framework.fields import FileField
-from rest_framework.fields import FloatField
+from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
 from readable.models import Documents
@@ -29,13 +29,13 @@ class DocumentListSerializer(ModelSerializer):
 
 
 class MetricsSerializer(ModelSerializer):
-    flesch_reading_ease_score = FloatField(label=_("Flesch-Kincaid score"), source="indexes.flesch_reading_ease_score")
-    automated_readability_index = FloatField(label=_("Automated readability index"), source="indexes.automated_readability_index")
-    coleman_liau_index = FloatField(label=_("Coleman-Liau index"), source="indexes.coleman_liau_index")
+    flesch_reading_ease_score = SerializerMethodField(label=_("Flesch-Kincaid score"))
+    automated_readability_index = SerializerMethodField(label=_("Automated readability index"))
+    coleman_liau_index = SerializerMethodField(label=_("Coleman-Liau index"))
 
     class Meta:
         model = Metrics
-        fields = read_only_fields = [
+        fields = [
             "is_russian",
             "sentences",
             "words",
@@ -45,6 +45,15 @@ class MetricsSerializer(ModelSerializer):
             "automated_readability_index",
             "coleman_liau_index"
         ]
+
+    def get_flesch_reading_ease_score(self, obj: Metrics) -> float:
+        return obj.indexes.flesch_reading_ease_score
+
+    def get_automated_readability_index(self, obj: Metrics) -> float:
+        return obj.indexes.automated_readability_index
+
+    def get_coleman_liau_index(self, obj: Metrics) -> float:
+        return obj.indexes.coleman_liau_index
 
 
 class DocumentRetrieveSerializer(DocumentListSerializer):

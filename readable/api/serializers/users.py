@@ -1,12 +1,12 @@
 from typing import Any, Dict
 
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password as standard_validate_password
 from django.utils.translation import gettext_lazy as _
 from rest_framework.fields import CharField
 from rest_framework.serializers import ModelSerializer
 
 from readable.api.validators import validate_unique_username as is_unique_username
-from readable.models import Staff
 from readable.utils.validators import validate_ascii_username as is_ascii_username
 
 __all__ = ["UserCreateSerializer", "UserRetrieveUpdateSerializer"]
@@ -21,9 +21,18 @@ class UserCreateSerializer(ModelSerializer):
         fields = ["username", "password"]
 
     def create(self, validated_data: Dict[str, Any]) -> User:
-        instance: User = User.objects.create_user(**validated_data)
-        Staff.objects.update_or_create(user=instance)
-        return instance
+        return User.objects.create_user(**validated_data)
+
+    def validate_password(self, password: str) -> str:
+        """
+        Validate whether the password meets all validator requirements.
+        """
+        initial_data: Dict[str, str] = self.get_initial()
+        instance: User = User(**initial_data)
+        instance.set_unusable_password()
+
+        standard_validate_password(password, user=instance)
+        return password
 
 
 class UserRetrieveUpdateSerializer(ModelSerializer):

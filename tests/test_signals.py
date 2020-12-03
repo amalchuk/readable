@@ -81,3 +81,14 @@ class TestUserLoggedInOut(TestCase):
         staff: Staff = Staff.objects.get(user=self.user)
         self.assertEqual(staff.user_agent, defaults["HTTP_USER_AGENT"])
         self.assertEqual(staff.ip_address, defaults["REMOTE_ADDR"])
+
+
+class TestUserStaffIsCreated(TestCase):
+    def setUp(self) -> None:
+        self.username = "staff"
+        self.password = get_random_string()
+
+    def test_user_staff_is_created(self) -> None:
+        self.assertEqual(Staff.objects.count(), 0)
+        user: User = create_user(self.username, self.password)
+        self.assertTrue(Staff.objects.filter(user=user).exists())
