@@ -20,11 +20,11 @@ default_site.index_title = _("Dashboard")
 
 urlpatterns = [
     path("", index_view, name="index"),
-    path("documents/<uuid:pk>/", documents_detail_view, name="documents_detail"),
+    path("documents/<uuid:pk>/", documents_detail_view, name="documents-detail"),
     path("profile/login/", login_view, name="login"),
     path("profile/logout/", logout_view, name="logout"),
     path("profile/registration/", registration_view, name="registration"),
     path("profile/", profile_view, name="profile"),
     path("dashboard/", default_site.urls),
-    path("api/", include("readable.api.urls"))
+    path("api/", include("readable.public_api.urls"))
 ]

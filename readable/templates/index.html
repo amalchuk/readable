@@ -24,7 +24,7 @@
     {% if document.unavailable %}
     <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">
     {% else %}
-    <a href="{% url 'documents_detail' document.id %}" class="list-group-item list-group-item-action">
+    <a href="{% url 'documents-detail' document.id %}" class="list-group-item list-group-item-action">
     {% endif %}
       <div class="row row-cols-1 row-cols-md-3">
         <div class="col col-md-6 text-truncate" title="{{ document.realname }}">{{ document.realname }}</div>

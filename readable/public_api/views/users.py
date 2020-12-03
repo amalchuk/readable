@@ -3,8 +3,8 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny
 
-from readable.api.serializers.users import UserCreateSerializer
-from readable.api.serializers.users import UserRetrieveUpdateSerializer
+from readable.public_api.serializers.users import UserCreateSerializer
+from readable.public_api.serializers.users import UserRetrieveUpdateSerializer
 
 __all__ = ["user_create_view", "user_retrieve_update_view"]
 

@@ -5,11 +5,11 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.serializers import BaseSerializer
 
-from readable.api.serializers.documents import DocumentCreateSerializer
-from readable.api.serializers.documents import DocumentListSerializer
-from readable.api.serializers.documents import DocumentRetrieveSerializer
 from readable.models import Documents
 from readable.models import Staff
+from readable.public_api.serializers.documents import DocumentCreateSerializer
+from readable.public_api.serializers.documents import DocumentListSerializer
+from readable.public_api.serializers.documents import DocumentRetrieveSerializer
 
 __all__ = ["document_list_create_view", "document_retrieve_view"]
 
@@ -21,8 +21,8 @@ class DocumentListCreateAPIView(ListCreateAPIView):
     }
 
     def get_serializer_class(self) -> Type[BaseSerializer]:
-        request_method: str = self.request.method.lower()
-        return self.serializer_method_classes[request_method]
+        method: str = self.request.method.lower()
+        return self.serializer_method_classes[method]
 
     def get_queryset(self) -> "QuerySet[Documents]":
         return Documents.objects.filter(uploaded_by__user=self.request.user)

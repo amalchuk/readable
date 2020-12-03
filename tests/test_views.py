@@ -68,12 +68,12 @@ class TestDocumentsDetailView(TestCase):
         self.assertRedirects(self.response, reverse("index"))
 
         document: Documents = Documents.objects.get(uploaded_by=self.staff1)
-        self.response = self.client.get(reverse("documents_detail", args=[document.id]))
+        self.response = self.client.get(reverse("documents-detail", args=[document.id]))
         self.assertEqual(self.response.status_code, HTTPStatus.OK)
 
         document.uploaded_by = self.staff2
         document.save(update_fields=["uploaded_by"])
-        self.response = self.client.get(reverse("documents_detail", args=[document.id]))
+        self.response = self.client.get(reverse("documents-detail", args=[document.id]))
         self.assertEqual(self.response.status_code, HTTPStatus.NOT_FOUND)
 
     def tearDown(self) -> None:
