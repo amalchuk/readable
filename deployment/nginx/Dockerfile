@@ -1,5 +1,5 @@
 FROM nginx:mainline-alpine
-LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.2.0"
+LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.2.1"
 
 WORKDIR /etc/nginx
 COPY ["docker-entrypoint", "/usr/local/bin/"]
