@@ -28,7 +28,8 @@ class AuthenticationForm(BaseAuthenticationForm):
         """
         All case-based characters of the username field will be lowercased.
         """
-        return normalize("NFKC", self.cleaned_data["username"]).lower()
+        username: str = normalize("NFKC", self.cleaned_data["username"])
+        return username.lower() if not username.islower() else username
 
 
 class UserCreationForm(BaseUserCreationForm):
@@ -42,7 +43,8 @@ class UserCreationForm(BaseUserCreationForm):
         """
         All case-based characters of the username field will be lowercased.
         """
-        return self.cleaned_data["username"].lower()
+        username: str = self.cleaned_data["username"]
+        return username.lower() if not username.islower() else username
 
 
 class UserForm(Form):

@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework.fields import CharField
 from rest_framework.serializers import ModelSerializer
 
-from readable.public_api.validators import validate_unique_username as is_unique_username
+from readable.public_api.utils.validators import validate_unique_username as is_unique_username
 from readable.utils.validators import validate_ascii_username as is_ascii_username
 
 __all__ = ["UserCreateSerializer", "UserRetrieveUpdateSerializer"]
@@ -20,14 +20,17 @@ class UserCreateSerializer(ModelSerializer):
         model = User
         fields = ["username", "password"]
 
-    def create(self, validated_data: Dict[str, Any]) -> User:
+    def create(self, validated_data: Dict[str, str]) -> User:
+        """
+        Create and save a user with the given ``username`` and ``password``.
+        """
         return User.objects.create_user(**validated_data)
 
     def validate_username(self, username: str) -> str:
         """
         All case-based characters of the username field will be lowercased.
         """
-        return username.lower()
+        return username.lower() if not username.islower() else username
 
     def validate_password(self, password: str) -> str:
         """
