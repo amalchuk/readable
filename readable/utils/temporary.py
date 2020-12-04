@@ -8,6 +8,6 @@ def temporary_directory() -> _P:
     """
     Create a unique temporary directory.
     """
-    directory = _temporary_directory(prefix="readable")
+    directory = _temporary_directory()
     register(delete, directory, ignore_errors=True)
     return _P(directory)

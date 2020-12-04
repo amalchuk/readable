@@ -1,5 +1,5 @@
 from pathlib import PurePath as _P
-from typing import Any, Dict, Final, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from django.contrib.messages import constants as message_constants
 from django.core.management.utils import get_random_secret_key
@@ -9,17 +9,17 @@ from readable.utils.temporary import temporary_directory
 
 # Common Settings:
 
-BASE_DIR: Final[_P] = _P(__file__).parent.parent
+BASE_DIR: _P = _P(__file__).parent.parent
 
-RESOURCES_DIR: Final[_P] = BASE_DIR / "resources"
+RESOURCES_DIR: _P = BASE_DIR / "resources"
 
-DEFAULT_DATE_FORMAT: Final[str] = r"%d.%m.%Y"  # 01.01.1999
+DEFAULT_DATE_FORMAT: str = r"%d.%m.%Y"  # 01.01.1999
 
-DEFAULT_DATETIME_FORMAT: Final[str] = r"%d.%m.%Y %H:%M:%S"  # 01.01.1999 00:00:00
+DEFAULT_DATETIME_FORMAT: str = r"%d.%m.%Y %H:%M:%S"  # 01.01.1999 00:00:00
 
-DEFAULT_TIME_FORMAT: Final[str] = r"%H:%M:%S"  # 00:00:00
+DEFAULT_TIME_FORMAT: str = r"%H:%M:%S"  # 00:00:00
 
-DJANGO_STANDARD_LIBRARIES: Final[List[str]] = [
+DJANGO_STANDARD_LIBRARIES: List[str] = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -28,11 +28,11 @@ DJANGO_STANDARD_LIBRARIES: Final[List[str]] = [
     "django.contrib.staticfiles"
 ]
 
-DJANGO_THIRD_PARTY_LIBRARIES: Final[List[str]] = [
+DJANGO_THIRD_PARTY_LIBRARIES: List[str] = [
     "rest_framework"
 ]
 
-DJANGO_FIRST_PARTY_LIBRARIES: Final[List[str]] = [
+DJANGO_FIRST_PARTY_LIBRARIES: List[str] = [
     "readable",
     "readable.public_api"
 ]
@@ -135,7 +135,7 @@ LOGGING: Dict[str, Any] = {
     }
 }
 
-MIDDLEWARE: Final[List[str]] = [
+MIDDLEWARE: List[str] = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -255,7 +255,7 @@ REST_FRAMEWORK_RENDERER_CLASSES: List[str] = ["rest_framework.renderers.JSONRend
 
 REST_FRAMEWORK_PAGE_SIZE: int = 10
 
-REST_FRAMEWORK: Final[Dict[str, Any]] = {
+REST_FRAMEWORK: Dict[str, Any] = {
     "DATE_FORMAT": DEFAULT_DATE_FORMAT,
     "DATE_INPUT_FORMATS": DATE_INPUT_FORMATS,
     "DATETIME_FORMAT": DEFAULT_DATETIME_FORMAT,
