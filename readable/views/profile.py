@@ -11,6 +11,8 @@ from django.views.generic.edit import UpdateView
 
 from readable.forms import UserForm
 
+__all__ = ["profile_view"]
+
 
 class ProfileView(LoginRequiredMixin, UpdateView):
     form_class = UserForm

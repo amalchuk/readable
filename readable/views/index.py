@@ -11,6 +11,8 @@ from django.views.generic.edit import CreateView
 from readable.forms import DocumentsForm
 from readable.models import Documents
 
+__all__ = ["index_view"]
+
 
 @method_decorator(login_required, name="post")
 class IndexView(CreateView):

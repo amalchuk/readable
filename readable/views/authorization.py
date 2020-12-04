@@ -12,6 +12,8 @@ from django.views.generic.edit import CreateView
 from readable.forms import AuthenticationForm
 from readable.forms import UserCreationForm
 
+__all__ = ["login_view", "logout_view", "registration_view"]
+
 
 class LoginView(BaseLoginView):
     form_class = AuthenticationForm

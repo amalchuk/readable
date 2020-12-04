@@ -4,6 +4,8 @@ from django.views.generic.detail import DetailView
 
 from readable.models import Documents
 
+__all__ = ["documents_detail_view"]
+
 
 class DocumentsDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "document"
