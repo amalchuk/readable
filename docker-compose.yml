@@ -58,6 +58,8 @@ services:
     build: ./deployment/nginx
     image: $CI_REGISTRY/$CI_PROJECT_PATH/nginx:latest
     container_name: nginx
+    tmpfs:
+      - /var/cache/nginx
     volumes:
       - type: volume
         source: mediafiles

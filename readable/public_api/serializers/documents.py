@@ -8,7 +8,7 @@ from readable.models import Documents
 from readable.models import Metrics
 from readable.utils.validators import validate_filename as is_supported_extension
 
-__all__ = ["DocumentCreateSerializer", "DocumentListSerializer", "DocumentRetrieveSerializer", "MetricsSerializer"]
+__all__ = ["DocumentCreateSerializer", "DocumentListSerializer", "DocumentRetrieveSerializer", "MetricSerializer"]
 
 
 class DocumentCreateSerializer(ModelSerializer):
@@ -28,7 +28,7 @@ class DocumentListSerializer(ModelSerializer):
         fields = ["id", "filename", "status", "created_at", "updated_at"]
 
 
-class MetricsSerializer(ModelSerializer):
+class MetricSerializer(ModelSerializer):
     flesch_reading_ease_score = SerializerMethodField(label=_("Flesch-Kincaid score"))
     automated_readability_index = SerializerMethodField(label=_("Automated readability index"))
     coleman_liau_index = SerializerMethodField(label=_("Coleman-Liau index"))
@@ -57,7 +57,7 @@ class MetricsSerializer(ModelSerializer):
 
 
 class DocumentRetrieveSerializer(DocumentListSerializer):
-    metrics = MetricsSerializer(label=_("Metrics"), read_only=True)
+    metrics = MetricSerializer(label=_("Metrics"), read_only=True)
 
     class Meta:
         model = Documents

@@ -1,5 +1,5 @@
 from pathlib import PurePath as _P
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Final, List, Optional, Tuple
 
 from django.contrib.messages import constants as message_constants
 from django.core.management.utils import get_random_secret_key
@@ -7,9 +7,19 @@ from django.utils.translation import gettext_lazy as _
 
 from readable.utils.temporary import temporary_directory
 
-# Private Constant Settings:
+# Common Settings:
 
-_DJANGO_STANDARD_LIBRARIES: List[str] = [
+BASE_DIR: Final[_P] = _P(__file__).parent.parent
+
+RESOURCES_DIR: Final[_P] = BASE_DIR / "resources"
+
+DEFAULT_DATE_FORMAT: Final[str] = r"%d.%m.%Y"  # 01.01.1999
+
+DEFAULT_DATETIME_FORMAT: Final[str] = r"%d.%m.%Y %H:%M:%S"  # 01.01.1999 00:00:00
+
+DEFAULT_TIME_FORMAT: Final[str] = r"%H:%M:%S"  # 00:00:00
+
+DJANGO_STANDARD_LIBRARIES: Final[List[str]] = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -18,21 +28,14 @@ _DJANGO_STANDARD_LIBRARIES: List[str] = [
     "django.contrib.staticfiles"
 ]
 
-_DJANGO_THIRD_PARTY_LIBRARIES: List[str] = [
+DJANGO_THIRD_PARTY_LIBRARIES: Final[List[str]] = [
     "rest_framework"
 ]
 
-# Common Settings:
-
-BASE_DIR: _P = _P(__file__).parent.parent
-
-RESOURCES_DIR: _P = BASE_DIR / "resources"
-
-DEFAULT_DATE_FORMAT: str = r"%d.%m.%Y"  # 01.01.1999
-
-DEFAULT_DATETIME_FORMAT: str = r"%d.%m.%Y %H:%M:%S"  # 01.01.1999 00:00:00
-
-DEFAULT_TIME_FORMAT: str = r"%H:%M:%S"  # 00:00:00
+DJANGO_FIRST_PARTY_LIBRARIES: Final[List[str]] = [
+    "readable",
+    "readable.public_api"
+]
 
 # Core Settings:
 
@@ -84,7 +87,7 @@ FILE_UPLOAD_TEMP_DIR: str = str(temporary_directory())
 
 FIRST_DAY_OF_WEEK: int = 1  # Monday
 
-INSTALLED_APPS: List[str] = _DJANGO_STANDARD_LIBRARIES + _DJANGO_THIRD_PARTY_LIBRARIES + ["readable"]
+INSTALLED_APPS: List[str] = DJANGO_STANDARD_LIBRARIES + DJANGO_THIRD_PARTY_LIBRARIES + DJANGO_FIRST_PARTY_LIBRARIES
 
 LANGUAGE_CODE: str = "ru"
 
@@ -132,7 +135,7 @@ LOGGING: Dict[str, Any] = {
     }
 }
 
-MIDDLEWARE: List[str] = [
+MIDDLEWARE: Final[List[str]] = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -252,7 +255,7 @@ REST_FRAMEWORK_RENDERER_CLASSES: List[str] = ["rest_framework.renderers.JSONRend
 
 REST_FRAMEWORK_PAGE_SIZE: int = 10
 
-REST_FRAMEWORK: Dict[str, Any] = {
+REST_FRAMEWORK: Final[Dict[str, Any]] = {
     "DATE_FORMAT": DEFAULT_DATE_FORMAT,
     "DATE_INPUT_FORMATS": DATE_INPUT_FORMATS,
     "DATETIME_FORMAT": DEFAULT_DATETIME_FORMAT,

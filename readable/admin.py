@@ -84,7 +84,7 @@ class DocumentsAdmin(ModelAdmin):
         return inlines
 
     def get_queryset(self, request: HttpRequest) -> "QuerySet[Documents]":
-        qs: QuerySet = super(DocumentsAdmin, self).get_queryset(request)
+        qs: "QuerySet[Documents]" = super(DocumentsAdmin, self).get_queryset(request)
         return qs if request.user.is_superuser else qs.filter(uploaded_by__user=request.user)
 
     def save_model(self, request: HttpRequest, obj: Documents, *args: Any, **kwargs: Any) -> None:
