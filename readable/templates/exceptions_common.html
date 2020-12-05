@@ -1,0 +1,26 @@
+{% spaceless %}
+{% load i18n static %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <title>{{ status_code }} &ndash; {% block title %}{% trans 'Site Maintenance' %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
+  </head>
+  <body>
+    <div class="d-flex vh-100">
+      <div class="d-flex w-100 justify-content-center align-self-center">
+        <h1 class="mr-3 pr-3 border-right">{{ status_code }}</h1>
+        <div class="d-inline-flex align-items-center">
+          <h2 class="font-weight-normal lead">{% block description %}{% trans 'Site Maintenance' %}{% endblock %}</h2>
+        </div>
+      </div>
+    </div>
+    {% include 'scripts.html' %}
+  </body>
+</html>
+{% endspaceless %}

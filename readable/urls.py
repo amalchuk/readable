@@ -1,4 +1,7 @@
+from typing import Callable, Union
+
 from django.contrib.admin.sites import site as default_site
+from django.http.response import HttpResponse
 from django.urls.conf import include
 from django.urls.conf import path
 from django.utils.translation import gettext_lazy as _
@@ -23,3 +26,10 @@ urlpatterns = [
     path("dashboard/", default_site.urls),
     path("api/", include("readable.public_api.urls"))
 ]
+
+# Override the built-in views:
+
+handler400: Union[str, Callable[..., HttpResponse]] = views.bad_request_view
+handler403: Union[str, Callable[..., HttpResponse]] = views.permission_denied_view
+handler404: Union[str, Callable[..., HttpResponse]] = views.page_not_found_view
+handler500: Union[str, Callable[..., HttpResponse]] = views.server_error_view
