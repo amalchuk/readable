@@ -122,7 +122,13 @@ LOGGING: Dict[str, Any] = {
     "loggers": {
         "django": {
             "handlers": ["console"],
-            "level": "INFO"
+            "level": "INFO",
+            "propagate": False
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False
         },
         "django.security.DisallowedHost": {
             "handlers": ["blank"],
