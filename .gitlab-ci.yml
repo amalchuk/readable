@@ -1,5 +1,5 @@
 ---
-image: python:3.9-buster
+image: registry.gitlab.com/amalchuk/docker-poetry:1.1.4-py3.9
 
 stages:
   - testing
@@ -9,7 +9,7 @@ stages:
 code quality:
   stage: testing
   script:
-    - make pip-install-development
+    - make install
     - make isort mypy
     - make coverage
   artifacts:
