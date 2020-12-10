@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Type
 
 from django.contrib.admin.decorators import register
 from django.contrib.admin.options import InlineModelAdmin
@@ -7,6 +7,7 @@ from django.contrib.admin.options import StackedInline
 from django.contrib.admin.sites import site as default_site
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
+from django.db.models.base import Model as BaseModel
 from django.db.models.query import QuerySet
 from django.http.request import HttpRequest
 from django.utils.translation import gettext_lazy as _
@@ -15,15 +16,17 @@ from readable.models import Documents
 from readable.models import Metrics
 from readable.models import Staff
 
+_FieldSetsType = List[Tuple[Optional[str], Dict[str, List[str]]]]
+
 # Re-register UserAdmin:
 default_site.unregister(User)
 
 
 class StaffInline(StackedInline):
-    can_delete = False
-    model = Staff
-    readonly_fields = ["user_agent", "ip_address"]
-    fieldsets = [
+    can_delete: bool = False
+    model: Type[BaseModel] = Staff
+    readonly_fields: List[str] = ["user_agent", "ip_address"]
+    fieldsets: _FieldSetsType = [
         (None, {
             "fields": ["user_agent", "ip_address"]
         })
@@ -40,10 +43,10 @@ class UserAdmin(BaseUserAdmin):
 
 
 class MetricsInline(StackedInline):
-    can_delete = False
-    model = Metrics
-    readonly_fields = ["is_russian", "sentences", "words", "letters", "syllables"]
-    fieldsets = [
+    can_delete: bool = False
+    model: Type[BaseModel] = Metrics
+    readonly_fields: List[str] = ["is_russian", "sentences", "words", "letters", "syllables"]
+    fieldsets: _FieldSetsType = [
         (None, {
             "fields": ["is_russian", "sentences", "words", "letters", "syllables"]
         })
@@ -52,16 +55,16 @@ class MetricsInline(StackedInline):
 
 @register(Documents)
 class DocumentsAdmin(ModelAdmin):
-    date_hierarchy = "created_at"
-    list_display = ["id", "realname", "status", "created_at", "updated_at"]
-    list_filter = ["status"]
-    readonly_fields = ["realname", "status", "uploaded_by", "created_at", "updated_at"]
-    fieldsets = [
+    date_hierarchy: str = "created_at"
+    list_display: List[str] = ["id", "realname", "status", "created_at", "updated_at"]
+    list_filter: List[str] = ["status"]
+    readonly_fields: List[str] = ["realname", "status", "uploaded_by", "created_at", "updated_at"]
+    fieldsets: _FieldSetsType = [
         (_("Primary fields"), {
             "fields": ["filename", "status", "uploaded_by"]
         })
     ]
-    add_fieldsets = [
+    add_fieldsets: _FieldSetsType = [
         (None, {
             "fields": ["filename"],
             "classes": ["wide"]
@@ -74,8 +77,8 @@ class DocumentsAdmin(ModelAdmin):
     def has_delete_permission(self, request: HttpRequest, obj: Optional[Documents] = None) -> bool:
         return request.user.is_superuser and obj is not None and obj.unavailable
 
-    def get_fieldsets(self, request: HttpRequest, obj: Optional[Documents] = None) -> List[Tuple[Optional[str], Dict[str, List[str]]]]:
-        return self.add_fieldsets if obj is None else super(DocumentsAdmin, self).get_fieldsets(request, obj)
+    def get_fieldsets(self, request: HttpRequest, obj: Optional[Documents] = None) -> _FieldSetsType:
+        return self.add_fieldsets if obj is None else self.fieldsets
 
     def get_inlines(self, request: HttpRequest, obj: Optional[Documents]) -> List[InlineModelAdmin]:
         inlines: List[InlineModelAdmin] = super(DocumentsAdmin, self).get_inlines(request, obj).copy()
@@ -89,4 +92,4 @@ class DocumentsAdmin(ModelAdmin):
 
     def save_model(self, request: HttpRequest, obj: Documents, *args: Any, **kwargs: Any) -> None:
         obj.uploaded_by = request.user.staff
-        return super(DocumentsAdmin, self).save_model(request, obj, *args, **kwargs)
+        obj.save()
