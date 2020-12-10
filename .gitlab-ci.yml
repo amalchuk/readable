@@ -1,5 +1,5 @@
 ---
-image: registry.gitlab.com/amalchuk/docker-poetry:1.1.4-py3.9
+image: python:3.9-buster
 
 stages:
   - testing
@@ -8,14 +8,11 @@ stages:
 
 code quality:
   stage: testing
-  script:
-    - make install
-    - make isort mypy
-    - make coverage
+  script: make pip-install-development isort mypy coverage
   artifacts:
     paths:
-      - htmlcov
-    expire_in: 3 days
+      - .coverage
+    expire_in: 1 hour
 
 build images:
   image: docker/compose:1.27.4
@@ -54,9 +51,7 @@ pages:
   stage: publishing
   dependencies:
     - code quality
-  script:
-    - rm --force --recursive public
-    - cp --recursive htmlcov public
+  script: make coverage-html
   environment:
     name: coverage
     url: https://coverage.readable.pw

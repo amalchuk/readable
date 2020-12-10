@@ -1,7 +1,7 @@
 REQUIREMENTS_DEVELOPMENT := requirements/development.txt
 REQUIREMENTS_PRODUCTION := requirements/production.txt
 
-.PHONY: all install pip-update-setuptools pip-install-development pip-install freeze isort mypy test coverage clean
+.PHONY: all install pip-update-setuptools pip-install-development pip-install freeze isort mypy test coverage coverage-html clean
 
 all: install clean
 
@@ -42,6 +42,9 @@ test:
 coverage: test
 	@echo "Analyzing the code coverage for all test cases"
 	@coverage report
+
+coverage-html:
+	@echo "Create an HTML report of the code coverage"
 	@coverage html
 
 clean:
