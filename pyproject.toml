@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.2.7"
+version     = "0.2.8"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -12,7 +12,6 @@ include     = ["manage.py"]
 
 [tool.poetry.dependencies]
 python              = ">=3.9, <4.0"
-cryptography        = "3.3.1"
 diskcache           = "5.1.0"
 django              = "3.1.4"
 djangorestframework = "3.12.2"

@@ -11,15 +11,15 @@ install:
 
 pip-update-setuptools:
 	@echo "Updating the pip, setuptools and wheel packages"
-	@python -m pip install pip setuptools wheel --upgrade --force-reinstall --no-cache-dir
+	@python -m pip install pip setuptools wheel --upgrade --force-reinstall --quiet --no-cache-dir
 
 pip-install-development: pip-update-setuptools
 	@echo "Installing the dependencies for development"
-	@pip install --requirement $(REQUIREMENTS_DEVELOPMENT) --no-deps --upgrade --force-reinstall --no-cache-dir
+	@pip install --requirement $(REQUIREMENTS_DEVELOPMENT) --no-deps --upgrade --force-reinstall --quiet --no-cache-dir
 
 pip-install: pip-update-setuptools
 	@echo "Installing the dependencies"
-	@pip install --requirement $(REQUIREMENTS_PRODUCTION) --no-deps --upgrade --force-reinstall --no-cache-dir
+	@pip install --requirement $(REQUIREMENTS_PRODUCTION) --no-deps --upgrade --force-reinstall --quiet --no-cache-dir
 
 freeze:
 	@echo "Downloading the latest versions of the dependencies"
@@ -43,7 +43,7 @@ coverage: test
 	@echo "Analyzing the code coverage for all test cases"
 	@coverage report
 
-coverage-html:
+coverage-html: test
 	@echo "Create an HTML report of the code coverage"
 	@coverage html
 
