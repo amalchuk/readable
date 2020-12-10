@@ -8,18 +8,21 @@ stages:
 
 code quality:
   stage: testing
-  script: make pip-install-development isort mypy coverage
-  artifacts:
-    paths:
-      - .coverage
-    expire_in: 1 hour
+  before_script:
+    - python --version
+  script:
+    - make pip-install-development
+    - make isort
+    - make mypy
+    - make coverage
+  after_script:
+    - make clean
 
 build images:
   image: docker/compose:1.27.4
   services:
     - docker:18.09.7-dind
   stage: building
-  dependencies: []
   variables:
     DJANGO_SETTINGS_MODULE: readable.settings.development
   script:
@@ -36,7 +39,6 @@ deployment:
       - /bin/sh
       - -c
   stage: publishing
-  dependencies: []
   variables:
     DOCKER_TLS_VERIFY: 1
     DJANGO_SETTINGS_MODULE: readable.settings.production
@@ -49,9 +51,13 @@ deployment:
 
 pages:
   stage: publishing
-  dependencies:
-    - code quality
-  script: make coverage-html
+  before_script:
+    - python --version
+  script:
+    - make pip-install-development
+    - make coverage-html
+  after_script:
+    - make clean
   environment:
     name: coverage
     url: https://coverage.readable.pw
