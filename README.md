@@ -28,11 +28,18 @@ docker-machine create \
     --virtualbox-memory 2048 \
     readable
 
-# Build and restart the services:
+# Build or rebuild the services:
+docker-compose build \
+    --compress \
+    --force-rm \
+    --no-cache \
+    --pull
+
+# Start or restart the services:
 docker-compose up \
     --detach \
     --force-recreate \
-    --build \
+    --no-build \
     --remove-orphans
 ```
 
