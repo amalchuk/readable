@@ -19,7 +19,7 @@
   <map-socket>2:3</map-socket>
   <map-socket>3:4</map-socket>
 
-  <stats>0.0.0.0:9000</stats>
+  <stats>127.0.0.1:9000</stats>
   <stats-http/>
   <stats-minified/>
   <memory-report/>
