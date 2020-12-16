@@ -7,8 +7,6 @@
   <optimize>2</optimize>
 
   <processes>4</processes>
-  <enable-threads/>
-  <no-threads-wait/>
   <threads>4</threads>
 
   <socket>0.0.0.0:8000</socket>
@@ -20,9 +18,6 @@
   <map-socket>1:2</map-socket>
   <map-socket>2:3</map-socket>
   <map-socket>3:4</map-socket>
-
-  <max-worker-lifetime>3600</max-worker-lifetime>
-  <worker-reload-mercy>30</worker-reload-mercy>
 
   <post-buffering>8192</post-buffering>
   <harakiri>300</harakiri>
@@ -36,6 +31,7 @@
   <strict/>
   <vacuum/>
   <pcre-jit/>
+  <enable-threads/>
   <disable-logging/>
   <single-interpreter/>
 </uwsgi>
