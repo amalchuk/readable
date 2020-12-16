@@ -5,6 +5,7 @@ from django.contrib.messages import constants as message_constants
 from django.core.management.utils import get_random_secret_key
 from django.utils.translation import gettext_lazy as _
 
+from readable.utils.collections import as_list
 from readable.utils.temporary import temporary_directory
 
 # Common Settings:
@@ -39,7 +40,7 @@ DJANGO_FIRST_PARTY_LIBRARIES: List[str] = [
 
 # Core Settings:
 
-ALLOWED_HOSTS: List[str] = ["*"]
+ALLOWED_HOSTS: List[str] = as_list("*")
 
 CACHES: Dict[str, Any] = {
     "default": {
@@ -75,11 +76,11 @@ DATA_UPLOAD_MAX_MEMORY_SIZE: Optional[int] = None
 
 DATE_FORMAT: str = "d.m.Y"  # 01.01.1999
 
-DATE_INPUT_FORMATS: List[str] = [DEFAULT_DATE_FORMAT]
+DATE_INPUT_FORMATS: List[str] = as_list(DEFAULT_DATE_FORMAT)
 
 DATETIME_FORMAT: str = "d.m.Y H:i:s"  # 01.01.1999 00:00:00
 
-DATETIME_INPUT_FORMATS: List[str] = [DEFAULT_DATETIME_FORMAT]
+DATETIME_INPUT_FORMATS: List[str] = as_list(DEFAULT_DATETIME_FORMAT)
 
 FILE_UPLOAD_MAX_MEMORY_SIZE: int = 1024 * 1024 * 50  # 50 megabytes
 
@@ -177,7 +178,7 @@ TEMPLATES: List[Dict[str, Any]] = [
 
 TIME_FORMAT: str = "H:i:s"  # 00:00:00
 
-TIME_INPUT_FORMATS: List[str] = [DEFAULT_TIME_FORMAT]
+TIME_INPUT_FORMATS: List[str] = as_list(DEFAULT_TIME_FORMAT)
 
 TIME_ZONE: str = "UTC"
 
@@ -206,7 +207,7 @@ LOGIN_URL: str = "login"
 
 LOGOUT_REDIRECT_URL: str = "index"
 
-PASSWORD_HASHERS: List[str] = ["readable.utils.hashers.SHA256PasswordHasher"]
+PASSWORD_HASHERS: List[str] = as_list("readable.utils.hashers.SHA256PasswordHasher")
 
 # Messages:
 
@@ -246,7 +247,7 @@ STATICFILES_DIRS: List[str] = [
 
 # Django REST Framework Settings:
 
-REST_FRAMEWORK_AUTHENTICATION_CLASSES: List[str] = ["rest_framework.authentication.BasicAuthentication"]
+REST_FRAMEWORK_AUTHENTICATION_CLASSES: List[str] = as_list("rest_framework.authentication.BasicAuthentication")
 
 REST_FRAMEWORK_PAGINATION_CLASS: str = "rest_framework.pagination.PageNumberPagination"
 
@@ -255,9 +256,9 @@ REST_FRAMEWORK_PARSER_CLASSES: List[str] = [
     "rest_framework.parsers.MultiPartParser"
 ]
 
-REST_FRAMEWORK_PERMISSION_CLASSES: List[str] = ["rest_framework.permissions.IsAuthenticated"]
+REST_FRAMEWORK_PERMISSION_CLASSES: List[str] = as_list("rest_framework.permissions.IsAuthenticated")
 
-REST_FRAMEWORK_RENDERER_CLASSES: List[str] = ["rest_framework.renderers.JSONRenderer"]
+REST_FRAMEWORK_RENDERER_CLASSES: List[str] = as_list("rest_framework.renderers.JSONRenderer")
 
 REST_FRAMEWORK_PAGE_SIZE: int = 10
 

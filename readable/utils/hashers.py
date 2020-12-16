@@ -6,6 +6,8 @@ from typing import Dict
 from django.contrib.auth.hashers import BasePasswordHasher
 from django.utils.translation import gettext_noop as _
 
+__all__ = ["SHA256PasswordHasher"]
+
 
 class SHA256PasswordHasher(BasePasswordHasher):
     algorithm = "sha3_256"

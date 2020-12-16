@@ -7,6 +7,8 @@ from docx.document import Document as DOCXElement
 from fitz import Document as PDFDocument
 from fitz import TEXT_INHIBIT_SPACES
 
+__all__ = ["microsoft_word_document", "pdf_document", "read_document", "text_document"]
+
 logger = get_logger(__name__)
 
 
