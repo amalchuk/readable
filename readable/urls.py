@@ -1,12 +1,15 @@
-from typing import Callable, Union
+from typing import Callable, List, Union
 
 from django.contrib.admin.sites import site as default_site
 from django.http.response import HttpResponse
 from django.urls.conf import include
 from django.urls.conf import path
+from django.urls.resolvers import URLPattern
 from django.utils.translation import gettext_lazy as _
 
 import readable.views as views
+
+__all__ = ["handler400", "handler403", "handler404", "handler500", "urlpatterns"]
 
 # AdminSite settings:
 
@@ -16,7 +19,7 @@ default_site.index_title = _("Dashboard")
 
 # URL Dispatcher:
 
-urlpatterns = [
+urlpatterns: List[URLPattern] = [
     path("", views.index_view, name="index"),
     path("documents/<uuid:pk>/", views.documents_detail_view, name="documents-detail"),
     path("profile/login/", views.login_view, name="login"),

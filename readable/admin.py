@@ -15,7 +15,11 @@ from django.utils.translation import gettext_lazy as _
 from readable.models import Documents
 from readable.models import Metrics
 from readable.models import Staff
+from readable.utils.collections import as_list
 
+__all__ = ["DocumentsAdmin", "MetricsInline", "StaffInline", "UserAdmin"]
+
+# The ``typing`` module's aliases:
 _FieldSetsType = List[Tuple[Optional[str], Dict[str, List[str]]]]
 
 # Re-register UserAdmin:
@@ -35,11 +39,8 @@ class StaffInline(StackedInline):
 
 @register(User)
 class UserAdmin(BaseUserAdmin):
-    def get_inlines(self, request: HttpRequest, obj: Optional[User]) -> List[InlineModelAdmin]:
-        inlines: List[InlineModelAdmin] = super(UserAdmin, self).get_inlines(request, obj).copy()
-        if obj is not None:
-            inlines.append(StaffInline)
-        return inlines
+    def get_inlines(self, request: HttpRequest, obj: Optional[User]) -> List[Type[InlineModelAdmin]]:
+        return super(UserAdmin, self).get_inlines(request, obj) if obj is None else as_list(StaffInline)
 
 
 class MetricsInline(StackedInline):
@@ -78,13 +79,10 @@ class DocumentsAdmin(ModelAdmin):
         return request.user.is_superuser and obj is not None and obj.unavailable
 
     def get_fieldsets(self, request: HttpRequest, obj: Optional[Documents] = None) -> _FieldSetsType:
-        return self.add_fieldsets if obj is None else self.fieldsets
+        return self.add_fieldsets if obj is None else super(DocumentsAdmin, self).get_fieldsets(request, obj)
 
-    def get_inlines(self, request: HttpRequest, obj: Optional[Documents]) -> List[InlineModelAdmin]:
-        inlines: List[InlineModelAdmin] = super(DocumentsAdmin, self).get_inlines(request, obj).copy()
-        if obj is not None:
-            inlines.append(MetricsInline)
-        return inlines
+    def get_inlines(self, request: HttpRequest, obj: Optional[Documents]) -> List[Type[InlineModelAdmin]]:
+        return super(DocumentsAdmin, self).get_inlines(request, obj) if obj is None else as_list(MetricsInline)
 
     def get_queryset(self, request: HttpRequest) -> "QuerySet[Documents]":
         qs: "QuerySet[Documents]" = super(DocumentsAdmin, self).get_queryset(request)

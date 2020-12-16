@@ -3,6 +3,8 @@ from pathlib import PurePath as _P
 from shutil import rmtree as delete
 from tempfile import mkdtemp as _temporary_directory
 
+__all__ = ["temporary_directory"]
+
 
 def temporary_directory() -> _P:
     """
