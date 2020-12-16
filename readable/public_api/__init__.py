@@ -5,4 +5,4 @@
 Public REST API.
 """
 
-default_app_config = "readable.public_api.apps.Configuration"
+default_app_config: str = "readable.public_api.apps.Configuration"

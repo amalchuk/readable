@@ -20,6 +20,8 @@ from django.utils.translation import gettext_lazy as _
 from scienco import Indexes
 from scienco import compute_indexes
 
+__all__ = ["Documents", "documents_upload_directory", "Metrics", "Staff"]
+
 
 def documents_upload_directory(instance: "Documents", filename: str) -> str:
     instance.realname = get_valid_filename(filename)

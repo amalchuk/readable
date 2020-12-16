@@ -6,13 +6,14 @@ from rest_framework.serializers import ModelSerializer
 
 from readable.models import Documents
 from readable.models import Metrics
-from readable.utils.validators import validate_filename as is_supported_extension
+from readable.utils.collections import as_list
+from readable.utils.validators import validate_filename
 
 __all__ = ["DocumentCreateSerializer", "DocumentListSerializer", "DocumentRetrieveSerializer", "MetricSerializer"]
 
 
 class DocumentCreateSerializer(ModelSerializer):
-    filename = FileField(label=_("Document"), write_only=True, validators=[is_supported_extension])
+    filename = FileField(label=_("Document"), write_only=True, validators=as_list(validate_filename))
 
     class Meta:
         model = Documents

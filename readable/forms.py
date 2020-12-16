@@ -12,6 +12,8 @@ from readable.models import Documents
 from readable.utils.validators import validate_ascii_username
 from readable.utils.validators import validate_filename
 
+__all__ = ["AuthenticationForm", "DocumentsForm", "UserCreationForm", "UserForm"]
+
 
 class DocumentsForm(Form):
     filename = FileField(validators=[validate_filename], error_messages={
