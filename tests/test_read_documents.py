@@ -34,8 +34,7 @@ class TestReadDocuments(TestCase):
             document.add_paragraph(paragraph)
 
         document.save(tempfile)
-        text = "\n".join(microsoft_word_document(_P(tempfile)))
-        self.assertEqual(text, "\n".join(self.lorem))
+        self.assertEqual(microsoft_word_document(_P(tempfile)), "\n".join(self.lorem))
 
     def test_pdf_document(self) -> None:
         tempfile = str(self.temporary_directory / "document01.pdf")
@@ -49,17 +48,13 @@ class TestReadDocuments(TestCase):
         document.drawText(text_object)
         document.showPage()
         document.save()
-
-        text = "\n".join(pdf_document(_P(tempfile)))
-        self.assertEqual(text, "\n".join(self.lorem))
+        self.assertEqual(pdf_document(_P(tempfile)), "\n".join(self.lorem))
 
     def test_text_document(self) -> None:
         tempfile = str(self.temporary_directory / "document01.txt")
         document = _P(tempfile)
         document.write_text("\n".join(self.lorem))
-
-        text = "\n".join(text_document(_P(tempfile)))
-        self.assertEqual(text, "\n".join(self.lorem))
+        self.assertEqual(text_document(_P(tempfile)), "\n".join(self.lorem))
 
     def test_read_document(self) -> None:
         tempfile = str(self.temporary_directory / "document02.txt")
