@@ -43,6 +43,12 @@ docker-compose up \
     --remove-orphans
 ```
 
+Vendored dependencies
+---------------------
+- [jQuery][jquery_homepage] `v3.5.1`
+- [Bootstrap][bootstrap_homepage] `v4.5.3` ([custom theme][minimal_homepage])
+- [Font Awesome][fontawesome_homepage] `v5.15.1`
+
 Distribution
 ------------
 This project is licensed under the terms of the [MIT License](LICENSE).
@@ -58,3 +64,8 @@ Links
 [pipeline]: <https://gitlab.com/amalchuk/readable/badges/master/pipeline.svg?style=flat-square>
 [coverage]: <https://gitlab.com/amalchuk/readable/badges/master/coverage.svg?style=flat-square>
 [showcase]: <showcase/homepage.png>
+
+[jquery_homepage]: <https://jquery.com>
+[bootstrap_homepage]: <https://getbootstrap.com>
+[minimal_homepage]: <https://gitlab.com/amalchuk/minimal>
+[fontawesome_homepage]: <https://fontawesome.com>
