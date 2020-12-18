@@ -1,5 +1,6 @@
 from functools import cached_property
 from pathlib import Path as _P
+from typing import List
 from uuid import uuid4 as uuid
 
 from django.contrib.auth.models import User
@@ -20,7 +21,7 @@ from django.utils.translation import gettext_lazy as _
 from scienco import Indexes
 from scienco import compute_indexes
 
-__all__ = ["Documents", "documents_upload_directory", "Metrics", "Staff"]
+__all__: List[str] = ["Documents", "documents_upload_directory", "Metrics", "Staff"]
 
 
 def documents_upload_directory(instance: "Documents", filename: str) -> str:
@@ -34,7 +35,7 @@ class Model(BaseModel):
     updated_at = DateTimeField(verbose_name=_("Updated at"), db_index=True, auto_now=True)
 
     class Meta:
-        abstract = True
+        abstract: bool = True
 
 
 class Staff(Model):
@@ -43,9 +44,9 @@ class Staff(Model):
     ip_address = GenericIPAddressField(verbose_name=_("IP address"), unpack_ipv4=True, blank=True, null=True)
 
     class Meta:
-        verbose_name = _("User's additional information")
-        verbose_name_plural = _("Users' additional information")
-        ordering = ["-created_at", "-updated_at"]
+        verbose_name: str = _("User's additional information")
+        verbose_name_plural: str = _("Users' additional information")
+        ordering: List[str] = ["-created_at", "-updated_at"]
 
     def __str__(self) -> str:  # pragma: no cover
         # Exclude from the code coverage 'cause it's a string representation.
@@ -65,9 +66,9 @@ class Documents(Model):
     uploaded_by = ForeignKey(verbose_name=_("Uploaded by"), to=Staff, on_delete=CASCADE, related_name="documents")
 
     class Meta:
-        verbose_name = _("Document")
-        verbose_name_plural = _("Documents")
-        ordering = ["-created_at", "-updated_at"]
+        verbose_name: str = _("Document")
+        verbose_name_plural: str = _("Documents")
+        ordering: List[str] = ["-created_at", "-updated_at"]
 
     def __str__(self) -> str:  # pragma: no cover
         # Exclude from the code coverage 'cause it's a string representation.
@@ -91,9 +92,9 @@ class Metrics(Model):
     syllables = IntegerField(verbose_name=_("Syllables"), default=0)
 
     class Meta:
-        verbose_name = _("Metric")
-        verbose_name_plural = _("Metrics")
-        ordering = ["-created_at", "-updated_at"]
+        verbose_name: str = _("Metric")
+        verbose_name_plural: str = _("Metrics")
+        ordering: List[str] = ["-created_at", "-updated_at"]
 
     def __str__(self) -> str:  # pragma: no cover
         # Exclude from the code coverage 'cause it's a string representation.

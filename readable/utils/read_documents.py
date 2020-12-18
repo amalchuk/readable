@@ -1,14 +1,15 @@
+from logging import Logger
 from logging import getLogger as get_logger
 from pathlib import Path as _P
-from typing import Callable, Dict, Iterator, Optional
+from typing import Callable, Dict, Iterator, List, Optional
 
 from docx import Document as DOCXDocument
 from fitz import Document as PDFDocument
 from fitz import TEXT_INHIBIT_SPACES
 
-__all__ = ["microsoft_word_document", "pdf_document", "read_document", "text_document"]
+__all__: List[str] = ["microsoft_word_document", "pdf_document", "read_document", "text_document"]
 
-logger = get_logger(__name__)
+logger: Logger = get_logger(__name__)
 
 
 def microsoft_word_document(filename: _P, /) -> str:

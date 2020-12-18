@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 import readable.views as views
 
-__all__ = ["handler400", "handler403", "handler404", "handler500", "urlpatterns"]
+__all__: List[str] = ["handler400", "handler403", "handler404", "handler500", "urlpatterns"]
 
 # AdminSite settings:
 

@@ -1,4 +1,4 @@
-from typing import Any, Type
+from typing import Any, List, Type
 
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
@@ -8,7 +8,7 @@ from django.http.response import HttpResponseNotFound
 from django.http.response import HttpResponseServerError
 from django.template.loader import render_to_string as _
 
-__all__ = ["bad_request_view", "page_not_found_view", "permission_denied_view", "server_error_view"]
+__all__: List[str] = ["bad_request_view", "page_not_found_view", "permission_denied_view", "server_error_view"]
 
 
 def bad_request_view(request: HttpRequest, *args: Any, **context: Any) -> HttpResponse:

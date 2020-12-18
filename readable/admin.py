@@ -17,10 +17,10 @@ from readable.models import Metrics
 from readable.models import Staff
 from readable.utils.collections import as_list
 
-__all__ = ["DocumentsAdmin", "MetricsInline", "StaffInline", "UserAdmin"]
+__all__: List[str] = ["DocumentsAdmin", "MetricsInline", "StaffInline", "UserAdmin"]
 
 # The ``typing`` module's aliases:
-_FieldSetsType = List[Tuple[Optional[str], Dict[str, List[str]]]]
+FieldSetsType = List[Tuple[Optional[str], Dict[str, List[str]]]]
 
 # Re-register UserAdmin:
 default_site.unregister(User)
@@ -30,7 +30,7 @@ class StaffInline(StackedInline):
     can_delete: bool = False
     model: Type[BaseModel] = Staff
     readonly_fields: List[str] = ["user_agent", "ip_address"]
-    fieldsets: _FieldSetsType = [
+    fieldsets: FieldSetsType = [
         (None, {
             "fields": ["user_agent", "ip_address"]
         })
@@ -47,7 +47,7 @@ class MetricsInline(StackedInline):
     can_delete: bool = False
     model: Type[BaseModel] = Metrics
     readonly_fields: List[str] = ["is_russian", "sentences", "words", "letters", "syllables"]
-    fieldsets: _FieldSetsType = [
+    fieldsets: FieldSetsType = [
         (None, {
             "fields": ["is_russian", "sentences", "words", "letters", "syllables"]
         })
@@ -60,12 +60,12 @@ class DocumentsAdmin(ModelAdmin):
     list_display: List[str] = ["id", "realname", "status", "created_at", "updated_at"]
     list_filter: List[str] = ["status"]
     readonly_fields: List[str] = ["realname", "status", "uploaded_by", "created_at", "updated_at"]
-    fieldsets: _FieldSetsType = [
+    fieldsets: FieldSetsType = [
         (_("Primary fields"), {
             "fields": ["filename", "status", "uploaded_by"]
         })
     ]
-    add_fieldsets: _FieldSetsType = [
+    add_fieldsets: FieldSetsType = [
         (None, {
             "fields": ["filename"],
             "classes": ["wide"]
@@ -78,7 +78,7 @@ class DocumentsAdmin(ModelAdmin):
     def has_delete_permission(self, request: HttpRequest, obj: Optional[Documents] = None) -> bool:
         return request.user.is_superuser and obj is not None and obj.unavailable
 
-    def get_fieldsets(self, request: HttpRequest, obj: Optional[Documents] = None) -> _FieldSetsType:
+    def get_fieldsets(self, request: HttpRequest, obj: Optional[Documents] = None) -> FieldSetsType:
         return self.add_fieldsets if obj is None else super(DocumentsAdmin, self).get_fieldsets(request, obj)
 
     def get_inlines(self, request: HttpRequest, obj: Optional[Documents]) -> List[Type[InlineModelAdmin]]:
