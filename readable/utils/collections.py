@@ -1,6 +1,6 @@
 from typing import Iterable, List, Tuple, TypeVar
 
-__all__ = ["as_iterable", "as_list", "as_tuple"]
+__all__: List[str] = ["as_iterable", "as_list", "as_tuple"]
 
 T = TypeVar("T")
 

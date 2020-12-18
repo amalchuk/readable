@@ -1,3 +1,6 @@
+from typing import List, Type
+
+from django.db.models.base import Model as BaseModel
 from django.utils.translation import gettext_lazy as _
 from rest_framework.fields import CharField
 from rest_framework.fields import FileField
@@ -9,15 +12,15 @@ from readable.models import Metrics
 from readable.utils.collections import as_list
 from readable.utils.validators import validate_filename
 
-__all__ = ["DocumentCreateSerializer", "DocumentListSerializer", "DocumentRetrieveSerializer", "MetricSerializer"]
+__all__: List[str] = ["DocumentCreateSerializer", "DocumentListSerializer", "DocumentRetrieveSerializer", "MetricSerializer"]
 
 
 class DocumentCreateSerializer(ModelSerializer):
     filename = FileField(label=_("Document"), write_only=True, validators=as_list(validate_filename))
 
     class Meta:
-        model = Documents
-        fields = ["id", "filename"]
+        model: Type[BaseModel] = Documents
+        fields: List[str] = ["id", "filename"]
 
 
 class DocumentListSerializer(ModelSerializer):
@@ -25,8 +28,8 @@ class DocumentListSerializer(ModelSerializer):
     status = CharField(label=_("Status"), source="get_status_display")
 
     class Meta:
-        model = Documents
-        fields = ["id", "filename", "status", "created_at", "updated_at"]
+        model: Type[BaseModel] = Documents
+        fields: List[str] = ["id", "filename", "status", "created_at", "updated_at"]
 
 
 class MetricSerializer(ModelSerializer):
@@ -35,8 +38,8 @@ class MetricSerializer(ModelSerializer):
     coleman_liau_index = SerializerMethodField(label=_("Coleman-Liau index"))
 
     class Meta:
-        model = Metrics
-        fields = [
+        model: Type[BaseModel] = Metrics
+        fields: List[str] = [
             "is_russian",
             "sentences",
             "words",
@@ -61,5 +64,5 @@ class DocumentRetrieveSerializer(DocumentListSerializer):
     metrics = MetricSerializer(label=_("Metrics"), read_only=True)
 
     class Meta:
-        model = Documents
-        fields = ["id", "filename", "status", "metrics", "created_at", "updated_at"]
+        model: Type[BaseModel] = Documents
+        fields: List[str] = ["id", "filename", "status", "metrics", "created_at", "updated_at"]

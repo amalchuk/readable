@@ -1,8 +1,9 @@
-from typing import Dict, Type
+from typing import Callable, Dict, List, Type
 
 from django.db.models.query import QuerySet
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.response import Response
 from rest_framework.serializers import BaseSerializer
 
 from readable.models import Documents
@@ -11,7 +12,7 @@ from readable.public_api.serializers.documents import DocumentCreateSerializer
 from readable.public_api.serializers.documents import DocumentListSerializer
 from readable.public_api.serializers.documents import DocumentRetrieveSerializer
 
-__all__ = ["document_list_create_view", "document_retrieve_view"]
+__all__: List[str] = ["document_list_create_view", "document_retrieve_view"]
 
 
 class DocumentListCreateAPIView(ListCreateAPIView):
@@ -39,5 +40,5 @@ class DocumentRetrieveAPIView(RetrieveAPIView):
         return Documents.objects.filter(uploaded_by__user=self.request.user)
 
 
-document_list_create_view = DocumentListCreateAPIView.as_view()
-document_retrieve_view = DocumentRetrieveAPIView.as_view()
+document_list_create_view: Callable[..., Response] = DocumentListCreateAPIView.as_view()
+document_retrieve_view: Callable[..., Response] = DocumentRetrieveAPIView.as_view()

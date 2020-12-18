@@ -1,4 +1,4 @@
-from typing import Any, Iterable
+from typing import Any, Iterable, List
 import xml.etree.ElementTree as etree
 
 from django.conf import settings
@@ -8,7 +8,7 @@ from django.utils.encoding import smart_str
 from django.utils.functional import keep_lazy_text
 from django.utils.safestring import mark_safe
 
-__all__ = ["create_meta", "meta_description", "meta_keywords", "string_join"]
+__all__: List[str] = ["create_meta", "meta_description", "meta_keywords", "string_join"]
 
 register = Library()
 

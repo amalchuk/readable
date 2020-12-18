@@ -33,7 +33,7 @@ isort:
 
 mypy:
 	@echo "Running the static type checker"
-	@mypy readable tests manage.py
+	@mypy --config-file mypy.ini readable tests manage.py
 
 test:
 	@echo "Running the test cases"

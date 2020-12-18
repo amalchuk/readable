@@ -1,17 +1,17 @@
 from hashlib import new as hash_new
 from secrets import compare_digest as constant_time_compare
 from secrets import token_hex as get_random_string
-from typing import Dict
+from typing import Dict, List
 
 from django.contrib.auth.hashers import BasePasswordHasher
 from django.utils.translation import gettext_noop as _
 
-__all__ = ["SHA256PasswordHasher"]
+__all__: List[str] = ["SHA256PasswordHasher"]
 
 
 class SHA256PasswordHasher(BasePasswordHasher):
-    algorithm = "sha3_256"
-    encoding = "utf-8"
+    algorithm: str = "sha3_256"
+    encoding: str = "utf-8"
 
     def salt(self) -> str:
         return get_random_string(0b110)
@@ -19,7 +19,7 @@ class SHA256PasswordHasher(BasePasswordHasher):
     def verify(self, password: str, encoded: str) -> bool:
         algorithm, salt, _ = encoded.split("\x24", 0b10)
         assert algorithm == self.algorithm
-        to_verify = self.encode(password, salt).encode(self.encoding)
+        to_verify: bytes = self.encode(password, salt).encode(self.encoding)
         return constant_time_compare(encoded.encode(self.encoding), to_verify)
 
     def encode(self, password: str, salt: str) -> str:

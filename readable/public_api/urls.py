@@ -5,7 +5,7 @@ from django.urls.resolvers import URLPattern
 
 import readable.public_api.views as views
 
-__all__ = ["urlpatterns"]
+__all__: List[str] = ["urlpatterns"]
 
 # URL Dispatcher:
 

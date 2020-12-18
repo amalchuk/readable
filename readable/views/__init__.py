@@ -1,3 +1,5 @@
+from typing import List
+
 from readable.views.authorization import login_view
 from readable.views.authorization import logout_view
 from readable.views.authorization import registration_view
@@ -9,7 +11,7 @@ from readable.views.exceptions import server_error_view
 from readable.views.index import index_view
 from readable.views.profile import profile_view
 
-__all__ = [
+__all__: List[str] = [
     "login_view",
     "logout_view",
     "registration_view",
