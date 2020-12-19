@@ -4,6 +4,7 @@ __pycache__/
 
 # Environment / workspace settings:
 .env
+.idea/
 .venv/
 .vscode/
 

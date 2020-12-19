@@ -8,6 +8,7 @@ from django.dispatch.dispatcher import receiver
 from django.http.request import HttpRequest
 from django.utils.timezone import now
 from scienco import compute_metrics
+from simplethread import synchronized
 from simplethread import threaded
 
 from readable.models import Documents
@@ -18,7 +19,7 @@ from readable.utils.read_documents import read_document
 __all__: List[str] = ["documents_uploaded", "user_logged_in_out", "user_staff_is_created"]
 
 
-@threaded
+@synchronized
 def file_processing(document: Documents) -> None:
     document.status = Documents.Status.IN_PROGRESS
     document.updated_at = now()
@@ -49,7 +50,8 @@ def documents_uploaded(*args: Any, **kwargs: Any) -> None:  # pragma: no cover
     document: Documents = kwargs.pop("instance")
 
     if is_created and document.unavailable:
-        file_processing(document)
+        running_in_background = threaded(file_processing)
+        running_in_background(document)
 
 
 @receiver([user_logged_in, user_logged_out])
