@@ -30,13 +30,13 @@ class TestDocumentsUploaded(CommonTestCase):
 
     def test_file_processing(self) -> None:
         self.document = Documents.objects.create(filename=self.lorem, uploaded_by=self.staff)
-        file_processing.original_function(self.document)
+        file_processing(self.document)
         self.assertEqual(self.document.status, Documents.Status.FINISHED)
         self.assertTrue(hasattr(self.document, "metrics"))
         self.assertFalse(self.document.metrics.is_russian)
 
         self.document = Documents.objects.create(filename=self.empty, uploaded_by=self.staff)
-        file_processing.original_function(self.document)
+        file_processing(self.document)
         self.assertEqual(self.document.status, Documents.Status.FAILED)
         self.assertFalse(hasattr(self.document, "metrics"))
 
