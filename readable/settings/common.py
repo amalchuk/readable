@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import PurePath as _P
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -48,7 +49,7 @@ CACHES: Dict[str, Any] = {
         "KEY_PREFIX": "default",
         "LOCATION": str(temporary_directory()),
         "OPTIONS": {
-            "size_limit": 1024 * 1024 * 256  # 256 megabytes
+            "size_limit": 1024 * 1024 * 1024  # 1 gigabyte
         }
     },
     "session": {
@@ -56,12 +57,12 @@ CACHES: Dict[str, Any] = {
         "KEY_PREFIX": "session",
         "LOCATION": str(temporary_directory()),
         "OPTIONS": {
-            "size_limit": 1024 * 1024 * 256  # 256 megabytes
+            "size_limit": 1024 * 1024 * 1024  # 1 gigabyte
         }
     }
 }
 
-CSRF_COOKIE_AGE: int = 3600 * 24 * 7  # 1 week
+CSRF_COOKIE_AGE: float = timedelta(weeks=1).total_seconds()
 
 CSRF_COOKIE_NAME: str = "csrf_token"
 
@@ -122,22 +123,22 @@ LOGGING: Dict[str, Any] = {
     },
     "loggers": {
         "django": {
-            "handlers": ["console"],
+            "handlers": as_list("console"),
             "level": "INFO",
             "propagate": False
         },
         "django.request": {
-            "handlers": ["console"],
+            "handlers": as_list("console"),
             "level": "ERROR",
             "propagate": False
         },
         "django.security.DisallowedHost": {
-            "handlers": ["blank"],
+            "handlers": as_list("blank"),
             "propagate": False
         }
     },
     "root": {
-        "handlers": ["console"],
+        "handlers": as_list("console"),
         "level": "INFO"
     }
 }
@@ -225,7 +226,7 @@ MESSAGE_TAGS: Dict[int, str] = {
 
 SESSION_CACHE_ALIAS: str = "session"
 
-SESSION_COOKIE_AGE: int = 3600 * 24 * 7  # 1 week
+SESSION_COOKIE_AGE: float = timedelta(weeks=1).total_seconds()
 
 SESSION_COOKIE_NAME: str = "access_token"
 

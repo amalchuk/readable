@@ -9,7 +9,7 @@ from readable.settings.common import *
 
 ADMINS: List[Tuple[str, str]] = [
     ("Andrew Malchuk", "andrew.malchuk@yandex.ru"),
-    ("Andrew Malchuk", "webmaster@readable.pw")
+    ("webmaster", "webmaster@readable.pw")
 ]
 
 DATABASES = {

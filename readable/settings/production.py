@@ -12,7 +12,7 @@ CSRF_COOKIE_HTTPONLY: bool = True
 
 CSRF_COOKIE_SECURE: bool = True
 
-CSRF_TRUSTED_ORIGINS: List[str] = ["readable.pw", "www.readable.pw"]
+CSRF_TRUSTED_ORIGINS: List[str] = ALLOWED_HOSTS
 
 SECURE_PROXY_SSL_HEADER: Tuple[str, str] = ("HTTP_X_FORWARDED_PROTO", "https")
 
