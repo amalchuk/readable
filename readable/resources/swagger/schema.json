@@ -21,13 +21,13 @@
   "paths": {
     "/users/": {
       "post": {
-        "description": "Concrete view for creating a user instance",
+        "description": "Create a user instance",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/user_create"
+                "$ref": "#/components/schemas/userCreateObject"
               }
             }
           }
@@ -38,7 +38,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/user_create"
+                  "$ref": "#/components/schemas/userCreateObject"
                 }
               }
             }
@@ -48,12 +48,140 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/validation_error"
+                  "$ref": "#/components/schemas/validationError"
                 }
               }
             }
           }
         }
+      }
+    },
+    "/users/profile/": {
+      "get": {
+        "description": "Retrieve a user instance",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userRetrieveUpdateObject"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update a user instance",
+        "parameters": [
+          {
+            "description": "Update a user instance with partial data",
+            "name": "partial",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userRetrieveUpdateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userRetrieveUpdateObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      },
+      "patch": {
+        "description": "Partial update a user instance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userRetrieveUpdateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userRetrieveUpdateObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
       }
     }
   },
@@ -65,7 +193,7 @@
       }
     },
     "schemas": {
-      "user_create": {
+      "userCreateObject": {
         "type": "object",
         "required": [
           "username",
@@ -82,9 +210,28 @@
             "type": "string",
             "writeOnly": true
           }
-        }
+        },
+        "additionalProperties": false
       },
-      "validation_error": {
+      "userRetrieveUpdateObject": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "maxLength": 150
+          },
+          "last_name": {
+            "type": "string",
+            "maxLength": 150
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "validationError": {
         "type": "object",
         "minProperties": 1,
         "additionalProperties": {
@@ -94,6 +241,18 @@
             "type": "string"
           }
         }
+      },
+      "unauthorizedError": {
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "properties": {
+          "detail": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
       }
     }
   }
