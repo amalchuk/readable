@@ -1,0 +1,559 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "OpenAPI Specification",
+    "version": "0.3.4",
+    "contact": {
+      "name": "Andrew Malchuk",
+      "email": "andrew.malchuk@yandex.ru"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://choosealicense.com/licenses/mit"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://readable.pw/api",
+      "description": "Public REST API"
+    }
+  ],
+  "paths": {
+    "/users/": {
+      "post": {
+        "description": "Create a user instance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userCreateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userCreateObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/profile/": {
+      "get": {
+        "description": "Retrieve a user instance",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userRetrieveUpdateObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/defaultError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      },
+      "put": {
+        "description": "Update a user instance",
+        "parameters": [
+          {
+            "description": "Update a user instance with partial data",
+            "name": "partial",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userRetrieveUpdateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userRetrieveUpdateObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validationError"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/defaultError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      },
+      "patch": {
+        "description": "Partial update a user instance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userRetrieveUpdateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userRetrieveUpdateObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validationError"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/defaultError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      }
+    },
+    "/documents/": {
+      "get": {
+        "description": "List a documents",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/paginatedDocumentListObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/defaultError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Create a document instance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/documentCreateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/documentCreateObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validationError"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/defaultError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      }
+    },
+    "/documents/{uuid}/": {
+      "get": {
+        "description": "Retrieve a document instance",
+        "parameters": [
+          {
+            "description": "Document ID",
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$",
+              "example": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/documentRetrieveObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/defaultError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basicAuthentication": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    },
+    "schemas": {
+      "userCreateObject": {
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9]+$"
+          },
+          "password": {
+            "type": "string",
+            "writeOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "userRetrieveUpdateObject": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "maxLength": 150
+          },
+          "last_name": {
+            "type": "string",
+            "maxLength": 150
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "documentListObject": {
+        "type": "object",
+        "required": [
+          "id",
+          "filename",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$",
+            "example": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "01.01.1999 00:00:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "01.01.1999 00:00:00"
+          }
+        },
+        "additionalProperties": false
+      },
+      "paginatedDocumentListObject": {
+        "type": "object",
+        "required": [
+          "count",
+          "next",
+          "previous",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "next": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "previous": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/documentListObject"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "documentCreateObject": {
+        "type": "object",
+        "required": [
+          "filename"
+        ],
+        "properties": {
+          "filename": {
+            "type": "string",
+            "format": "binary"
+          }
+        },
+        "additionalProperties": false
+      },
+      "metricObject": {
+        "type": "object",
+        "nullable": true,
+        "required": [
+          "is_russian",
+          "sentences",
+          "words",
+          "letters",
+          "syllables",
+          "flesch_reading_ease_score",
+          "automated_readability_index",
+          "coleman_liau_index"
+        ],
+        "properties": {
+          "is_russian": {
+            "type": "boolean",
+            "default": false
+          },
+          "sentences": {
+            "type": "integer"
+          },
+          "words": {
+            "type": "integer"
+          },
+          "letters": {
+            "type": "integer"
+          },
+          "syllables": {
+            "type": "integer"
+          },
+          "flesch_reading_ease_score": {
+            "type": "number"
+          },
+          "automated_readability_index": {
+            "type": "number"
+          },
+          "coleman_liau_index": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "documentRetrieveObject": {
+        "type": "object",
+        "required": [
+          "id",
+          "filename",
+          "status",
+          "metrics",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$",
+            "example": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/metricObject"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "01.01.1999 00:00:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "01.01.1999 00:00:00"
+          }
+        },
+        "additionalProperties": false
+      },
+      "validationError": {
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "defaultError": {
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "properties": {
+          "detail": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

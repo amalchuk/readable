@@ -243,7 +243,8 @@ STATIC_ROOT: str = str(RESOURCES_DIR / "staticfiles")
 STATIC_URL: str = "/static/"
 
 STATICFILES_DIRS: List[str] = [
-    str(RESOURCES_DIR / "assets")
+    str(RESOURCES_DIR / "assets"),
+    str(RESOURCES_DIR / "swagger")
 ]
 
 # Django REST Framework Settings:
