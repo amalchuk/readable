@@ -70,12 +70,12 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "default": {
+            "description": "Default error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/unauthorizedError"
+                  "$ref": "#/components/schemas/defaultError"
                 }
               }
             }
@@ -131,12 +131,12 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "default": {
+            "description": "Default error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/unauthorizedError"
+                  "$ref": "#/components/schemas/defaultError"
                 }
               }
             }
@@ -181,12 +181,12 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "default": {
+            "description": "Default error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/unauthorizedError"
+                  "$ref": "#/components/schemas/defaultError"
                 }
               }
             }
@@ -208,17 +208,45 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/documentListObject"
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "next",
+                    "previous",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "next": {
+                      "type": "string",
+                      "format": "uri",
+                      "nullable": true
+                    },
+                    "previous": {
+                      "type": "string",
+                      "format": "uri",
+                      "nullable": true
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/documentListObject"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "default": {
+            "description": "Default error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/unauthorizedError"
+                  "$ref": "#/components/schemas/defaultError"
                 }
               }
             }
@@ -263,12 +291,57 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "default": {
+            "description": "Default error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/unauthorizedError"
+                  "$ref": "#/components/schemas/defaultError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      }
+    },
+    "/documents/{uuid}/": {
+      "get": {
+        "description": "Retrieve a document instance",
+        "parameters": [
+          {
+            "description": "Document ID",
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$",
+              "example": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/documentRetrieveObject"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Default error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/defaultError"
                 }
               }
             }
@@ -375,6 +448,86 @@
         },
         "additionalProperties": false
       },
+      "metricObject": {
+        "type": "object",
+        "nullable": true,
+        "required": [
+          "is_russian",
+          "sentences",
+          "words",
+          "letters",
+          "syllables",
+          "flesch_reading_ease_score",
+          "automated_readability_index",
+          "coleman_liau_index"
+        ],
+        "properties": {
+          "is_russian": {
+            "type": "boolean",
+            "default": false
+          },
+          "sentences": {
+            "type": "integer"
+          },
+          "words": {
+            "type": "integer"
+          },
+          "letters": {
+            "type": "integer"
+          },
+          "syllables": {
+            "type": "integer"
+          },
+          "flesch_reading_ease_score": {
+            "type": "number"
+          },
+          "automated_readability_index": {
+            "type": "number"
+          },
+          "coleman_liau_index": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "documentRetrieveObject": {
+        "type": "object",
+        "required": [
+          "id",
+          "filename",
+          "status",
+          "metrics",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$",
+            "example": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/metricObject"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "01.01.1999 00:00:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "01.01.1999 00:00:00"
+          }
+        },
+        "additionalProperties": false
+      },
       "validationError": {
         "type": "object",
         "minProperties": 1,
@@ -386,7 +539,7 @@
           }
         }
       },
-      "unauthorizedError": {
+      "defaultError": {
         "type": "object",
         "required": [
           "detail"
