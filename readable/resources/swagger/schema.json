@@ -69,8 +69,23 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedError"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
       },
       "put": {
         "description": "Update a user instance",
@@ -183,6 +198,88 @@
           }
         ]
       }
+    },
+    "/documents/": {
+      "get": {
+        "description": "List a documents",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/documentListObject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Create a document instance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/documentCreateObject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/documentCreateObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuthentication": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -227,6 +324,53 @@
           "email": {
             "type": "string",
             "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "documentListObject": {
+        "type": "object",
+        "required": [
+          "id",
+          "filename",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}$",
+            "example": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "01.01.1999 00:00:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "01.01.1999 00:00:00"
+          }
+        },
+        "additionalProperties": false
+      },
+      "documentCreateObject": {
+        "type": "object",
+        "required": [
+          "filename"
+        ],
+        "properties": {
+          "filename": {
+            "type": "string",
+            "format": "binary"
           }
         },
         "additionalProperties": false
