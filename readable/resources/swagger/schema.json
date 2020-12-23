@@ -208,35 +208,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "required": [
-                    "count",
-                    "next",
-                    "previous",
-                    "results"
-                  ],
-                  "properties": {
-                    "count": {
-                      "type": "integer"
-                    },
-                    "next": {
-                      "type": "string",
-                      "format": "uri",
-                      "nullable": true
-                    },
-                    "previous": {
-                      "type": "string",
-                      "format": "uri",
-                      "nullable": true
-                    },
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/documentListObject"
-                      }
-                    }
-                  },
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/paginatedDocumentListObject"
                 }
               }
             }
@@ -431,6 +403,37 @@
             "type": "string",
             "format": "date-time",
             "example": "01.01.1999 00:00:00"
+          }
+        },
+        "additionalProperties": false
+      },
+      "paginatedDocumentListObject": {
+        "type": "object",
+        "required": [
+          "count",
+          "next",
+          "previous",
+          "results"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "next": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "previous": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/documentListObject"
+            }
           }
         },
         "additionalProperties": false
