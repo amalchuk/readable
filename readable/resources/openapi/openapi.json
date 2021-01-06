@@ -286,7 +286,7 @@
         "description": "Retrieve a document instance",
         "parameters": [
           {
-            "description": "Document ID",
+            "description": "Document's unique identifier",
             "name": "uuid",
             "in": "path",
             "required": true,

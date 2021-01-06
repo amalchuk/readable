@@ -13,7 +13,7 @@ include     = ["manage.py"]
 [tool.poetry.dependencies]
 python              = "3.9.1"
 diskcache           = "5.1.0"
-django              = "3.1.4"
+django              = "3.1.5"
 djangorestframework = "3.12.2"
 pymupdf             = "1.18.5"
 python-docx         = "0.8.10"
@@ -27,7 +27,7 @@ deployment = ["psycopg2", "uwsgi"]
 
 [tool.poetry.dev-dependencies]
 docker-compose = "^1.27"
-isort          = "^5.6"
+isort          = "^5.7"
 reportlab      = "^3.5"
 coverage       = { version = "^5.3", extras = ["toml"]}
 mypy           = { version = "*", allow-prereleases = true }
