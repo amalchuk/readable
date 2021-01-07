@@ -5,8 +5,6 @@ readable
 
 Check and improve the spelling and grammar of documents.
 
-[![showcase][showcase]][homepage]
-
 Installation
 ------------
 ```shell
@@ -63,7 +61,6 @@ Links
 [homepage]: <https://gitlab.com/amalchuk/readable>
 [pipeline]: <https://gitlab.com/amalchuk/readable/badges/master/pipeline.svg?style=flat-square>
 [coverage]: <https://gitlab.com/amalchuk/readable/badges/master/coverage.svg?style=flat-square>
-[showcase]: <showcase/homepage.png>
 
 [jquery_homepage]: <https://jquery.com>
 [bootstrap_homepage]: <https://getbootstrap.com>
