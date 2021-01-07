@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "OpenAPI Specification",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "contact": {
       "name": "Andrew Malchuk",
       "email": "andrew.malchuk@yandex.ru"
@@ -286,7 +286,7 @@
         "description": "Retrieve a document instance",
         "parameters": [
           {
-            "description": "Document ID",
+            "description": "Document's unique identifier",
             "name": "uuid",
             "in": "path",
             "required": true,

@@ -16,8 +16,8 @@
   </head>
   <body class="d-flex flex-column vh-100">
     <main role="main" class="flex-fill">
-      <div class="container">
-        {% block header %}{% include 'header.html' %}{% endblock %}
+      {% block header %}{% include 'header.html' %}{% endblock %}
+      <div class="container-md">
         {% block messages %}{% include 'messages.html' %}{% endblock %}
         <section>{% block content %}{% endblock %}</section>
       </div>

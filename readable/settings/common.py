@@ -244,7 +244,7 @@ STATIC_URL: str = "/static/"
 
 STATICFILES_DIRS: List[str] = [
     str(RESOURCES_DIR / "assets"),
-    str(RESOURCES_DIR / "swagger")
+    str(RESOURCES_DIR / "openapi")
 ]
 
 # Django REST Framework Settings:
@@ -253,10 +253,7 @@ REST_FRAMEWORK_AUTHENTICATION_CLASSES: List[str] = as_list("rest_framework.authe
 
 REST_FRAMEWORK_PAGINATION_CLASS: str = "rest_framework.pagination.PageNumberPagination"
 
-REST_FRAMEWORK_PARSER_CLASSES: List[str] = [
-    "rest_framework.parsers.JSONParser",
-    "rest_framework.parsers.MultiPartParser"
-]
+REST_FRAMEWORK_PARSER_CLASSES: List[str] = as_list("rest_framework.parsers.JSONParser")
 
 REST_FRAMEWORK_PERMISSION_CLASSES: List[str] = as_list("rest_framework.permissions.IsAuthenticated")
 

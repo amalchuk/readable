@@ -1,7 +1,7 @@
 REQUIREMENTS_DEVELOPMENT := requirements/development.txt
 REQUIREMENTS_PRODUCTION := requirements/production.txt
 
-.PHONY: all install pip-update-setuptools pip-install-development pip-install freeze isort mypy test coverage coverage-html clean
+.PHONY: all install pip-update-setuptools pip-install-development pip-install freeze update isort mypy test coverage coverage-html clean
 
 all: install clean
 
@@ -26,6 +26,9 @@ freeze:
 	@poetry update --lock --no-interaction
 	@poetry export --format requirements.txt --output $(REQUIREMENTS_DEVELOPMENT) --dev
 	@poetry export --format requirements.txt --output $(REQUIREMENTS_PRODUCTION) --extras deployment
+	@dos2unix --keepdate --quiet $(REQUIREMENTS_DEVELOPMENT) $(REQUIREMENTS_PRODUCTION)
+
+update: freeze install
 
 isort:
 	@echo "Trying to check correct ordering of imports"
