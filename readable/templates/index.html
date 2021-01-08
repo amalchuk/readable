@@ -50,9 +50,9 @@
   </div>
 </div>
 {% else %}
-<div class="jumbotron my-3 my-md-4">
-  <h1 class="display-4">{% trans 'You have not uploaded documents yet' %}</h1>
-  <p class="lead">{% trans 'Get started today' %}&excl;</p>
+<div class="jumbotron text-center my-3 my-md-4">
+  <h1>{% trans 'You have not uploaded documents yet' %}</h1>
+  <p class="lead text-muted">{% trans 'Get started today' %}&excl;</p>
 </div>
 {% endif %}
 <div class="row row-cols-1 row-cols-md-2 my-3 my-md-4">
@@ -120,9 +120,9 @@
   </div>
 </div>
 {% else %}
-<div class="jumbotron my-3 my-md-4">
-  <h1 class="display-4">{% trans 'Great readability' %}</h1>
-  <p class="lead">{% trans 'This tool will quickly test the readability, spelling and grammar of your text' %}&period;</p>
+<div class="jumbotron text-center my-3 my-md-4">
+  <h1>{% trans 'Great readability' %}</h1>
+  <p class="lead text-muted">{% trans 'This tool will quickly test the readability, spelling and grammar of your text' %}&period;</p>
   <hr class="my-3 my-md-4">
   <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">{% trans 'Learn more' %}</a>
 </div>
