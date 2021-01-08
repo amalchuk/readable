@@ -1,4 +1,4 @@
-from typing import Callable, Dict, List, Type
+from typing import Callable, Dict, List, Literal, Type
 
 from django.db.models.query import QuerySet
 from rest_framework.generics import ListCreateAPIView
@@ -30,12 +30,13 @@ class DocumentListCreateAPIView(ListCreateAPIView):
     }
 
     @property
-    def request_method(self) -> str:
+    def request_method(self) -> Literal["get", "post"]:
         return self.request.method.lower()
 
     def get_parsers(self) -> List[BaseParser]:
-        parser: BaseParser = self.parser_method_classes
-        return as_list(self.parser_method_classes[self.request_method])
+        parser_type: Type[BaseParser] = self.parser_method_classes[self.request_method]
+        parser: BaseParser = parser_type()
+        return as_list(parser)
 
     def get_serializer_class(self) -> Type[BaseSerializer]:
         return self.serializer_method_classes[self.request_method]
@@ -49,7 +50,7 @@ class DocumentListCreateAPIView(ListCreateAPIView):
 
 
 class DocumentRetrieveAPIView(RetrieveAPIView):
-    serializer_class = DocumentRetrieveSerializer
+    serializer_class: Type[BaseSerializer] = DocumentRetrieveSerializer
 
     def get_queryset(self) -> "QuerySet[Documents]":
         return Documents.objects.filter(uploaded_by__user=self.request.user)
