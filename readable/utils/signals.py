@@ -8,7 +8,7 @@ from django.dispatch.dispatcher import receiver
 from django.http.request import HttpRequest
 from django.utils.timezone import now
 from scienco import compute_metrics
-from simplethread import synchronized
+from simplethread import asynchronous
 from simplethread import threaded
 
 from readable.models import Documents
@@ -19,7 +19,7 @@ from readable.utils.read_documents import read_document
 __all__: List[str] = ["documents_uploaded", "user_logged_in_out", "user_staff_is_created"]
 
 
-@synchronized
+@asynchronous
 def file_processing(document: Documents) -> None:
     document.status = Documents.Status.IN_PROGRESS
     document.updated_at = now()
