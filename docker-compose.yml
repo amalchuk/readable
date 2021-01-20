@@ -57,7 +57,7 @@ services:
     image: $CI_REGISTRY/$CI_PROJECT_PATH/nginx:latest
     container_name: nginx
     tmpfs:
-      - /tmp
+      - /tmp/readable_cache
       - /var/cache/nginx
     volumes:
       - type: volume
