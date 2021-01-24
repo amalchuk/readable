@@ -46,16 +46,16 @@ ALLOWED_HOSTS: List[str] = as_list("*")
 CACHES: Dict[str, Any] = {
     "default": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
-        "KEY_PREFIX": "default",
-        "LOCATION": str(temporary_directory()),
+        "KEY_PREFIX": "default\x5F",
+        "LOCATION": str(temporary_directory(prefix="readable\x2Ddefault\x2D")),
         "OPTIONS": {
             "size_limit": 1024 * 1024 * 1024  # 1 gigabyte
         }
     },
     "session": {
         "BACKEND": "diskcache.djangocache.DjangoCache",
-        "KEY_PREFIX": "session",
-        "LOCATION": str(temporary_directory()),
+        "KEY_PREFIX": "session\x5F",
+        "LOCATION": str(temporary_directory(prefix="readable\x2Dsession\x2D")),
         "OPTIONS": {
             "size_limit": 1024 * 1024 * 1024  # 1 gigabyte
         }
@@ -85,7 +85,7 @@ DATETIME_INPUT_FORMATS: List[str] = as_list(DEFAULT_DATETIME_FORMAT)
 
 FILE_UPLOAD_MAX_MEMORY_SIZE: int = 1024 * 1024 * 50  # 50 megabytes
 
-FILE_UPLOAD_TEMP_DIR: str = str(temporary_directory())
+FILE_UPLOAD_TEMP_DIR: str = str(temporary_directory(prefix="readable\x2Dupload\x2D"))
 
 FIRST_DAY_OF_WEEK: int = 1  # Monday
 
