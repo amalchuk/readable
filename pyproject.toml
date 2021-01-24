@@ -12,7 +12,7 @@ include     = ["manage.py"]
 
 [tool.poetry.dependencies]
 python              = "3.9.1"
-diskcache           = "5.1.0"
+diskcache           = "5.2.1"
 django              = "3.1.5"
 djangorestframework = "3.12.2"
 pymupdf             = "1.18.6"
