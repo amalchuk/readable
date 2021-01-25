@@ -1,4 +1,4 @@
-from hashlib import new as hash_new
+from hashlib import sha3_256
 from secrets import compare_digest as constant_time_compare
 from secrets import token_hex as get_random_string
 from typing import Dict, List
@@ -25,9 +25,7 @@ class SHA256PasswordHasher(BasePasswordHasher):
     def encode(self, password: str, salt: str) -> str:
         assert password is not None
         assert salt and "\x24" not in salt
-        hash_object = hash_new(self.algorithm)
-        hash_object.update(f"{salt}{password}".encode(self.encoding))
-        value = hash_object.hexdigest()
+        value: str = sha3_256(f"{salt}{password}".encode(self.encoding)).hexdigest()
         return f"{self.algorithm}\x24{salt}\x24{value}"
 
     def safe_summary(self, encoded: str) -> Dict[str, str]:
