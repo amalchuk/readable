@@ -29,7 +29,7 @@ deployment = ["psycopg2", "uwsgi"]
 docker-compose = "^1.28"
 isort          = "^5.7"
 reportlab      = "^3.5"
-coverage       = { version = "^5.3", extras = ["toml"]}
+coverage       = { version = "^5.4", extras = ["toml"]}
 mypy           = { version = "*", allow-prereleases = true }
 
 [tool.coverage.run]
