@@ -1,6 +1,6 @@
 from datetime import timedelta
 from pathlib import PurePath as _P
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Final, List, Optional, Tuple
 
 from django.contrib.messages import constants as message_constants
 from django.core.management.utils import get_random_secret_key
@@ -45,20 +45,14 @@ ALLOWED_HOSTS: List[str] = as_list("*")
 
 CACHES: Dict[str, Any] = {
     "default": {
-        "BACKEND": "diskcache.djangocache.DjangoCache",
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "KEY_PREFIX": "default\x5F",
-        "LOCATION": str(temporary_directory(prefix="readable\x2Ddefault\x2D")),
-        "OPTIONS": {
-            "size_limit": 1024 * 1024 * 1024  # 1 gigabyte
-        }
+        "LOCATION": str(temporary_directory(prefix="readable\x2Ddefault\x2D"))
     },
     "session": {
-        "BACKEND": "diskcache.djangocache.DjangoCache",
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "KEY_PREFIX": "session\x5F",
-        "LOCATION": str(temporary_directory(prefix="readable\x2Dsession\x2D")),
-        "OPTIONS": {
-            "size_limit": 1024 * 1024 * 1024  # 1 gigabyte
-        }
+        "LOCATION": str(temporary_directory(prefix="readable\x2Dsession\x2D"))
     }
 }
 
@@ -242,10 +236,7 @@ STATIC_ROOT: str = str(RESOURCES_DIR / "staticfiles")
 
 STATIC_URL: str = "/static/"
 
-STATICFILES_DIRS: List[str] = [
-    str(RESOURCES_DIR / "assets"),
-    str(RESOURCES_DIR / "openapi")
-]
+STATICFILES_DIRS: List[str] = as_list(str(RESOURCES_DIR / "assets"))
 
 # Django REST Framework Settings:
 
@@ -299,3 +290,5 @@ READABLE_META_KEYWORDS: List[str] = [
     _("Text"),
     _("Words")
 ]
+
+READABLE_SIGNALS_MODULE: Final[str] = "readable.utils.signals"

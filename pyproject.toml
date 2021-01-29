@@ -12,24 +12,23 @@ include     = ["manage.py"]
 
 [tool.poetry.dependencies]
 python              = "3.9.1"
-diskcache           = "5.2.1"
-django              = "3.1.5"
-djangorestframework = "3.12.2"
-pymupdf             = "1.18.6"
-python-docx         = "0.8.10"
-scienco             = "0.4.1"
-simplethread        = "0.4.1"
-psycopg2            = { version = ">=2.8", optional = true }
-uwsgi               = { version = ">=2.0", optional = true }
+django              = "3.1.5"  # https://pypi.org/project/django
+djangorestframework = "3.12.2" # https://pypi.org/project/djangorestframework
+pymupdf             = "1.18.6" # https://pypi.org/project/pymupdf
+python-docx         = "0.8.10" # https://pypi.org/project/python-docx
+scienco             = "0.4.1"  # https://pypi.org/project/scienco
+simplethread        = "0.4.1"  # https://pypi.org/project/simplethread
+psycopg2            = { version = "~2.8", optional = true } # https://pypi.org/project/psycopg2
+uwsgi               = { version = "~2.0", optional = true } # https://pypi.org/project/uwsgi
 
 [tool.poetry.extras]
 deployment = ["psycopg2", "uwsgi"]
 
 [tool.poetry.dev-dependencies]
-docker-compose = "^1.28"
-isort          = "^5.7"
-reportlab      = "^3.5"
-coverage       = { version = "^5.4", extras = ["toml"]}
+docker-compose = "~1.28"
+isort          = "~5.7"
+reportlab      = "~3.5"
+coverage       = { version = "~5.4", extras = ["toml"]}
 mypy           = { version = "*", allow-prereleases = true }
 
 [tool.coverage.run]
