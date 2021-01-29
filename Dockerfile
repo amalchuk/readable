@@ -1,5 +1,5 @@
 FROM python:3.9.1-buster
-LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.5.0"
+LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.5.1"
 
 WORKDIR /application
 COPY ["deployment/readable/docker-entrypoint", "/usr/local/bin/"]

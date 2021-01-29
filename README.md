@@ -28,10 +28,10 @@ docker-machine create \
 
 # Build or rebuild the services:
 docker-compose build \
-    --compress \
     --force-rm \
     --no-cache \
-    --pull
+    --pull \
+    --quiet
 
 # Start or restart the services:
 docker-compose up \
