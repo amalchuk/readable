@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional, Type
+from typing import Callable, Final, List, Optional, Type
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -12,7 +12,7 @@ from django.views.generic.edit import UpdateView
 
 from readable.forms import UserForm
 
-__all__: List[str] = ["profile_view"]
+__all__: Final[List[str]] = ["profile_view"]
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):

@@ -1,6 +1,6 @@
 from functools import cached_property
 from pathlib import Path as _P
-from typing import List
+from typing import Final, List
 from uuid import uuid4 as uuid
 
 from django.contrib.auth.models import User
@@ -21,7 +21,7 @@ from django.utils.translation import gettext_lazy as _
 from scienco import Indexes
 from scienco import compute_indexes
 
-__all__: List[str] = ["Documents", "documents_upload_directory", "Metrics", "Staff"]
+__all__: Final[List[str]] = ["Documents", "documents_upload_directory", "Metrics", "Staff"]
 
 
 def documents_upload_directory(instance: "Documents", filename: str) -> str:

@@ -1,4 +1,4 @@
-from typing import Callable, List, Type
+from typing import Callable, Final, List, Type
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as BaseModel
@@ -8,7 +8,7 @@ from django.views.generic.detail import DetailView
 
 from readable.models import Documents
 
-__all__: List[str] = ["documents_detail_view"]
+__all__: Final[List[str]] = ["documents_detail_view"]
 
 
 class DocumentsDetailView(LoginRequiredMixin, DetailView):

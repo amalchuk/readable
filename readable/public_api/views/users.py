@@ -1,4 +1,4 @@
-from typing import Callable, List, Type
+from typing import Callable, Final, List, Type
 
 from django.contrib.auth.models import User
 from rest_framework.generics import CreateAPIView
@@ -12,7 +12,7 @@ from readable.public_api.serializers.users import UserCreateSerializer
 from readable.public_api.serializers.users import UserRetrieveUpdateSerializer
 from readable.utils.collections import as_list
 
-__all__: List[str] = ["user_create_view", "user_retrieve_update_view"]
+__all__: Final[List[str]] = ["user_create_view", "user_retrieve_update_view"]
 
 
 class UserCreateAPIView(CreateAPIView):

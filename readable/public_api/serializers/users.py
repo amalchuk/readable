@@ -1,4 +1,4 @@
-from typing import Dict, List, Type
+from typing import Dict, Final, List, Type
 
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password as standard_validate_password
@@ -10,7 +10,7 @@ from rest_framework.serializers import ModelSerializer
 from readable.public_api.utils.validators import validate_unique_username as is_unique_username
 from readable.utils.validators import validate_ascii_username as is_ascii_username
 
-__all__: List[str] = ["UserCreateSerializer", "UserRetrieveUpdateSerializer"]
+__all__: Final[List[str]] = ["UserCreateSerializer", "UserRetrieveUpdateSerializer"]
 
 
 class UserCreateSerializer(ModelSerializer):

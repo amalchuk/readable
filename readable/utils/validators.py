@@ -1,11 +1,11 @@
 import re
-from typing import Callable, List
+from typing import Callable, Final, List
 
 from django.core.validators import FileExtensionValidator
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
-__all__: List[str] = ["validate_ascii_username", "validate_filename"]
+__all__: Final[List[str]] = ["validate_ascii_username", "validate_filename"]
 
 validate_ascii_username: Callable[..., None] = RegexValidator(
     regex=r"^[a-zA-Z0-9]+$",

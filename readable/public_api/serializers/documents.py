@@ -1,4 +1,4 @@
-from typing import List, Type
+from typing import Final, List, Type
 
 from django.db.models.base import Model as BaseModel
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +12,12 @@ from readable.models import Metrics
 from readable.utils.collections import as_list
 from readable.utils.validators import validate_filename
 
-__all__: List[str] = ["DocumentCreateSerializer", "DocumentListSerializer", "DocumentRetrieveSerializer", "MetricSerializer"]
+__all__: Final[List[str]] = [
+    "DocumentCreateSerializer",
+    "DocumentListSerializer",
+    "DocumentRetrieveSerializer",
+    "MetricSerializer"
+]
 
 
 class DocumentCreateSerializer(ModelSerializer):

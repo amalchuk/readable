@@ -41,18 +41,18 @@ DJANGO_FIRST_PARTY_LIBRARIES: List[str] = [
 
 # Core Settings:
 
-ALLOWED_HOSTS: List[str] = as_list("*")
+ALLOWED_HOSTS: List[str] = as_list("\x2A")
 
 CACHES: Dict[str, Any] = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "KEY_PREFIX": "default\x5F",
-        "LOCATION": str(temporary_directory(prefix="readable\x2Ddefault\x2D"))
+        "LOCATION": temporary_directory(prefix="readable\x2Ddefault\x2D").as_posix()
     },
     "session": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "KEY_PREFIX": "session\x5F",
-        "LOCATION": str(temporary_directory(prefix="readable\x2Dsession\x2D"))
+        "LOCATION": temporary_directory(prefix="readable\x2Dsession\x2D").as_posix()
     }
 }
 
@@ -63,7 +63,7 @@ CSRF_COOKIE_NAME: str = "csrf_token"
 DATABASES: Dict[str, Any] = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": str(RESOURCES_DIR / "readable.db")
+        "NAME": (RESOURCES_DIR / "readable.db").as_posix()
     }
 }
 
@@ -79,7 +79,7 @@ DATETIME_INPUT_FORMATS: List[str] = as_list(DEFAULT_DATETIME_FORMAT)
 
 FILE_UPLOAD_MAX_MEMORY_SIZE: int = 1024 * 1024 * 50  # 50 megabytes
 
-FILE_UPLOAD_TEMP_DIR: str = str(temporary_directory(prefix="readable\x2Dupload\x2D"))
+FILE_UPLOAD_TEMP_DIR: str = temporary_directory(prefix="readable\x2Dupload\x2D").as_posix()
 
 FIRST_DAY_OF_WEEK: int = 1  # Monday
 
@@ -92,9 +92,7 @@ LANGUAGES: List[Tuple[str, str]] = [
     ("en", _("English"))
 ]
 
-LOCALE_PATHS: List[str] = [
-    str(RESOURCES_DIR / "translations")
-]
+LOCALE_PATHS: List[str] = as_list((RESOURCES_DIR / "translations").as_posix())
 
 LOGGING: Dict[str, Any] = {
     "version": 1,
@@ -191,7 +189,7 @@ AUTH_PASSWORD_VALIDATORS: List[Dict[str, Any]] = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
         "OPTIONS": {
             "user_attributes": ["username"],
-            "max_similarity": 0.667
+            "max_similarity": 0.5
         }
     }
 ]
@@ -228,15 +226,15 @@ SESSION_ENGINE: str = "django.contrib.sessions.backends.cache"
 
 # Static Files:
 
-MEDIA_ROOT: str = str(RESOURCES_DIR / "mediafiles")
+MEDIA_ROOT: str = (RESOURCES_DIR / "mediafiles").as_posix()
 
 MEDIA_URL: str = "/media/"
 
-STATIC_ROOT: str = str(RESOURCES_DIR / "staticfiles")
+STATIC_ROOT: str = (RESOURCES_DIR / "staticfiles").as_posix()
 
 STATIC_URL: str = "/static/"
 
-STATICFILES_DIRS: List[str] = as_list(str(RESOURCES_DIR / "assets"))
+STATICFILES_DIRS: List[str] = as_list((RESOURCES_DIR / "assets").as_posix())
 
 # Django REST Framework Settings:
 
@@ -270,25 +268,5 @@ REST_FRAMEWORK: Dict[str, Any] = {
 # Miscellaneous:
 
 READABLE_DOCUMENTS_PAGINATE_BY: int = REST_FRAMEWORK_PAGE_SIZE
-
-READABLE_META_DESCRIPTION: str = _("This tool will quickly test the readability, spelling and grammar of your text")
-
-READABLE_META_KEYWORDS: List[str] = [
-    _("Add document"),
-    _("Automated readability index"),
-    _("Coleman-Liau index"),
-    _("Document"),
-    _("Flesch-Kincaid score"),
-    _("Grammar"),
-    _("Letters"),
-    _("Overall score"),
-    _("Readability"),
-    _("Sentences"),
-    _("Spelling"),
-    _("Syllables"),
-    _("Text Statistics"),
-    _("Text"),
-    _("Words")
-]
 
 READABLE_SIGNALS_MODULE: Final[str] = "readable.utils.signals"

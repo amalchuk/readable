@@ -1,11 +1,11 @@
-from typing import Iterable, List, Tuple, TypeVar
+from typing import Final, Iterator, List, Tuple, TypeVar
 
-__all__: List[str] = ["as_iterable", "as_list", "as_tuple"]
+__all__: Final[List[str]] = ["as_iterable", "as_list", "as_tuple"]
 
 T = TypeVar("T")
 
 
-def as_iterable(obj: T, /) -> Iterable[T]:
+def as_iterable(obj: T, /) -> Iterator[T]:
     """
     Return an ``iterable`` containing only the specified ``object``.
     """
