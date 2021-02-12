@@ -6,13 +6,14 @@ x-default: &default-settings
   sysctls:
     net.core.somaxconn: 65535
   ulimits:
-    nofile: 65535 # file descriptors number limit
-    nproc: 65535 # processes number limit
+    nofile: 65535
+    nproc: 65535
 
 services:
   postgresql:
     <<: *default-settings
     image: postgres:13.1-alpine
+    container_name: postgresql
     user: postgres:postgres
     environment:
       # PostgreSQL environment variables:
@@ -28,6 +29,7 @@ services:
     <<: *default-settings
     build: .
     image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
+    container_name: readable
     user: nobody:nogroup
     environment:
       # PostgreSQL environment variables:
@@ -53,6 +55,7 @@ services:
     <<: *default-settings
     build: ./deployment/nginx
     image: $CI_REGISTRY/$CI_PROJECT_PATH/nginx:latest
+    container_name: nginx
     tmpfs:
       - /tmp/readable_cache
       - /var/cache/nginx
@@ -65,9 +68,11 @@ services:
         target: /application/readable/resources/staticfiles
     depends_on:
       - readable
-    scale: 4
     ports:
-      - 8080-8083:80/tcp
+      - target: 80
+        published: 8000
+        protocol: tcp
+        mode: host
 
 volumes:
   datafiles:
