@@ -12,7 +12,7 @@ x-default: &default-settings
 services:
   postgresql:
     <<: *default-settings
-    image: postgres:13.1-alpine
+    image: postgres:13.2-alpine
     container_name: postgresql
     user: postgres:postgres
     environment:
@@ -24,6 +24,11 @@ services:
       - type: volume
         source: datafiles
         target: /var/lib/postgresql/data
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+        mode: host
 
   readable:
     <<: *default-settings
@@ -50,27 +55,21 @@ services:
         target: /application/readable/resources/staticfiles
     depends_on:
       - postgresql
-
-  nginx:
-    <<: *default-settings
-    build: ./deployment/nginx
-    image: $CI_REGISTRY/$CI_PROJECT_PATH/nginx:latest
-    container_name: nginx
-    tmpfs:
-      - /tmp/readable_cache
-      - /var/cache/nginx
-    volumes:
-      - type: volume
-        source: mediafiles
-        target: /application/readable/resources/mediafiles
-      - type: volume
-        source: staticfiles
-        target: /application/readable/resources/staticfiles
-    depends_on:
-      - readable
     ports:
-      - target: 80
+      - target: 8000
         published: 8000
+        protocol: tcp
+        mode: host
+      - target: 8001
+        published: 8001
+        protocol: tcp
+        mode: host
+      - target: 8002
+        published: 8002
+        protocol: tcp
+        mode: host
+      - target: 8003
+        published: 8003
         protocol: tcp
         mode: host
 
