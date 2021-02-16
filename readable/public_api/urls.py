@@ -1,11 +1,11 @@
-from typing import List
+from typing import Final, List
 
 from django.urls.conf import path
 from django.urls.resolvers import URLPattern
 
 import readable.public_api.views as views
 
-__all__: List[str] = ["urlpatterns"]
+__all__: Final[List[str]] = ["urlpatterns"]
 
 # URL Dispatcher:
 

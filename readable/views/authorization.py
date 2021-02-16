@@ -1,4 +1,4 @@
-from typing import Callable, List, Type
+from typing import Callable, Final, List, Type
 
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,7 +15,7 @@ from django.views.generic.edit import CreateView
 from readable.forms import AuthenticationForm
 from readable.forms import UserCreationForm
 
-__all__: List[str] = ["login_view", "logout_view", "registration_view"]
+__all__: Final[List[str]] = ["login_view", "logout_view", "registration_view"]
 
 
 class LoginView(BaseLoginView):

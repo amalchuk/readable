@@ -6,13 +6,14 @@ x-default: &default-settings
   sysctls:
     net.core.somaxconn: 65535
   ulimits:
-    nofile: 65535 # file descriptors number limit
-    nproc: 65535 # processes number limit
+    nofile: 65535
+    nproc: 65535
 
 services:
   postgresql:
     <<: *default-settings
-    image: postgres:13.1-alpine
+    image: postgres:13.2-alpine
+    container_name: postgresql
     user: postgres:postgres
     environment:
       # PostgreSQL environment variables:
@@ -28,7 +29,7 @@ services:
     <<: *default-settings
     build: .
     image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
-    user: nobody:nogroup
+    container_name: readable
     environment:
       # PostgreSQL environment variables:
       - POSTGRES_USER
@@ -39,49 +40,14 @@ services:
       - DJANGO_SECRET_KEY
     tmpfs:
       - /tmp
-    volumes:
-      - type: volume
-        source: mediafiles
-        target: /application/readable/resources/mediafiles
-      - type: volume
-        source: staticfiles
-        target: /application/readable/resources/staticfiles
     depends_on:
       - postgresql
-
-  nginx:
-    <<: *default-settings
-    build: ./deployment/nginx
-    image: $CI_REGISTRY/$CI_PROJECT_PATH/nginx:latest
-    tmpfs:
-      - /tmp/readable_cache
-      - /var/cache/nginx
-    volumes:
-      - type: volume
-        source: mediafiles
-        target: /application/readable/resources/mediafiles
-      - type: volume
-        source: staticfiles
-        target: /application/readable/resources/staticfiles
-    depends_on:
-      - readable
-    scale: 4
     ports:
-      - 8080-8083:80/tcp
+      - 8000-8003:8000-8003/tcp
 
 volumes:
   datafiles:
     driver: local
-  mediafiles:
-    driver: local
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
-  staticfiles:
-    driver: local
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
 
 networks:
   default:

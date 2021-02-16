@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <uwsgi>
-  <uid>nobody</uid>
-  <gid>nogroup</gid>
-
   <module>readable.wsgi</module>
   <optimize>2</optimize>
 
   <processes>4</processes>
   <threads>4</threads>
+  <offload-threads>1</offload-threads>
 
-  <socket>0.0.0.0:8000</socket>
-  <socket>0.0.0.0:8001</socket>
-  <socket>0.0.0.0:8002</socket>
-  <socket>0.0.0.0:8003</socket>
+  <http-socket>0.0.0.0:8000</http-socket>
+  <http-socket>0.0.0.0:8001</http-socket>
+  <http-socket>0.0.0.0:8002</http-socket>
+  <http-socket>0.0.0.0:8003</http-socket>
 
   <map-socket>0:1</map-socket>
   <map-socket>1:2</map-socket>
   <map-socket>2:3</map-socket>
   <map-socket>3:4</map-socket>
+
+  <static-map>/media=/application/readable/resources/mediafiles/</static-map>
+  <static-map>/static=/application/readable/resources/staticfiles/</static-map>
+  <static-map>/favicon.ico=/application/readable/resources/staticfiles/favicon.ico</static-map>
 
   <post-buffering>8192</post-buffering>
   <harakiri>300</harakiri>
@@ -26,6 +28,7 @@
   <listen>65535</listen>
   <so-keepalive/>
   <tcp-nodelay/>
+  <limit-post>52428800</limit-post>
 
   <master/>
   <strict/>

@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Type
+from typing import Any, Callable, Dict, Final, List, Type
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -12,7 +12,7 @@ from django.views.generic.edit import CreateView
 from readable.forms import DocumentsForm
 from readable.models import Documents
 
-__all__: List[str] = ["index_view"]
+__all__: Final[List[str]] = ["index_view"]
 
 
 @method_decorator(login_required, name="post")

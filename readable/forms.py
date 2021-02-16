@@ -1,4 +1,4 @@
-from typing import List, Type
+from typing import Final, List, Type
 from unicodedata import normalize
 
 from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
@@ -15,7 +15,7 @@ from readable.utils.collections import as_list
 from readable.utils.validators import validate_ascii_username
 from readable.utils.validators import validate_filename
 
-__all__: List[str] = ["AuthenticationForm", "DocumentsForm", "UserCreationForm", "UserForm"]
+__all__: Final[List[str]] = ["AuthenticationForm", "DocumentsForm", "UserCreationForm", "UserForm"]
 
 
 class DocumentsForm(Form):

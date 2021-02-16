@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Tuple, Type
+from typing import Any, Dict, Final, List, Optional, Tuple, Type
 
 from django.contrib.admin.decorators import register
 from django.contrib.admin.options import InlineModelAdmin
@@ -17,7 +17,7 @@ from readable.models import Metrics
 from readable.models import Staff
 from readable.utils.collections import as_list
 
-__all__: List[str] = ["DocumentsAdmin", "MetricsInline", "StaffInline", "UserAdmin"]
+__all__: Final[List[str]] = ["DocumentsAdmin", "MetricsInline", "StaffInline", "UserAdmin"]
 
 # The ``typing`` module's aliases:
 FieldSetsType = List[Tuple[Optional[str], Dict[str, List[str]]]]

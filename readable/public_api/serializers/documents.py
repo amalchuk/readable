@@ -1,4 +1,4 @@
-from typing import List, Type
+from typing import Final, List, Type
 
 from django.db.models.base import Model as BaseModel
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +12,12 @@ from readable.models import Metrics
 from readable.utils.collections import as_list
 from readable.utils.validators import validate_filename
 
-__all__: List[str] = ["DocumentCreateSerializer", "DocumentListSerializer", "DocumentRetrieveSerializer", "MetricSerializer"]
+__all__: Final[List[str]] = [
+    "DocumentCreateSerializer",
+    "DocumentListSerializer",
+    "DocumentRetrieveSerializer",
+    "MetricSerializer"
+]
 
 
 class DocumentCreateSerializer(ModelSerializer):
@@ -50,14 +55,14 @@ class MetricSerializer(ModelSerializer):
             "coleman_liau_index"
         ]
 
-    def get_flesch_reading_ease_score(self, obj: Metrics) -> float:
-        return obj.indexes.flesch_reading_ease_score
+    def get_flesch_reading_ease_score(self, obj: Metrics, /) -> float:
+        return round(obj.indexes.flesch_reading_ease_score, 0b110)
 
-    def get_automated_readability_index(self, obj: Metrics) -> float:
-        return obj.indexes.automated_readability_index
+    def get_automated_readability_index(self, obj: Metrics, /) -> float:
+        return round(obj.indexes.automated_readability_index, 0b110)
 
-    def get_coleman_liau_index(self, obj: Metrics) -> float:
-        return obj.indexes.coleman_liau_index
+    def get_coleman_liau_index(self, obj: Metrics, /) -> float:
+        return round(obj.indexes.coleman_liau_index, 0b110)
 
 
 class DocumentRetrieveSerializer(DocumentListSerializer):

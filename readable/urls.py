@@ -1,4 +1,4 @@
-from typing import Callable, List, Union
+from typing import Callable, Final, List, Union
 
 from django.contrib.admin.sites import site as default_site
 from django.http.response import HttpResponse
@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 import readable.views as views
 
-__all__: List[str] = ["handler400", "handler403", "handler404", "handler500", "urlpatterns"]
+__all__: Final[List[str]] = ["handler400", "handler403", "handler404", "handler500", "urlpatterns"]
 
 # AdminSite settings:
 

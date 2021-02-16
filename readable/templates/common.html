@@ -1,5 +1,5 @@
 {% spaceless %}
-{% load cache i18n meta_tags static %}
+{% load i18n static %}
 <!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE }}">
@@ -7,10 +7,6 @@
     <title>{% block title %}{% trans 'readable' %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    {% cache 86400 meta_description_keywords LANGUAGE_CODE %}
-    {% meta_description %}
-    {% meta_keywords %}
-    {% endcache %}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'minimal.min.css' %}">
   </head>

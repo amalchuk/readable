@@ -1,9 +1,9 @@
-from typing import List
+from typing import Final, List
 
 from django.apps.config import AppConfig
 from django.utils.translation import gettext_lazy as _
 
-__all__: List[str] = ["Configuration"]
+__all__: Final[List[str]] = ["Configuration"]
 
 
 class Configuration(AppConfig):

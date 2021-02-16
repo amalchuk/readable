@@ -1,4 +1,4 @@
-from typing import Callable, Dict, List, Literal, Type
+from typing import Callable, Dict, Final, List, Literal, Type
 
 from django.db.models.query import QuerySet
 from rest_framework.generics import ListCreateAPIView
@@ -16,7 +16,7 @@ from readable.public_api.serializers.documents import DocumentListSerializer
 from readable.public_api.serializers.documents import DocumentRetrieveSerializer
 from readable.utils.collections import as_list
 
-__all__: List[str] = ["document_list_create_view", "document_retrieve_view"]
+__all__: Final[List[str]] = ["document_list_create_view", "document_retrieve_view"]
 
 
 class DocumentListCreateAPIView(ListCreateAPIView):
