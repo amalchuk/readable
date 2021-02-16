@@ -24,18 +24,12 @@ services:
       - type: volume
         source: datafiles
         target: /var/lib/postgresql/data
-    ports:
-      - target: 5432
-        published: 5432
-        protocol: tcp
-        mode: host
 
   readable:
     <<: *default-settings
     build: .
     image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
     container_name: readable
-    user: nobody:nogroup
     environment:
       # PostgreSQL environment variables:
       - POSTGRES_USER
@@ -46,46 +40,14 @@ services:
       - DJANGO_SECRET_KEY
     tmpfs:
       - /tmp
-    volumes:
-      - type: volume
-        source: mediafiles
-        target: /application/readable/resources/mediafiles
-      - type: volume
-        source: staticfiles
-        target: /application/readable/resources/staticfiles
     depends_on:
       - postgresql
     ports:
-      - target: 8000
-        published: 8000
-        protocol: tcp
-        mode: host
-      - target: 8001
-        published: 8001
-        protocol: tcp
-        mode: host
-      - target: 8002
-        published: 8002
-        protocol: tcp
-        mode: host
-      - target: 8003
-        published: 8003
-        protocol: tcp
-        mode: host
+      - 8000-8003:8000-8003/tcp
 
 volumes:
   datafiles:
     driver: local
-  mediafiles:
-    driver: local
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
-  staticfiles:
-    driver: local
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
 
 networks:
   default:
