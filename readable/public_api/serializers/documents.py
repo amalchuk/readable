@@ -2,6 +2,7 @@ from typing import Final, List, Type
 
 from django.db.models.base import Model as BaseModel
 from django.utils.translation import gettext_lazy as _
+from rest_framework.fields import BooleanField
 from rest_framework.fields import CharField
 from rest_framework.fields import FileField
 from rest_framework.fields import SerializerMethodField
@@ -30,11 +31,12 @@ class DocumentCreateSerializer(ModelSerializer):
 
 class DocumentListSerializer(ModelSerializer):
     filename = CharField(label=_("Document"), source="realname")
+    is_unavailable = BooleanField(read_only=True, source="unavailable")
     status = CharField(label=_("Status"), source="get_status_display")
 
     class Meta:
         model: Type[BaseModel] = Documents
-        fields: List[str] = ["id", "filename", "status", "created_at", "updated_at"]
+        fields: List[str] = ["id", "filename", "is_unavailable", "status", "created_at", "updated_at"]
 
 
 class MetricSerializer(ModelSerializer):
