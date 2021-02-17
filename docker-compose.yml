@@ -30,6 +30,7 @@ services:
     build: .
     image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
     container_name: readable
+    user: nobody:nogroup
     environment:
       # PostgreSQL environment variables:
       - POSTGRES_USER
