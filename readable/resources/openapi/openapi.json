@@ -378,6 +378,7 @@
         "required": [
           "id",
           "filename",
+          "is_unavailable",
           "status",
           "created_at",
           "updated_at"
@@ -390,6 +391,9 @@
           },
           "filename": {
             "type": "string"
+          },
+          "is_unavailable": {
+            "type": "boolean"
           },
           "status": {
             "type": "string"
