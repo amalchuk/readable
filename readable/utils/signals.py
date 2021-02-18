@@ -73,7 +73,7 @@ def user_logged_in_out(*args: Any, **kwargs: Any) -> None:
     except ValueError:
         ip_address = None
     else:
-        ip_address = raw_address.compressed
+        ip_address = str(raw_address)
 
     Staff.objects.update_or_create(user=profile, defaults={
         "user_agent": user_agent,

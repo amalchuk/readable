@@ -20,8 +20,8 @@
   <map-socket>2:3</map-socket>
   <map-socket>3:4</map-socket>
 
-  <static-map>/media=/application/readable/resources/mediafiles/</static-map>
-  <static-map>/static=/application/readable/resources/staticfiles/</static-map>
+  <static-map>/media/=/application/readable/resources/mediafiles/</static-map>
+  <static-map>/static/=/application/readable/resources/staticfiles/</static-map>
   <static-map>/favicon.ico=/application/readable/resources/staticfiles/favicon.ico</static-map>
 
   <post-buffering>8192</post-buffering>
