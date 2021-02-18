@@ -1,4 +1,7 @@
-from typing import Any, Final, List
+from ipaddress import IPv4Address
+from ipaddress import IPv6Address
+from ipaddress import ip_address as parse_ip
+from typing import Any, Final, List, Optional, Union
 
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
@@ -61,9 +64,20 @@ def user_logged_in_out(*args: Any, **kwargs: Any) -> None:
     """
     profile: User = kwargs.pop("user")
     request: HttpRequest = kwargs.pop("request")
+
+    user_agent: Optional[str] = request.META.get("HTTP_USER_AGENT", None)
+    ip_address: Optional[str] = request.META.get("HTTP_X_REAL_IP", request.META.get("REMOTE_ADDR", None))
+
+    try:
+        raw_address: Union[IPv4Address, IPv6Address] = parse_ip(ip_address)
+    except ValueError:
+        ip_address = None
+    else:
+        ip_address = str(raw_address)
+
     Staff.objects.update_or_create(user=profile, defaults={
-        "user_agent": request.META.get("HTTP_USER_AGENT", None),
-        "ip_address": request.META.get("REMOTE_ADDR", None)
+        "user_agent": user_agent,
+        "ip_address": ip_address
     })
 
 

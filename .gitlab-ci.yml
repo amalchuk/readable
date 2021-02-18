@@ -15,7 +15,7 @@ code quality:
     - make coverage
 
 build images:
-  image: docker/compose:1.28.2
+  image: docker/compose:1.28.3
   services:
     - docker:18.09.7-dind
   stage: building
@@ -30,7 +30,7 @@ build images:
 
 deployment:
   image:
-    name: docker/compose:1.28.2
+    name: docker/compose:1.28.3
     entrypoint:
       - /bin/sh
       - -c
