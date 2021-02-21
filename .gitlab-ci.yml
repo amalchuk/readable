@@ -1,5 +1,5 @@
 ---
-image: python:3.9.1-buster
+image: python:3.9.2-buster
 
 stages:
   - testing
