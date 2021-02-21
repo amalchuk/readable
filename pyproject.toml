@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.5.3"
+version     = "0.6.0"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -11,8 +11,8 @@ license     = "MIT"
 include     = ["manage.py"]
 
 [tool.poetry.dependencies]
-python              = "3.9.1"
-django              = "3.1.6"  # https://pypi.org/project/django
+python              = "3.9.2"
+django              = "3.1.7"  # https://pypi.org/project/django
 djangorestframework = "3.12.2" # https://pypi.org/project/djangorestframework
 pymupdf             = "1.18.8" # https://pypi.org/project/pymupdf
 python-docx         = "0.8.10" # https://pypi.org/project/python-docx
