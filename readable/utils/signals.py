@@ -23,7 +23,7 @@ __all__: Final[List[str]] = ["documents_uploaded", "user_logged_in_out", "user_s
 
 
 @synchronized
-def file_processing(document: Documents) -> None:
+def file_processing(document: Documents, /) -> None:
     document.status = Documents.Status.IN_PROGRESS
     document.updated_at = now()
     document.save(update_fields=["status", "updated_at"])

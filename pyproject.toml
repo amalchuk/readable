@@ -12,7 +12,7 @@ include     = ["manage.py"]
 
 [tool.poetry.dependencies]
 python              = "3.9.1"
-django              = "3.1.6"  # https://pypi.org/project/django
+django              = "3.1.7"  # https://pypi.org/project/django
 djangorestframework = "3.12.2" # https://pypi.org/project/djangorestframework
 pymupdf             = "1.18.8" # https://pypi.org/project/pymupdf
 python-docx         = "0.8.10" # https://pypi.org/project/python-docx
