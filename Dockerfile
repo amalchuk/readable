@@ -10,6 +10,8 @@ COPY --chown=nobody:nogroup ["readable", "/application/readable/"]
 ENV PIP_NO_CACHE_DIR="1" PIP_DISABLE_PIP_VERSION_CHECK="1"
 RUN ["python", "-m", "pip", "install", "--requirement", "requirements.txt", "--no-deps", "--quiet"]
 
+VOLUME ["/application/readable/resources/mediafiles", "/application/readable/resources/staticfiles"]
+
 EXPOSE 8000-8003/tcp
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["uwsgi", "uwsgi.xml"]
