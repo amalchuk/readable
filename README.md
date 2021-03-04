@@ -43,7 +43,7 @@ docker-compose up \
 
 Vendored dependencies
 ---------------------
-- [jQuery][jquery_homepage] `v3.5.1`
+- [jQuery][jquery_homepage] `v3.6.0`
 - [Bootstrap][bootstrap_homepage] `v4.6.0` ([custom theme][minimal_homepage])
 - [Font Awesome][fontawesome_homepage] `v5.15.2`
 

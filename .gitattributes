@@ -4,7 +4,6 @@
 # Binary files:
 *.ico binary
 *.mo  binary
-*.png binary
 
 # Vendored dependencies:
 **/assets/*.min.css linguist-vendored

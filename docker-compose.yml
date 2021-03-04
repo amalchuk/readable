@@ -40,6 +40,8 @@ services:
       - DJANGO_SETTINGS_MODULE
       - DJANGO_SECRET_KEY
     tmpfs:
+      - /application/readable/resources/mediafiles
+      - /application/readable/resources/staticfiles
       - /tmp
     depends_on:
       - postgresql
