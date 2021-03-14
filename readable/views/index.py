@@ -25,7 +25,7 @@ class IndexView(CreateView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         if self.request.user.is_authenticated:
             documents = Documents.objects.filter(uploaded_by__user=self.request.user)
-            paginator = Paginator(documents, settings.READABLE_DOCUMENTS_PAGINATE_BY)
+            paginator = Paginator(documents, settings.REST_FRAMEWORK_PAGE_SIZE)
 
             page = self.request.GET.get("page")
             kwargs["documents"] = paginator.get_page(page)

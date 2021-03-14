@@ -188,7 +188,7 @@ AUTH_PASSWORD_VALIDATORS: List[Dict[str, Any]] = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
         "OPTIONS": {
-            "user_attributes": ["username"],
+            "user_attributes": as_list("username"),
             "max_similarity": 0.5
         }
     }
@@ -264,9 +264,3 @@ REST_FRAMEWORK: Dict[str, Any] = {
     "TIME_FORMAT": DEFAULT_TIME_FORMAT,
     "TIME_INPUT_FORMATS": TIME_INPUT_FORMATS
 }
-
-# Miscellaneous:
-
-READABLE_DOCUMENTS_PAGINATE_BY: int = REST_FRAMEWORK_PAGE_SIZE
-
-READABLE_SIGNALS_MODULE: Final[str] = "readable.utils.signals"
