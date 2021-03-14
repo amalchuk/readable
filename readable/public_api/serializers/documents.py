@@ -1,4 +1,4 @@
-from typing import Final, List, Type
+from typing import Final, List, Optional, Type
 
 from django.db.models.base import Model as BaseModel
 from django.utils.translation import gettext_lazy as _
@@ -6,6 +6,8 @@ from rest_framework.fields import BooleanField
 from rest_framework.fields import CharField
 from rest_framework.fields import FileField
 from rest_framework.fields import SerializerMethodField
+from rest_framework.request import Request
+from rest_framework.reverse import reverse
 from rest_framework.serializers import ModelSerializer
 
 from readable.models import Documents
@@ -31,12 +33,16 @@ class DocumentCreateSerializer(ModelSerializer):
 
 class DocumentListSerializer(ModelSerializer):
     filename = CharField(label=_("Document"), source="realname")
-    is_unavailable = BooleanField(read_only=True, source="unavailable")
     status = CharField(label=_("Status"), source="get_status_display")
+    metrics = SerializerMethodField(label=_("Metrics"))
 
     class Meta:
         model: Type[BaseModel] = Documents
-        fields: List[str] = ["id", "filename", "is_unavailable", "status", "created_at", "updated_at"]
+        fields: List[str] = ["id", "filename", "status", "metrics", "created_at", "updated_at"]
+
+    def get_metrics(self, obj: Documents, /) -> Optional[str]:
+        request: Optional[Request] = self.context.get("request")
+        return reverse("api-document-retrieve-view", args=as_list(obj.id), request=request) if not obj.unavailable else None
 
 
 class MetricSerializer(ModelSerializer):
