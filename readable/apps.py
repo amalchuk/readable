@@ -1,8 +1,10 @@
-from importlib import import_module
 from typing import Final, List
 
 from django.apps.config import AppConfig
-from django.conf import settings
+from django.apps.registry import apps
+from django.contrib.auth.signals import user_logged_in
+from django.contrib.auth.signals import user_logged_out
+from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
 
 __all__: Final[List[str]] = ["Configuration"]
@@ -13,4 +15,12 @@ class Configuration(AppConfig):
     verbose_name: str = _("readable")
 
     def ready(self) -> None:
-        import_module(settings.READABLE_SIGNALS_MODULE)
+        from readable.utils.signals import documents_uploaded
+        post_save.connect(documents_uploaded, self.get_model("Documents"))
+
+        from readable.utils.signals import user_logged_in_out
+        user_logged_in.connect(user_logged_in_out)
+        user_logged_out.connect(user_logged_in_out)
+
+        from readable.utils.signals import user_staff_is_created
+        post_save.connect(user_staff_is_created, apps.get_registered_model("auth", "User"))

@@ -7,8 +7,8 @@
   <optimize>2</optimize>
 
   <processes>4</processes>
-  <threads>4</threads>
-  <offload-threads>1</offload-threads>
+  <threads>8</threads>
+  <offload-threads>2</offload-threads>
 
   <http-socket>0.0.0.0:8000</http-socket>
   <http-socket>0.0.0.0:8001</http-socket>
