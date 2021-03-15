@@ -1,32 +1,32 @@
 {% load i18n %}
 <header class="navbar navbar-expand-md navbar-light bg-light border-bottom mb-3 mb-md-4">
   <div class="container-md">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#responsive_navbar" aria-controls="responsive_navbar" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#responsive_navbar" aria-controls="responsive_navbar" aria-expanded="false" aria-label="{% translate 'Toggle navigation' %}">
       <i class="fas fa-bars fa-fw"></i>
     </button>
-    <a class="navbar-brand" href="{% url 'index' %}"><i class="fas fa-graduation-cap fa-fw"></i>&nbsp;{% trans 'readable' %}</a>
+    <a class="navbar-brand" href="{% url 'index' %}"><i class="fas fa-graduation-cap fa-fw"></i>&nbsp;{% translate 'readable' %}</a>
     <div class="collapse navbar-collapse" id="responsive_navbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'index' %}"><i class="fas fa-home fa-fw"></i>&nbsp;{% trans 'Home' %}</a>
+          <a class="nav-link" href="{% url 'index' %}"><i class="fas fa-home fa-fw"></i>&nbsp;{% translate 'Home' %}</a>
         </li>
         {% if user.is_staff %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'admin:index' %}"><i class="fas fa-chart-line fa-fw"></i>&nbsp;{% trans 'Dashboard' %}</a>
+          <a class="nav-link" href="{% url 'admin:index' %}"><i class="fas fa-chart-line fa-fw"></i>&nbsp;{% translate 'Dashboard' %}</a>
         </li>
         {% endif %}
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbar_dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i>&nbsp;{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</a>
           <div class="dropdown-menu" aria-labelledby="navbar_dropdown">
-            <a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-id-card fa-fw"></i>&nbsp;{% trans 'Profile' %}</a>
+            <a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-id-card fa-fw"></i>&nbsp;{% translate 'Profile' %}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;{% trans 'Log Out' %}</a>
+            <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i>&nbsp;{% translate 'Log Out' %}</a>
           </div>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-fw"></i>&nbsp;{% trans 'Log In' %}</a>
+          <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-fw"></i>&nbsp;{% translate 'Log In' %}</a>
         </li>
         {% endif %}
       </ul>

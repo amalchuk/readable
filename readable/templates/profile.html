@@ -1,10 +1,10 @@
 {% extends 'common.html' %}
 {% load i18n %}
-{% block title %}{% trans 'readable' %} &ndash; {% trans 'Personal Information' %}{% endblock %}
+{% block title %}{% translate 'readable' %} &ndash; {% translate 'Personal Information' %}{% endblock %}
 {% block content %}
 <form method="POST" action="{% url 'profile' %}" novalidate>
   <div class="card my-3 my-md-4">
-    <div class="card-header text-center">{% trans 'Personal Information' %}</div>
+    <div class="card-header text-center">{% translate 'Personal Information' %}</div>
     <div class="card-body">
       <div class="form-group row row-cols-1 row-cols-md-2 mb-3 mb-md-4">
         <label class="col col-md-4 col-form-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}&colon;</label>
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="form-group row row-cols-1 row-cols-md-2 mb-0">
-        <label class="col col-md-4 col-form-label" for="id_date_joined">{% trans 'Date joined' %}&colon;</label>
+        <label class="col col-md-4 col-form-label" for="id_date_joined">{% translate 'Date joined' %}&colon;</label>
         <div class="col col-md-8">
           <input id="id_date_joined" class="form-control-plaintext" value="{{ user.date_joined | date:'DATE_FORMAT' }}" readonly>
         </div>
@@ -44,7 +44,7 @@
   <div class="row row-cols-1 row-cols-md-2 my-3 my-md-4">
     <div class="col col-md-9">{% csrf_token %}</div>
     <div class="col col-md-3">
-      <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-edit fa-fw"></i>&nbsp;{% trans 'Update profile' %}</button>
+      <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-edit fa-fw"></i>&nbsp;{% translate 'Update profile' %}</button>
     </div>
   </div>
 </form>
