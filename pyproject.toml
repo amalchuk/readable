@@ -11,15 +11,19 @@ license     = "MIT"
 include     = ["manage.py"]
 
 [tool.poetry.dependencies]
-python              = "3.9.2"
+python = "3.9.2"
+
+# Required dependencies:
 django              = "3.1.7"  # https://pypi.org/project/django
 djangorestframework = "3.12.2" # https://pypi.org/project/djangorestframework
 pymupdf             = "1.18.9" # https://pypi.org/project/pymupdf
 python-docx         = "0.8.10" # https://pypi.org/project/python-docx
 scienco             = "0.4.1"  # https://pypi.org/project/scienco
 simplethread        = "0.4.1"  # https://pypi.org/project/simplethread
-psycopg2            = { version = "~2.8", optional = true } # https://pypi.org/project/psycopg2
-uwsgi               = { version = "~2.0", optional = true } # https://pypi.org/project/uwsgi
+
+# Optional dependencies:
+psycopg2 = { version = "^2.8", platform = "linux", optional = true } # https://pypi.org/project/psycopg2
+uwsgi    = { version = "^2.0", platform = "linux", optional = true } # https://pypi.org/project/uwsgi
 
 [tool.poetry.extras]
 deployment = ["psycopg2", "uwsgi"]

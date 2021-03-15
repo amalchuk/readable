@@ -19,14 +19,17 @@ echo "$CI_REGISTRY_PASSWORD" | docker login \
     $CI_REGISTRY
 
 # Pull images for the services:
-docker-compose pull
+docker-compose pull \
+    --quiet \
+    --include-deps
 
 # Restart the services:
 docker-compose up \
     --detach \
     --force-recreate \
     --no-build \
-    --remove-orphans
+    --remove-orphans \
+    --no-log-prefix
 
 # Clear the variables:
 unset DOCKER_CERT_PATH
