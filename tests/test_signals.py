@@ -69,7 +69,7 @@ class TestUserLoggedInOut(TestCase):
     def test_logout(self) -> None:
         defaults: Dict[str, str] = {
             "HTTP_USER_AGENT": "Mozilla/5.0 TestCase/Logout",
-            "REMOTE_ADDR": "127.0.0.1"
+            "REMOTE_ADDR": "Unsupported IP address"
         }
         request: WSGIRequest = self.factory.post(reverse("admin:logout"), **defaults)
         request.user = self.user
@@ -80,7 +80,7 @@ class TestUserLoggedInOut(TestCase):
 
         staff: Staff = Staff.objects.get(user=self.user)
         self.assertEqual(staff.user_agent, defaults["HTTP_USER_AGENT"])
-        self.assertEqual(staff.ip_address, defaults["REMOTE_ADDR"])
+        self.assertIsNone(staff.ip_address)
 
 
 class TestUserStaffIsCreated(TestCase):
