@@ -1,13 +1,13 @@
 {% extends 'common.html' %}
 {% load i18n %}
-{% block title %}{% trans 'readable' %} &ndash; {% trans 'Registration' %}{% endblock %}
+{% block title %}{% translate 'readable' %} &ndash; {% translate 'Registration' %}{% endblock %}
 {% block header %}{# empty header block #}{% endblock %}
 {% block messages %}{# empty messages block #}{% endblock %}
 {% block content %}
 <div class="row align-items-center vh-100">
   <div class="col-md-5 mx-auto">
     <div class="card bg-light my-3 my-md-4">
-      <h5 class="card-header text-center">{% trans 'Registration' %}</h5>
+      <h5 class="card-header text-center">{% translate 'Registration' %}</h5>
       <div class="card-body">
         <form method="POST" action="{% url 'registration' %}" novalidate>
           <div class="input-group mb-3 mb-md-4">
@@ -38,7 +38,7 @@
             {% endfor %}
           </div>
           {% csrf_token %}
-          <input class="btn btn-primary btn-block" type="submit" value="{% trans 'Create an account' %}">
+          <input class="btn btn-primary btn-block" type="submit" value="{% translate 'Create an account' %}">
         </form>
       </div>
     </div>

@@ -4,7 +4,7 @@
 {% for error in form.filename.errors %}
 <div class="alert alert-danger alert-dismissible my-3 my-md-4" role="alert">
   <p class="text-truncate mb-0">{{ error | escape }}</p>
-  <button class="close" data-dismiss="alert" aria-label="{% trans 'Close' %}">
+  <button class="close" data-dismiss="alert" aria-label="{% translate 'Close' %}">
     <span aria-hidden="true"><i class="fas fa-times fa-xs fa-fw"></i></span>
   </button>
 </div>
@@ -14,9 +14,9 @@
 <div class="card my-3 my-md-4">
   <div class="card-header">
     <div class="row row-cols-1 row-cols-md-3">
-      <div class="col col-md-6 text-truncate">{% trans 'Document' %}</div>
-      <div class="col col-md-2 text-truncate text-md-center">{% trans 'Status' %}</div>
-      <div class="col col-md-4 text-truncate text-md-center">{% trans 'Overall score' %}</div>
+      <div class="col col-md-6 text-truncate">{% translate 'Document' %}</div>
+      <div class="col col-md-2 text-truncate text-md-center">{% translate 'Status' %}</div>
+      <div class="col col-md-4 text-truncate text-md-center">{% translate 'Overall score' %}</div>
     </div>
   </div>
   <div class="list-group list-group-flush">
@@ -51,8 +51,8 @@
 </div>
 {% else %}
 <div class="jumbotron text-center my-3 my-md-4">
-  <h1>{% trans 'You have not uploaded documents yet' %}</h1>
-  <p class="lead text-muted">{% trans 'Get started today' %}&excl;</p>
+  <h1>{% translate 'You have not uploaded documents yet' %}</h1>
+  <p class="lead text-muted">{% translate 'Get started today' %}&excl;</p>
 </div>
 {% endif %}
 <div class="row row-cols-1 row-cols-md-2 my-3 my-md-4">
@@ -61,7 +61,7 @@
     <ul class="pagination justify-content-center justify-content-md-start">
       {% if documents.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="{% url 'index' %}?page={{ documents.previous_page_number }}" aria-label="{% trans 'Previous' %}">
+        <a class="page-link" href="{% url 'index' %}?page={{ documents.previous_page_number }}" aria-label="{% translate 'Previous' %}">
           <span aria-hidden="true"><i class="fas fa-chevron-left fa-fw"></i></span>
         </a>
       </li>
@@ -74,7 +74,7 @@
       {% endif %}
       {% if documents.has_next %}
       <li class="page-item">
-        <a class="page-link" href="{% url 'index' %}?page={{ documents.next_page_number }}" aria-label="{% trans 'Next' %}">
+        <a class="page-link" href="{% url 'index' %}?page={{ documents.next_page_number }}" aria-label="{% translate 'Next' %}">
           <span aria-hidden="true"><i class="fas fa-chevron-right fa-fw"></i></span>
         </a>
       </li>
@@ -89,14 +89,14 @@
     {% endif %}
   </nav>
   <div class="col col-md-3">
-    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#add_document"><i class="fas fa-file-alt fa-fw"></i>&nbsp;{% trans 'Add document' %}</button>
+    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#add_document"><i class="fas fa-file-alt fa-fw"></i>&nbsp;{% translate 'Add document' %}</button>
   </div>
 </div>
 <div class="modal" id="add_document" tabindex="-1" role="dialog" aria-labelledby="add_document_title" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="add_document_title">{% trans 'Choose file' %}</h5>
+        <h5 class="modal-title" id="add_document_title">{% translate 'Choose file' %}</h5>
       </div>
       <form method="POST" enctype="multipart/form-data" novalidate>
         <div class="modal-body">
@@ -106,14 +106,14 @@
             </div>
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="{{ form.filename.id_for_label }}" name="{{ form.filename.name }}" aria-describedby="search-file-input">
-              <label class="custom-file-label text-truncate" for="{{ form.filename.id_for_label }}" data-browse="{% trans 'Browse' %}"></label>
+              <label class="custom-file-label text-truncate" for="{{ form.filename.id_for_label }}" data-browse="{% translate 'Browse' %}"></label>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           {% csrf_token %}
-          <button class="btn btn-outline-secondary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>&nbsp;{% trans 'Close' %}</button>
-          <button class="btn btn-primary" type="submit"><i class="fas fa-upload fa-fw"></i>&nbsp;{% trans 'Upload' %}</button>
+          <button class="btn btn-outline-secondary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>&nbsp;{% translate 'Close' %}</button>
+          <button class="btn btn-primary" type="submit"><i class="fas fa-upload fa-fw"></i>&nbsp;{% translate 'Upload' %}</button>
         </div>
       </form>
     </div>
@@ -121,10 +121,10 @@
 </div>
 {% else %}
 <div class="jumbotron text-center my-3 my-md-4">
-  <h1>{% trans 'Great readability' %}</h1>
-  <p class="lead text-muted">{% trans 'This tool will quickly test the readability, spelling and grammar of your text' %}&period;</p>
+  <h1>{% translate 'Great readability' %}</h1>
+  <p class="lead text-muted">{% translate 'This tool will quickly test the readability, spelling and grammar of your text' %}&period;</p>
   <hr class="my-3 my-md-4">
-  <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">{% trans 'Learn more' %}</a>
+  <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">{% translate 'Learn more' %}</a>
 </div>
 {% endif %}
 {% endblock %}

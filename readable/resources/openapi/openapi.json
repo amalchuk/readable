@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "OpenAPI Specification",
-    "version": "0.6.2",
+    "version": "0.6.3",
     "contact": {
       "name": "Andrew Malchuk",
       "email": "andrew.malchuk@yandex.ru"

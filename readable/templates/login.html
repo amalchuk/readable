@@ -1,22 +1,22 @@
 {% extends 'common.html' %}
 {% load i18n %}
-{% block title %}{% trans 'readable' %} &ndash; {% trans 'Sign In' %}{% endblock %}
+{% block title %}{% translate 'readable' %} &ndash; {% translate 'Sign In' %}{% endblock %}
 {% block header %}{# empty header block #}{% endblock %}
 {% block messages %}{# empty messages block #}{% endblock %}
 {% block content %}
 <div class="row align-items-center vh-100">
   <div class="col-md-5 mx-auto">
     <div class="card bg-light my-3 my-md-4">
-      <h5 class="card-header text-center">{% trans 'Sign In' %}</h5>
+      <h5 class="card-header text-center">{% translate 'Sign In' %}</h5>
       <div class="card-body">
         {% if form.errors %}
-        <div class="alert alert-danger" role="alert">{% trans "Your username and password didn't match. Please try again." %}</div>
+        <div class="alert alert-danger" role="alert">{% translate "Your username and password didn't match. Please try again." %}</div>
         {% endif %}
         {% if next %}
           {% if user.is_authenticated %}
-          <div class="alert alert-warning" role="alert">{% trans "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}</div>
+          <div class="alert alert-warning" role="alert">{% translate "Your account doesn't have access to this page. To proceed, please login with an account that has access." %}</div>
           {% else %}
-          <div class="alert alert-warning" role="alert">{% trans 'Please login to see this page.' %}</div>
+          <div class="alert alert-warning" role="alert">{% translate 'Please login to see this page.' %}</div>
           {% endif %}
         {% endif %}
         <form method="POST" action="{% url 'login' %}" novalidate>
@@ -34,11 +34,11 @@
           </div>
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ next }}">
-          <input class="btn btn-primary btn-block" type="submit" value="{% trans 'Confirm identity' %}">
+          <input class="btn btn-primary btn-block" type="submit" value="{% translate 'Confirm identity' %}">
         </form>
       </div>
       <div class="card-footer text-center">
-        <small class="text-muted">{% trans "Don't have an account?" %}&nbsp;<a class="card-link" href="{% url 'registration' %}">{% trans 'Register now' %}</a></small>
+        <small class="text-muted">{% translate "Don't have an account?" %}&nbsp;<a class="card-link" href="{% url 'registration' %}">{% translate 'Register now' %}</a></small>
       </div>
     </div>
   </div>
