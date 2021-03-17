@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+from contextlib import closing as _
+from http.client import HTTPConnection
+from http.client import HTTPResponse
+from json import load as json_decode
+from typing import Any, Dict, Final, List
+
+__all__: Final[List[str]] = ["process_stats", "retrieve_json"]
+
+DEFAULT_HOSTNAME: Final[str] = "127.0.0.1"
+DEFAULT_PORT: Final[int] = 9000
+
+
+def retrieve_json(hostname: str, port: int, /) -> Dict[str, Any]:
+    with _(HTTPConnection(hostname, port)) as connection:
+        connection.request("GET", "/")
+        response: HTTPResponse = connection.getresponse()
+        return json_decode(response)
+
+
+def process_stats(response: Dict[str, Any], /) -> bool:
+    listen_queue_errors: int = response["listen_queue_errors"]
+    write_errors: int = sum(core["write_errors"] for worker in response["workers"] for core in worker["cores"])
+    read_errors: int = sum(core["read_errors"] for worker in response["workers"] for core in worker["cores"])
+    return (listen_queue_errors + write_errors + read_errors) > 0
+
+
+if __name__ == "__main__":
+    response: Dict[str, Any] = retrieve_json(DEFAULT_HOSTNAME, DEFAULT_PORT)
+    status: bool = process_stats(response)
+    raise SystemExit(status)
