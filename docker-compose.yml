@@ -47,6 +47,7 @@ services:
       - postgresql
     ports:
       - 8000-8003:8000-8003/tcp
+      - 9000:9000/tcp
 
 volumes:
   datafiles:

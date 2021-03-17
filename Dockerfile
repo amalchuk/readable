@@ -12,6 +12,6 @@ RUN ["pip", "install", "--requirement", "requirements.txt", "--no-deps", "--quie
 
 VOLUME ["/application/readable/resources/mediafiles", "/application/readable/resources/staticfiles"]
 
-EXPOSE 8000-8003/tcp
+EXPOSE 8000-8003/tcp 9000/tcp
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["uwsgi", "uwsgi.xml"]

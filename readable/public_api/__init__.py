@@ -5,4 +5,8 @@
 Public REST API.
 """
 
+from typing import Final, List
+
+__all__: Final[List[str]] = ["default_app_config"]
+
 default_app_config: str = "readable.public_api.apps.Configuration"
