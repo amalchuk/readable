@@ -6,7 +6,7 @@ from http.client import HTTPResponse
 from json import load as json_decode
 from typing import Any, Dict, Final, List
 
-__all__: Final[List[str]] = ["process_stats", "retrieve_json"]
+__all__: Final[List[str]] = ["collect_errors", "retrieve_json"]
 
 DEFAULT_HOSTNAME: Final[str] = "127.0.0.1"
 DEFAULT_PORT: Final[int] = 9000
@@ -19,14 +19,14 @@ def retrieve_json(hostname: str, port: int, /) -> Dict[str, Any]:
         return json_decode(response)
 
 
-def process_stats(response: Dict[str, Any], /) -> bool:
-    listen_queue_errors: int = response["listen_queue_errors"]
-    write_errors: int = sum(core["write_errors"] for worker in response["workers"] for core in worker["cores"])
-    read_errors: int = sum(core["read_errors"] for worker in response["workers"] for core in worker["cores"])
-    return (listen_queue_errors + write_errors + read_errors) > 0
+def collect_errors(json_response: Dict[str, Any], /) -> int:
+    listen_queue_errors: int = json_response["listen_queue_errors"]
+    write_errors: int = sum(core["write_errors"] for worker in json_response["workers"] for core in worker["cores"])
+    read_errors: int = sum(core["read_errors"] for worker in json_response["workers"] for core in worker["cores"])
+    return listen_queue_errors + write_errors + read_errors
 
 
 if __name__ == "__main__":
-    response: Dict[str, Any] = retrieve_json(DEFAULT_HOSTNAME, DEFAULT_PORT)
-    status: bool = process_stats(response)
-    raise SystemExit(status)
+    json_response: Dict[str, Any] = retrieve_json(DEFAULT_HOSTNAME, DEFAULT_PORT)
+    is_failure: bool = collect_errors(json_response) > 0
+    raise SystemExit(is_failure)
