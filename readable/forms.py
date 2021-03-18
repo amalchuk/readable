@@ -38,7 +38,7 @@ class AuthenticationForm(BaseAuthenticationForm):
 
 
 class UserCreationForm(BaseUserCreationForm):
-    username = CharField(label=_("Login"), min_length=6, max_length=50, validators=[validate_ascii_username])
+    username = CharField(label=_("Login"), min_length=6, max_length=50, validators=as_list(validate_ascii_username))
 
     class Meta:
         model: Type[BaseModel] = User

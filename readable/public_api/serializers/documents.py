@@ -2,7 +2,6 @@ from typing import Final, List, Optional, Type
 
 from django.db.models.base import Model as BaseModel
 from django.utils.translation import gettext_lazy as _
-from rest_framework.fields import BooleanField
 from rest_framework.fields import CharField
 from rest_framework.fields import FileField
 from rest_framework.fields import SerializerMethodField
@@ -75,7 +74,3 @@ class MetricSerializer(ModelSerializer):
 
 class DocumentRetrieveSerializer(DocumentListSerializer):
     metrics = MetricSerializer(label=_("Metrics"), read_only=True)
-
-    class Meta:
-        model: Type[BaseModel] = Documents
-        fields: List[str] = ["id", "filename", "status", "metrics", "created_at", "updated_at"]

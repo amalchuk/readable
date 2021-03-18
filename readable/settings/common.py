@@ -1,6 +1,6 @@
 from datetime import timedelta
 from pathlib import PurePath as _P
-from typing import Any, Dict, Final, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from django.contrib.messages import constants as message_constants
 from django.core.management.utils import get_random_secret_key

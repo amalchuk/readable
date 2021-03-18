@@ -24,7 +24,7 @@ from scienco import compute_indexes
 __all__: Final[List[str]] = ["Documents", "documents_upload_directory", "Metrics", "Staff"]
 
 
-def documents_upload_directory(instance: "Documents", filename: str) -> str:
+def documents_upload_directory(instance: "Documents", filename: str, /) -> str:
     instance.realname = get_valid_filename(filename)
     return f"{instance.id!s}{instance.path.suffix}"
 
