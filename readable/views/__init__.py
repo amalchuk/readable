@@ -1,4 +1,4 @@
-from typing import Final, List
+from typing import Final
 
 from readable.views.authorization import login_view
 from readable.views.authorization import logout_view
@@ -11,7 +11,7 @@ from readable.views.exceptions import server_error_view
 from readable.views.index import index_view
 from readable.views.profile import profile_view
 
-__all__: Final[List[str]] = [
+__all__: Final[list[str]] = [
     "login_view",
     "logout_view",
     "registration_view",

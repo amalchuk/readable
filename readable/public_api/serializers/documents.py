@@ -1,4 +1,4 @@
-from typing import Final, List, Optional, Type
+from typing import Final, Optional
 
 from django.db.models.base import Model as BaseModel
 from django.utils.translation import gettext_lazy as _
@@ -14,7 +14,7 @@ from readable.models import Metrics
 from readable.utils.collections import as_list
 from readable.utils.validators import validate_filename
 
-__all__: Final[List[str]] = [
+__all__: Final[list[str]] = [
     "DocumentCreateSerializer",
     "DocumentListSerializer",
     "DocumentRetrieveSerializer",
@@ -26,8 +26,8 @@ class DocumentCreateSerializer(ModelSerializer):
     filename = FileField(label=_("Document"), write_only=True, validators=as_list(validate_filename))
 
     class Meta:
-        model: Type[BaseModel] = Documents
-        fields: List[str] = ["id", "filename"]
+        model: type[BaseModel] = Documents
+        fields: list[str] = ["id", "filename"]
 
 
 class DocumentListSerializer(ModelSerializer):
@@ -36,8 +36,8 @@ class DocumentListSerializer(ModelSerializer):
     metrics = SerializerMethodField(label=_("Metrics"))
 
     class Meta:
-        model: Type[BaseModel] = Documents
-        fields: List[str] = ["id", "filename", "status", "metrics", "created_at", "updated_at"]
+        model: type[BaseModel] = Documents
+        fields: list[str] = ["id", "filename", "status", "metrics", "created_at", "updated_at"]
 
     def get_metrics(self, obj: Documents, /) -> Optional[str]:
         request: Optional[Request] = self.context.get("request")
@@ -50,8 +50,8 @@ class MetricSerializer(ModelSerializer):
     coleman_liau_index = SerializerMethodField(label=_("Coleman-Liau index"))
 
     class Meta:
-        model: Type[BaseModel] = Metrics
-        fields: List[str] = [
+        model: type[BaseModel] = Metrics
+        fields: list[str] = [
             "is_russian",
             "sentences",
             "words",

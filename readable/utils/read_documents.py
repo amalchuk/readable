@@ -1,13 +1,13 @@
 from logging import Logger
 from logging import getLogger as get_logger
 from pathlib import Path as _P
-from typing import Callable, Dict, Final, Iterator, List, Optional
+from typing import Callable, Final, Iterator, Optional
 
 from docx import Document as DOCXDocument
 from fitz import Document as PDFDocument
 from fitz import TEXT_INHIBIT_SPACES
 
-__all__: Final[List[str]] = ["microsoft_word_document", "pdf_document", "read_document", "text_document"]
+__all__: Final[list[str]] = ["microsoft_word_document", "pdf_document", "read_document", "text_document"]
 
 logger: Logger = get_logger(__name__)
 
@@ -52,7 +52,7 @@ def read_document(filename: _P, /) -> Optional[str]:
     """
     Extract the text from an existing ``docx``, ``pdf`` or ``plain`` file.
     """
-    allowed_functions: Dict[str, Callable[[_P], str]] = {
+    allowed_functions: dict[str, Callable[[_P], str]] = {
         ".docx": microsoft_word_document,
         ".pdf": pdf_document,
         ".txt": text_document

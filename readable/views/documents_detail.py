@@ -1,4 +1,4 @@
-from typing import Callable, Final, List, Type
+from typing import Callable, Final
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as BaseModel
@@ -8,13 +8,13 @@ from django.views.generic.detail import DetailView
 
 from readable.models import Documents
 
-__all__: Final[List[str]] = ["documents_detail_view"]
+__all__: Final[list[str]] = ["documents_detail_view"]
 
 
 class DocumentsDetailView(LoginRequiredMixin, DetailView):
     context_object_name: str = "document"
-    http_method_names: List[str] = ["get"]
-    model: Type[BaseModel] = Documents
+    http_method_names: list[str] = ["get"]
+    model: type[BaseModel] = Documents
     template_name: str = "documents_detail.html"
 
     def get_queryset(self) -> "QuerySet[Documents]":

@@ -1,4 +1,4 @@
-from typing import Final, List
+from typing import Final
 
 from readable.public_api.serializers.documents import DocumentCreateSerializer
 from readable.public_api.serializers.documents import DocumentListSerializer
@@ -7,7 +7,7 @@ from readable.public_api.serializers.documents import MetricSerializer
 from readable.public_api.serializers.users import UserCreateSerializer
 from readable.public_api.serializers.users import UserRetrieveUpdateSerializer
 
-__all__: Final[List[str]] = [
+__all__: Final[list[str]] = [
     "DocumentCreateSerializer",
     "DocumentListSerializer",
     "DocumentRetrieveSerializer",

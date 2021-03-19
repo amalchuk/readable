@@ -4,22 +4,22 @@ from contextlib import closing as _
 from http.client import HTTPConnection
 from http.client import HTTPResponse
 from json import load as json_decode
-from typing import Any, Dict, Final, List
+from typing import Any, Final
 
-__all__: Final[List[str]] = ["collect_errors", "retrieve_json"]
+__all__: Final[list[str]] = ["collect_errors", "retrieve_json"]
 
 DEFAULT_HOSTNAME: Final[str] = "127.0.0.1"
 DEFAULT_PORT: Final[int] = 9000
 
 
-def retrieve_json(hostname: str, port: int, /) -> Dict[str, Any]:
+def retrieve_json(hostname: str, port: int, /) -> dict[str, Any]:
     with _(HTTPConnection(hostname, port)) as connection:
         connection.request("GET", "/")
         response: HTTPResponse = connection.getresponse()
         return json_decode(response)
 
 
-def collect_errors(json_response: Dict[str, Any], /) -> int:
+def collect_errors(json_response: dict[str, Any], /) -> int:
     listen_queue_errors: int = json_response["listen_queue_errors"]
     write_errors: int = sum(core["write_errors"] for worker in json_response["workers"] for core in worker["cores"])
     read_errors: int = sum(core["read_errors"] for worker in json_response["workers"] for core in worker["cores"])
@@ -27,6 +27,6 @@ def collect_errors(json_response: Dict[str, Any], /) -> int:
 
 
 if __name__ == "__main__":
-    json_response: Dict[str, Any] = retrieve_json(DEFAULT_HOSTNAME, DEFAULT_PORT)
+    json_response: dict[str, Any] = retrieve_json(DEFAULT_HOSTNAME, DEFAULT_PORT)
     is_failure: bool = collect_errors(json_response) > 0
     raise SystemExit(is_failure)

@@ -1,7 +1,7 @@
 from ipaddress import IPv4Address
 from ipaddress import IPv6Address
 from ipaddress import ip_address as parse_ip
-from typing import Any, Final, List, Optional, Union
+from typing import Any, Final, Optional, Union
 
 from django.contrib.auth.models import User
 from django.http.request import HttpRequest
@@ -15,7 +15,7 @@ from readable.models import Metrics
 from readable.models import Staff
 from readable.utils.read_documents import read_document
 
-__all__: Final[List[str]] = ["documents_uploaded", "user_logged_in_out", "user_staff_is_created"]
+__all__: Final[list[str]] = ["documents_uploaded", "user_logged_in_out", "user_staff_is_created"]
 
 
 @synchronized

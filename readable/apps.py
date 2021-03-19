@@ -1,4 +1,4 @@
-from typing import Final, List
+from typing import Final
 
 from django.apps.config import AppConfig
 from django.apps.registry import apps
@@ -7,7 +7,7 @@ from django.contrib.auth.signals import user_logged_out
 from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
 
-__all__: Final[List[str]] = ["Configuration"]
+__all__: Final[list[str]] = ["Configuration"]
 
 
 class Configuration(AppConfig):
