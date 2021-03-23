@@ -7,7 +7,7 @@ from rest_framework.serializers import ValidationError
 __all__: Final[list[str]] = ["validate_unique_username"]
 
 
-def validate_unique_username(username: str) -> None:
+def validate_unique_username(username: str, /) -> None:
     """
     Ensure that the ``username`` is unique.
     """
