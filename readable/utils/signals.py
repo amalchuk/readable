@@ -24,7 +24,7 @@ def file_processing(document: Documents, /) -> None:
     document.updated_at = now()
     document.save(update_fields=["status", "updated_at"])
 
-    is_finished = False
+    is_finished: bool = False
 
     if text := read_document(document.path):
         metrics = compute_metrics(text)
