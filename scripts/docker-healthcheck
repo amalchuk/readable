@@ -1,32 +1,37 @@
 #!/usr/bin/env python
 
-from contextlib import closing as _
-from http.client import HTTPConnection
-from http.client import HTTPResponse
-from json import load as json_decode
+from io import BytesIO
+from json import loads as json_decode
+import socket as _socket
 from typing import Any, Final
 
 __all__: Final[list[str]] = ["collect_errors", "retrieve_json"]
 
-DEFAULT_HOSTNAME: Final[str] = "127.0.0.1"
-DEFAULT_PORT: Final[int] = 9000
+DEFAULT_UNIX_SOCKET: Final[str] = "/var/run/uwsgi_healthcheck.socket"
+DEFAULT_TIMEOUT: Final[float] = 5.0
 
 
-def retrieve_json(hostname: str, port: int, /) -> dict[str, Any]:
-    with _(HTTPConnection(hostname, port)) as connection:
-        connection.request("GET", "/")
-        response: HTTPResponse = connection.getresponse()
-        return json_decode(response)
+def retrieve_json() -> dict[str, Any]:
+    with _socket.socket(_socket.AF_UNIX, _socket.SOCK_STREAM) as socket:
+        socket.settimeout(DEFAULT_TIMEOUT)
+        socket.connect(DEFAULT_UNIX_SOCKET)
+
+        response: BytesIO = BytesIO()
+        while chunk := socket.recv(4096):
+            response.write(chunk)
+
+        return json_decode(response.getvalue())
 
 
 def collect_errors(json_response: dict[str, Any], /) -> int:
     listen_queue_errors: int = json_response["listen_queue_errors"]
     write_errors: int = sum(core["write_errors"] for worker in json_response["workers"] for core in worker["cores"])
     read_errors: int = sum(core["read_errors"] for worker in json_response["workers"] for core in worker["cores"])
+    print(f"{listen_queue_errors=}, {write_errors=}, {read_errors=}")
     return listen_queue_errors + write_errors + read_errors
 
 
 if __name__ == "__main__":
-    json_response: dict[str, Any] = retrieve_json(DEFAULT_HOSTNAME, DEFAULT_PORT)
+    json_response: dict[str, Any] = retrieve_json()
     is_failure: bool = collect_errors(json_response) > 0
     raise SystemExit(is_failure)
