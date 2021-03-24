@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.6.5"
+version     = "0.6.6"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -14,12 +14,12 @@ include     = ["manage.py"]
 python = "3.9.2"
 
 # Required dependencies:
-django              = "3.1.7"  # https://pypi.org/project/django
-djangorestframework = "3.12.2" # https://pypi.org/project/djangorestframework
-pymupdf             = "1.18.9" # https://pypi.org/project/pymupdf
-python-docx         = "0.8.10" # https://pypi.org/project/python-docx
-scienco             = "0.4.1"  # https://pypi.org/project/scienco
-simplethread        = "0.4.1"  # https://pypi.org/project/simplethread
+django              = "3.1.7"   # https://pypi.org/project/django
+djangorestframework = "3.12.2"  # https://pypi.org/project/djangorestframework
+pymupdf             = "1.18.10" # https://pypi.org/project/pymupdf
+python-docx         = "0.8.10"  # https://pypi.org/project/python-docx
+scienco             = "0.4.1"   # https://pypi.org/project/scienco
+simplethread        = "0.4.1"   # https://pypi.org/project/simplethread
 
 # Optional dependencies:
 psycopg2 = { version = "^2.8", platform = "linux", optional = true } # https://pypi.org/project/psycopg2
@@ -29,10 +29,10 @@ uwsgi    = { version = "^2.0", platform = "linux", optional = true } # https://p
 deployment = ["psycopg2", "uwsgi"]
 
 [tool.poetry.dev-dependencies]
-docker-compose = "~1.28" # https://pypi.org/project/docker-compose
-isort          = "~5.7"  # https://pypi.org/project/isort
-reportlab      = "~3.5"  # https://pypi.org/project/reportlab
-coverage       = { version = "~5.5", extras = ["toml"]}      # https://pypi.org/project/coverage
+docker-compose = "^1.28" # https://pypi.org/project/docker-compose
+isort          = "^5.8"  # https://pypi.org/project/isort
+reportlab      = "^3.5"  # https://pypi.org/project/reportlab
+coverage       = { version = "^5.5", extras = ["toml"]}      # https://pypi.org/project/coverage
 mypy           = { version = "*", allow-prereleases = true } # https://pypi.org/project/mypy
 
 [tool.coverage.run]

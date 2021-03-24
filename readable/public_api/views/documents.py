@@ -1,4 +1,4 @@
-from typing import Callable, Dict, Final, List, Literal, Type
+from typing import Callable, Final, Literal
 
 from django.db.models.query import QuerySet
 from rest_framework.generics import ListCreateAPIView
@@ -16,15 +16,15 @@ from readable.public_api.serializers.documents import DocumentListSerializer
 from readable.public_api.serializers.documents import DocumentRetrieveSerializer
 from readable.utils.collections import as_list
 
-__all__: Final[List[str]] = ["document_list_create_view", "document_retrieve_view"]
+__all__: Final[list[str]] = ["document_list_create_view", "document_retrieve_view"]
 
 
 class DocumentListCreateAPIView(ListCreateAPIView):
-    parser_method_classes: Dict[str, Type[BaseParser]] = {
+    parser_method_classes: dict[str, type[BaseParser]] = {
         "get": JSONParser,
         "post": MultiPartParser
     }
-    serializer_method_classes: Dict[str, Type[BaseSerializer]] = {
+    serializer_method_classes: dict[str, type[BaseSerializer]] = {
         "get": DocumentListSerializer,
         "post": DocumentCreateSerializer
     }
@@ -33,12 +33,12 @@ class DocumentListCreateAPIView(ListCreateAPIView):
     def request_method(self) -> Literal["get", "post"]:
         return self.request.method.lower()
 
-    def get_parsers(self) -> List[BaseParser]:
-        parser_type: Type[BaseParser] = self.parser_method_classes[self.request_method]
+    def get_parsers(self) -> list[BaseParser]:
+        parser_type: type[BaseParser] = self.parser_method_classes[self.request_method]
         parser: BaseParser = parser_type()
         return as_list(parser)
 
-    def get_serializer_class(self) -> Type[BaseSerializer]:
+    def get_serializer_class(self) -> type[BaseSerializer]:
         return self.serializer_method_classes[self.request_method]
 
     def get_queryset(self) -> "QuerySet[Documents]":
@@ -50,7 +50,7 @@ class DocumentListCreateAPIView(ListCreateAPIView):
 
 
 class DocumentRetrieveAPIView(RetrieveAPIView):
-    serializer_class: Type[BaseSerializer] = DocumentRetrieveSerializer
+    serializer_class: type[BaseSerializer] = DocumentRetrieveSerializer
 
     def get_queryset(self) -> "QuerySet[Documents]":
         return Documents.objects.filter(uploaded_by__user=self.request.user)

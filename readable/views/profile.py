@@ -1,4 +1,4 @@
-from typing import Callable, Final, List, Optional, Type
+from typing import Callable, Final, Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -12,12 +12,12 @@ from django.views.generic.edit import UpdateView
 
 from readable.forms import UserForm
 
-__all__: Final[List[str]] = ["profile_view"]
+__all__: Final[list[str]] = ["profile_view"]
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):
-    form_class: Type[BaseForm] = UserForm
-    http_method_names: List[str] = ["get", "post"]
+    form_class: type[BaseForm] = UserForm
+    http_method_names: list[str] = ["get", "post"]
     success_url: str = reverse_lazy("profile")
     template_name: str = "profile.html"
 

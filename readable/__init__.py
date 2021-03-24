@@ -5,8 +5,8 @@
 Check and improve the spelling and grammar of documents.
 """
 
-from typing import Final, List
+from typing import Final
 
-__all__: Final[List[str]] = ["default_app_config"]
+__all__: Final[list[str]] = ["default_app_config"]
 
 default_app_config: str = "readable.apps.Configuration"

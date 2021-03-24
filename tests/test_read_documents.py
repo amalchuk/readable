@@ -1,7 +1,6 @@
 import logging
 from os import urandom
 from pathlib import Path as _P
-from typing import List
 
 from django.test.testcases import SimpleTestCase as TestCase
 from docx import Document as DOCXDocument
@@ -17,7 +16,7 @@ from readable.utils.temporary import temporary_directory
 class TestReadDocuments(TestCase):
     def setUp(self) -> None:
         logging.disable(logging.ERROR)
-        self.lorem: List[str] = [
+        self.lorem: list[str] = [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "Aliquam sollicitudin lorem non hendrerit porttitor.",
             "Donec tincidunt quam ut nibh varius pharetra.",

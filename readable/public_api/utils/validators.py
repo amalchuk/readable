@@ -1,13 +1,13 @@
-from typing import Final, List
+from typing import Final
 
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from rest_framework.serializers import ValidationError
 
-__all__: Final[List[str]] = ["validate_unique_username"]
+__all__: Final[list[str]] = ["validate_unique_username"]
 
 
-def validate_unique_username(username: str) -> None:
+def validate_unique_username(username: str, /) -> None:
     """
     Ensure that the ``username`` is unique.
     """

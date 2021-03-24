@@ -1,4 +1,4 @@
-from typing import Callable, Final, List, Type
+from typing import Callable, Final
 
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,18 +15,18 @@ from django.views.generic.edit import CreateView
 from readable.forms import AuthenticationForm
 from readable.forms import UserCreationForm
 
-__all__: Final[List[str]] = ["login_view", "logout_view", "registration_view"]
+__all__: Final[list[str]] = ["login_view", "logout_view", "registration_view"]
 
 
 class LoginView(BaseLoginView):
-    form_class: Type[BaseForm] = AuthenticationForm
-    http_method_names: List[str] = ["get", "post"]
+    form_class: type[BaseForm] = AuthenticationForm
+    http_method_names: list[str] = ["get", "post"]
     redirect_authenticated_user: bool = True
     template_name: str = "login.html"
 
 
 class LogoutView(LoginRequiredMixin, BaseLogoutView):
-    http_method_names: List[str] = ["get"]
+    http_method_names: list[str] = ["get"]
 
     def get_next_page(self) -> str:
         next_page: str = super(LogoutView, self).get_next_page()
@@ -35,8 +35,8 @@ class LogoutView(LoginRequiredMixin, BaseLogoutView):
 
 
 class RegistrationView(CreateView):
-    form_class: Type[BaseForm] = UserCreationForm
-    http_method_names: List[str] = ["get", "post"]
+    form_class: type[BaseForm] = UserCreationForm
+    http_method_names: list[str] = ["get", "post"]
     success_url: str = reverse_lazy("index")
     template_name: str = "registration.html"
 

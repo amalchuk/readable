@@ -1,4 +1,4 @@
-from typing import Any, Dict, Final, List, Optional, Tuple, Type
+from typing import Any, Final, Optional
 
 from django.contrib.admin.decorators import register
 from django.contrib.admin.options import InlineModelAdmin
@@ -17,10 +17,10 @@ from readable.models import Metrics
 from readable.models import Staff
 from readable.utils.collections import as_list
 
-__all__: Final[List[str]] = ["DocumentsAdmin", "MetricsInline", "StaffInline", "UserAdmin"]
+__all__: Final[list[str]] = ["DocumentsAdmin", "MetricsInline", "StaffInline", "UserAdmin"]
 
 # The ``typing`` module's aliases:
-FieldSetsType = List[Tuple[Optional[str], Dict[str, List[str]]]]
+FieldSetsType = list[tuple[Optional[str], dict[str, list[str]]]]
 
 # Re-register UserAdmin:
 default_site.unregister(User)
@@ -28,8 +28,8 @@ default_site.unregister(User)
 
 class StaffInline(StackedInline):
     can_delete: bool = False
-    model: Type[BaseModel] = Staff
-    readonly_fields: List[str] = ["user_agent", "ip_address"]
+    model: type[BaseModel] = Staff
+    readonly_fields: list[str] = ["user_agent", "ip_address"]
     fieldsets: FieldSetsType = [
         (None, {
             "fields": ["user_agent", "ip_address"]
@@ -39,14 +39,14 @@ class StaffInline(StackedInline):
 
 @register(User)
 class UserAdmin(BaseUserAdmin):
-    def get_inlines(self, request: HttpRequest, obj: Optional[User]) -> List[Type[InlineModelAdmin]]:
+    def get_inlines(self, request: HttpRequest, obj: Optional[User]) -> list[type[InlineModelAdmin]]:
         return super(UserAdmin, self).get_inlines(request, obj) if obj is None else as_list(StaffInline)
 
 
 class MetricsInline(StackedInline):
     can_delete: bool = False
-    model: Type[BaseModel] = Metrics
-    readonly_fields: List[str] = ["is_russian", "sentences", "words", "letters", "syllables"]
+    model: type[BaseModel] = Metrics
+    readonly_fields: list[str] = ["is_russian", "sentences", "words", "letters", "syllables"]
     fieldsets: FieldSetsType = [
         (None, {
             "fields": ["is_russian", "sentences", "words", "letters", "syllables"]
@@ -57,9 +57,9 @@ class MetricsInline(StackedInline):
 @register(Documents)
 class DocumentsAdmin(ModelAdmin):
     date_hierarchy: str = "created_at"
-    list_display: List[str] = ["id", "realname", "status", "created_at", "updated_at"]
-    list_filter: List[str] = ["status"]
-    readonly_fields: List[str] = ["realname", "status", "uploaded_by", "created_at", "updated_at"]
+    list_display: list[str] = ["id", "realname", "status", "created_at", "updated_at"]
+    list_filter: list[str] = ["status"]
+    readonly_fields: list[str] = ["realname", "status", "uploaded_by", "created_at", "updated_at"]
     fieldsets: FieldSetsType = [
         (_("Primary fields"), {
             "fields": ["filename", "status", "uploaded_by"]
@@ -81,7 +81,7 @@ class DocumentsAdmin(ModelAdmin):
     def get_fieldsets(self, request: HttpRequest, obj: Optional[Documents] = None) -> FieldSetsType:
         return self.add_fieldsets if obj is None else super(DocumentsAdmin, self).get_fieldsets(request, obj)
 
-    def get_inlines(self, request: HttpRequest, obj: Optional[Documents]) -> List[Type[InlineModelAdmin]]:
+    def get_inlines(self, request: HttpRequest, obj: Optional[Documents]) -> list[type[InlineModelAdmin]]:
         return super(DocumentsAdmin, self).get_inlines(request, obj) if obj is None else as_list(MetricsInline)
 
     def get_queryset(self, request: HttpRequest) -> "QuerySet[Documents]":

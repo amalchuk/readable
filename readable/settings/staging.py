@@ -1,5 +1,4 @@
 from os import environ
-from typing import List, Tuple
 
 from django.utils.module_loading import import_string
 
@@ -7,7 +6,7 @@ from readable.settings.common import *
 
 # Core Settings:
 
-ADMINS: List[Tuple[str, str]] = [
+ADMINS: list[tuple[str, str]] = [
     ("Andrew Malchuk", "andrew.malchuk@yandex.ru"),
     ("webmaster", "webmaster@readable.pw")
 ]

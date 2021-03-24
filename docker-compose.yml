@@ -2,7 +2,7 @@
 version: "3.7"
 
 x-default: &default-settings
-  restart: unless-stopped
+  restart: always
   sysctls:
     net.core.somaxconn: 65535
   ulimits:
@@ -30,7 +30,6 @@ services:
     build: .
     image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
     container_name: readable
-    user: nobody:nogroup
     environment:
       # PostgreSQL environment variables:
       - POSTGRES_USER
@@ -47,7 +46,6 @@ services:
       - postgresql
     ports:
       - 8000-8003:8000-8003/tcp
-      - 9000:9000/tcp
 
 volumes:
   datafiles:

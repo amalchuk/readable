@@ -1,4 +1,4 @@
-from typing import Dict, Final, List, Type
+from typing import Final
 
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password as standard_validate_password
@@ -10,7 +10,7 @@ from rest_framework.serializers import ModelSerializer
 from readable.public_api.utils.validators import validate_unique_username as is_unique_username
 from readable.utils.validators import validate_ascii_username as is_ascii_username
 
-__all__: Final[List[str]] = ["UserCreateSerializer", "UserRetrieveUpdateSerializer"]
+__all__: Final[list[str]] = ["UserCreateSerializer", "UserRetrieveUpdateSerializer"]
 
 
 class UserCreateSerializer(ModelSerializer):
@@ -18,10 +18,10 @@ class UserCreateSerializer(ModelSerializer):
     password = CharField(label=_("Password"), write_only=True, trim_whitespace=False)
 
     class Meta:
-        model: Type[BaseModel] = User
-        fields: List[str] = ["username", "password"]
+        model: type[BaseModel] = User
+        fields: list[str] = ["username", "password"]
 
-    def create(self, validated_data: Dict[str, str]) -> User:
+    def create(self, validated_data: dict[str, str]) -> User:
         """
         Create and save a user with the given ``username`` and ``password``.
         """
@@ -37,7 +37,7 @@ class UserCreateSerializer(ModelSerializer):
         """
         Validate whether the password meets all validator requirements.
         """
-        initial_data: Dict[str, str] = self.get_initial()
+        initial_data: dict[str, str] = self.get_initial()
         instance: User = User(**initial_data)
         instance.set_unusable_password()
 
@@ -47,5 +47,5 @@ class UserCreateSerializer(ModelSerializer):
 
 class UserRetrieveUpdateSerializer(ModelSerializer):
     class Meta:
-        model: Type[BaseModel] = User
-        fields: List[str] = ["first_name", "last_name", "email"]
+        model: type[BaseModel] = User
+        fields: list[str] = ["first_name", "last_name", "email"]

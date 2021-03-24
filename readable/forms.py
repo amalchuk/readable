@@ -1,4 +1,4 @@
-from typing import Final, List, Type
+from typing import Final
 from unicodedata import normalize
 
 from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
@@ -15,7 +15,7 @@ from readable.utils.collections import as_list
 from readable.utils.validators import validate_ascii_username
 from readable.utils.validators import validate_filename
 
-__all__: Final[List[str]] = ["AuthenticationForm", "DocumentsForm", "UserCreationForm", "UserForm"]
+__all__: Final[list[str]] = ["AuthenticationForm", "DocumentsForm", "UserCreationForm", "UserForm"]
 
 
 class DocumentsForm(Form):
@@ -24,8 +24,8 @@ class DocumentsForm(Form):
     })
 
     class Meta:
-        model: Type[BaseModel] = Documents
-        fields: List[str] = as_list("filename")
+        model: type[BaseModel] = Documents
+        fields: list[str] = as_list("filename")
 
 
 class AuthenticationForm(BaseAuthenticationForm):
@@ -38,11 +38,11 @@ class AuthenticationForm(BaseAuthenticationForm):
 
 
 class UserCreationForm(BaseUserCreationForm):
-    username = CharField(label=_("Login"), min_length=6, max_length=50, validators=[validate_ascii_username])
+    username = CharField(label=_("Login"), min_length=6, max_length=50, validators=as_list(validate_ascii_username))
 
     class Meta:
-        model: Type[BaseModel] = User
-        fields: List[str] = as_list("username")
+        model: type[BaseModel] = User
+        fields: list[str] = as_list("username")
 
     def clean_username(self) -> str:
         """
@@ -54,5 +54,5 @@ class UserCreationForm(BaseUserCreationForm):
 
 class UserForm(Form):
     class Meta:
-        model: Type[BaseModel] = User
-        fields: List[str] = ["first_name", "last_name", "email"]
+        model: type[BaseModel] = User
+        fields: list[str] = ["first_name", "last_name", "email"]

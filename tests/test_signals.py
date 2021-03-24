@@ -1,5 +1,3 @@
-from typing import Dict, Type
-
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.auth.signals import user_logged_out
@@ -49,7 +47,7 @@ class TestUserLoggedInOut(TestCase):
         self.factory = RequestFactory()
 
     def test_login(self) -> None:
-        defaults: Dict[str, str] = {
+        defaults: dict[str, str] = {
             "HTTP_USER_AGENT": "Mozilla/5.0 TestCase/Login",
             "REMOTE_ADDR": "127.0.0.1"
         }
@@ -57,7 +55,7 @@ class TestUserLoggedInOut(TestCase):
             "username": self.username,
             "password": self.password
         }, **defaults)
-        sender: Type[User] = getattr(self.user, "__class__")
+        sender: type[User] = getattr(self.user, "__class__")
 
         user_logged_in.send(sender=sender, request=request, user=self.user)
         self.assertTrue(Staff.objects.filter(user=self.user).exists())
@@ -67,13 +65,13 @@ class TestUserLoggedInOut(TestCase):
         self.assertEqual(staff.ip_address, defaults["REMOTE_ADDR"])
 
     def test_logout(self) -> None:
-        defaults: Dict[str, str] = {
+        defaults: dict[str, str] = {
             "HTTP_USER_AGENT": "Mozilla/5.0 TestCase/Logout",
             "REMOTE_ADDR": "Unsupported IP address"
         }
         request: WSGIRequest = self.factory.post(reverse("admin:logout"), **defaults)
         request.user = self.user
-        sender: Type[User] = getattr(self.user, "__class__")
+        sender: type[User] = getattr(self.user, "__class__")
 
         user_logged_out.send(sender=sender, request=request, user=self.user)
         self.assertTrue(Staff.objects.filter(user=self.user).exists())
