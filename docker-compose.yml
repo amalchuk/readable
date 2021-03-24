@@ -2,7 +2,7 @@
 version: "3.7"
 
 x-default: &default-settings
-  restart: unless-stopped
+  restart: always
   sysctls:
     net.core.somaxconn: 65535
   ulimits:
