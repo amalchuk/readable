@@ -15,7 +15,7 @@ python = "3.9.2"
 
 # Required dependencies:
 django              = "3.1.7"   # https://pypi.org/project/django
-djangorestframework = "3.12.2"  # https://pypi.org/project/djangorestframework
+djangorestframework = "3.12.4"  # https://pypi.org/project/djangorestframework
 pymupdf             = "1.18.10" # https://pypi.org/project/pymupdf
 python-docx         = "0.8.10"  # https://pypi.org/project/python-docx
 scienco             = "0.4.1"   # https://pypi.org/project/scienco
