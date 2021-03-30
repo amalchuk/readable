@@ -8,4 +8,4 @@ __all__: Final[list[str]] = ["application"]
 
 environ.setdefault("DJANGO_SETTINGS_MODULE", "readable.settings.development")
 
-application: WSGIHandler = get_wsgi_application()
+application: Final[WSGIHandler] = get_wsgi_application()
