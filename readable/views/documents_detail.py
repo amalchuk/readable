@@ -1,4 +1,4 @@
-from typing import Callable, Final
+from typing import Final
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as BaseModel
@@ -7,6 +7,7 @@ from django.http.response import HttpResponse
 from django.views.generic.detail import DetailView
 
 from readable.models import Documents
+from readable.types import ViewType
 
 __all__: Final[list[str]] = ["documents_detail_view"]
 
@@ -21,4 +22,4 @@ class DocumentsDetailView(LoginRequiredMixin, DetailView):
         return self.model.objects.filter(uploaded_by__user=self.request.user)
 
 
-documents_detail_view: Callable[..., HttpResponse] = DocumentsDetailView.as_view()
+documents_detail_view: Final[ViewType] = DocumentsDetailView.as_view()

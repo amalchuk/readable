@@ -1,4 +1,4 @@
-from typing import Callable, Final, Optional
+from typing import Final, Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -11,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import UpdateView
 
 from readable.forms import UserForm
+from readable.types import ViewType
 
 __all__: Final[list[str]] = ["profile_view"]
 
@@ -30,4 +31,4 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
-profile_view: Callable[..., HttpResponse] = ProfileView.as_view()
+profile_view: Final[ViewType] = ProfileView.as_view()

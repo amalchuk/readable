@@ -1,15 +1,15 @@
-from typing import Callable, Final
+from typing import Final
 
 from django.contrib.auth.models import User
 from rest_framework.generics import CreateAPIView
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import BasePermission
-from rest_framework.response import Response
 from rest_framework.serializers import BaseSerializer
 
 from readable.public_api.serializers.users import UserCreateSerializer
 from readable.public_api.serializers.users import UserRetrieveUpdateSerializer
+from readable.types import ViewType
 from readable.utils.collections import as_list
 
 __all__: Final[list[str]] = ["user_create_view", "user_retrieve_update_view"]
@@ -27,5 +27,5 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return self.request.user
 
 
-user_create_view: Callable[..., Response] = UserCreateAPIView.as_view()
-user_retrieve_update_view: Callable[..., Response] = UserRetrieveUpdateAPIView.as_view()
+user_create_view: Final[ViewType] = UserCreateAPIView.as_view()
+user_retrieve_update_view: Final[ViewType] = UserRetrieveUpdateAPIView.as_view()
