@@ -15,12 +15,10 @@ from django.utils.translation import gettext_lazy as _
 from readable.models import Documents
 from readable.models import Metrics
 from readable.models import Staff
+from readable.types import FieldSetsType
 from readable.utils.collections import as_list
 
 __all__: Final[list[str]] = ["DocumentsAdmin", "MetricsInline", "StaffInline", "UserAdmin"]
-
-# The ``typing`` module's aliases:
-FieldSetsType = list[tuple[Optional[str], dict[str, list[str]]]]
 
 # Re-register UserAdmin:
 default_site.unregister(User)

@@ -58,8 +58,8 @@ def read_document(filename: _P, /) -> Optional[str]:
         ".txt": text_document
     }
     try:
-        extension = filename.suffix.lower()
-        callback = allowed_functions[extension]
+        extension: str = filename.suffix.lower()
+        callback: Callable[[_P], str] = allowed_functions[extension]
         return callback(filename)
 
     except Exception as exception:

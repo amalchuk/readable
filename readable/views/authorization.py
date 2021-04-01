@@ -1,4 +1,4 @@
-from typing import Callable, Final
+from typing import Final
 
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,6 +14,7 @@ from django.views.generic.edit import CreateView
 
 from readable.forms import AuthenticationForm
 from readable.forms import UserCreationForm
+from readable.types import ViewType
 
 __all__: Final[list[str]] = ["login_view", "logout_view", "registration_view"]
 
@@ -47,6 +48,6 @@ class RegistrationView(CreateView):
         return response
 
 
-login_view: Callable[..., HttpResponse] = LoginView.as_view()
-logout_view: Callable[..., HttpResponse] = LogoutView.as_view()
-registration_view: Callable[..., HttpResponse] = RegistrationView.as_view()
+login_view: Final[ViewType] = LoginView.as_view()
+logout_view: Final[ViewType] = LogoutView.as_view()
+registration_view: Final[ViewType] = RegistrationView.as_view()

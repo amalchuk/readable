@@ -1,4 +1,4 @@
-from typing import Any, Callable, Final
+from typing import Any, Final
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -11,6 +11,7 @@ from django.views.generic.edit import CreateView
 
 from readable.forms import DocumentsForm
 from readable.models import Documents
+from readable.types import ViewType
 
 __all__: Final[list[str]] = ["index_view"]
 
@@ -36,4 +37,4 @@ class IndexView(CreateView):
         return super(IndexView, self).form_valid(form)
 
 
-index_view: Callable[..., HttpResponse] = IndexView.as_view()
+index_view: Final[ViewType] = IndexView.as_view()
