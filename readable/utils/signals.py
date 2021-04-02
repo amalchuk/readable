@@ -6,6 +6,7 @@ from typing import Any, Final, Optional, Union
 from django.contrib.auth.models import User
 from django.http.request import HttpRequest
 from django.utils.timezone import now
+from scienco import Metrics as ComputedMetrics
 from scienco import compute_metrics
 from simplethread import synchronized
 from simplethread import threaded
@@ -13,6 +14,7 @@ from simplethread import threaded
 from readable.models import Documents
 from readable.models import Metrics
 from readable.models import Staff
+from readable.utils.collections import as_list
 from readable.utils.read_documents import read_document
 
 __all__: Final[list[str]] = ["documents_uploaded", "user_logged_in_out", "user_staff_is_created"]
@@ -22,12 +24,10 @@ __all__: Final[list[str]] = ["documents_uploaded", "user_logged_in_out", "user_s
 def file_processing(document: Documents, /) -> None:
     document.status = Documents.Status.IN_PROGRESS
     document.updated_at = now()
-    document.save(update_fields=["status", "updated_at"])
-
-    is_finished: bool = False
+    document.save(update_fields=as_list("status", "updated_at"))
 
     if text := read_document(document.path):
-        metrics = compute_metrics(text)
+        metrics: ComputedMetrics = compute_metrics(text)
         Metrics.objects.update_or_create(document=document, defaults={
             "is_russian": metrics.is_russian,
             "sentences": metrics.sentences,
@@ -35,11 +35,10 @@ def file_processing(document: Documents, /) -> None:
             "letters": metrics.letters,
             "syllables": metrics.syllables
         })
-        is_finished = True
 
-    document.status = Documents.Status.FINISHED if is_finished else Documents.Status.FAILED
+    document.status = Documents.Status.FAILED if not text else Documents.Status.FINISHED
     document.updated_at = now()
-    document.save(update_fields=["status", "updated_at"])
+    document.save(update_fields=as_list("status", "updated_at"))
 
 
 def documents_uploaded(*args: Any, **kwargs: Any) -> None:  # pragma: no cover
