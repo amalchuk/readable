@@ -18,7 +18,7 @@ from readable.utils.collections import as_list
 
 __all__: Final[list[str]] = ["document_list_create_view", "document_retrieve_view"]
 
-_R = Literal["get", "post"]
+Method = Literal["get", "post"]
 
 
 class DocumentListCreateAPIView(ListCreateAPIView):
@@ -32,8 +32,8 @@ class DocumentListCreateAPIView(ListCreateAPIView):
     }
 
     @property
-    def request_method(self) -> _R:
-        return cast(_R, (self.request.method or "GET").lower())
+    def request_method(self) -> Method:
+        return cast(Method, (self.request.method or "GET").lower())
 
     def get_parsers(self) -> list[BaseParser]:
         parser_type: type[BaseParser] = self.parser_method_classes[self.request_method]

@@ -1,13 +1,14 @@
-from typing import Callable, Final, Union
+from typing import Final, Union
 
 from django.contrib.admin.sites import site as default_site
-from django.http.response import HttpResponse
 from django.urls.conf import include
 from django.urls.conf import path
 from django.urls.resolvers import URLPattern
 from django.utils.translation import gettext_lazy as _
 
-import readable.views as views
+from readable.public_api import urls as public_api
+from readable.types import ViewType
+from readable import views
 
 __all__: Final[list[str]] = ["handler400", "handler403", "handler404", "handler500", "urlpatterns"]
 
@@ -27,12 +28,12 @@ urlpatterns: Final[list[URLPattern]] = [
     path("profile/registration/", views.registration_view, name="registration"),
     path("profile/", views.profile_view, name="profile"),
     path("dashboard/", default_site.urls),
-    path("api/", include("readable.public_api.urls"))
+    path("api/", include(public_api))
 ]
 
 # Override the built-in views:
 
-handler400: Final[Union[str, Callable[..., HttpResponse]]] = views.bad_request_view
-handler403: Final[Union[str, Callable[..., HttpResponse]]] = views.permission_denied_view
-handler404: Final[Union[str, Callable[..., HttpResponse]]] = views.page_not_found_view
-handler500: Final[Union[str, Callable[..., HttpResponse]]] = views.server_error_view
+handler400: Final[Union[str, ViewType]] = views.bad_request_view
+handler403: Final[Union[str, ViewType]] = views.permission_denied_view
+handler404: Final[Union[str, ViewType]] = views.page_not_found_view
+handler500: Final[Union[str, ViewType]] = views.server_error_view
