@@ -1,4 +1,4 @@
-FROM python:3.9.2-buster
+FROM python:3.9.4-buster
 LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.6.7"
 
 WORKDIR /application
