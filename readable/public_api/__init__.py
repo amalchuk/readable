@@ -4,9 +4,3 @@
 """
 Public REST API.
 """
-
-from typing import Final
-
-__all__: Final[list[str]] = ["default_app_config"]
-
-default_app_config: str = "readable.public_api.apps.Configuration"

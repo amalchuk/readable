@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.6.8"
+version     = "0.6.9"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -11,10 +11,10 @@ license     = "MIT"
 include     = ["manage.py"]
 
 [tool.poetry.dependencies]
-python = "3.9.2"
+python = "3.9.4"
 
 # Required dependencies:
-django              = "3.1.7"   # https://pypi.org/project/django
+django              = { version = "^3.2", allow-prereleases = true } # https://pypi.org/project/django
 djangorestframework = "3.12.4"  # https://pypi.org/project/djangorestframework
 pymupdf             = "1.18.10" # https://pypi.org/project/pymupdf
 python-docx         = "0.8.10"  # https://pypi.org/project/python-docx
@@ -29,7 +29,7 @@ uwsgi    = { version = "^2.0", platform = "linux", optional = true } # https://p
 deployment = ["psycopg2", "uwsgi"]
 
 [tool.poetry.dev-dependencies]
-docker-compose = "^1.28" # https://pypi.org/project/docker-compose
+docker-compose = "^1.29" # https://pypi.org/project/docker-compose
 isort          = "^5.8"  # https://pypi.org/project/isort
 reportlab      = "^3.5"  # https://pypi.org/project/reportlab
 coverage       = { version = "^5.5", extras = ["toml"]}      # https://pypi.org/project/coverage
@@ -63,4 +63,4 @@ known_first_party          = ["readable"]
 known_local_folder         = ["tests"]
 lexicographical            = true
 line_length                = 125
-single_line_exclusions     = ["typing"]
+single_line_exclusions     = ["mypy_extensions", "typing", "typing_extensions"]
