@@ -1,4 +1,4 @@
-from typing import Any, Final, Union, cast
+from typing import Any, Final, Union
 
 from django.http.response import HttpResponse
 from django.http.response import HttpResponseBadRequest
@@ -6,6 +6,7 @@ from django.http.response import HttpResponseForbidden
 from django.http.response import HttpResponseNotFound
 from django.http.response import HttpResponseServerError
 from django.template.loader import render_to_string as _
+from django.views.decorators.cache import never_cache
 
 from readable.types import ViewType
 
@@ -14,7 +15,8 @@ __all__: Final[list[str]] = ["bad_request_view", "page_not_found_view", "permiss
 
 def exception_handler(template_name: Union[list[str], str], response: type[HttpResponse], /, **context: Any) -> ViewType:
     context.setdefault("status_code", response.status_code)
-    return cast(ViewType, lambda request, *args, **kwargs: response(_(template_name, context=context, request=request)))
+    handler: ViewType = lambda request, *args, **kwargs: response(_(template_name, context=context, request=request))
+    return never_cache(handler)
 
 
 bad_request_view: Final[ViewType] = exception_handler("exceptions_bad_request.html", HttpResponseBadRequest)
