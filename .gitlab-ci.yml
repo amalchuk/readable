@@ -1,5 +1,5 @@
 ---
-image: python:3.9.2-buster
+image: python:3.9.4-buster
 
 stages:
   - testing
@@ -15,7 +15,7 @@ code quality:
     - make coverage
 
 build images:
-  image: docker/compose:1.28.6
+  image: docker/compose:1.29.0
   services:
     - docker:18.09.7-dind
   stage: building
@@ -30,7 +30,7 @@ build images:
 
 deployment:
   image:
-    name: docker/compose:1.28.6
+    name: docker/compose:1.29.0
     entrypoint:
       - /bin/sh
       - -c
