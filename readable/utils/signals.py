@@ -36,7 +36,7 @@ def file_processing(document: Documents, /) -> None:
             "syllables": metrics.syllables
         })
 
-    document.status = Documents.Status.FAILED if not text else Documents.Status.FINISHED
+    document.status = Documents.Status.FAILED if text is None else Documents.Status.FINISHED
     document.updated_at = now()
     document.save(update_fields=as_list("status", "updated_at"))
 

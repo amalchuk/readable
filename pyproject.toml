@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.6.9"
+version     = "0.7.0"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -16,7 +16,7 @@ python = "3.9.4"
 # Required dependencies:
 django              = { version = "^3.2", allow-prereleases = true } # https://pypi.org/project/django
 djangorestframework = "3.12.4"  # https://pypi.org/project/djangorestframework
-pymupdf             = "1.18.10" # https://pypi.org/project/pymupdf
+pymupdf             = "1.18.12" # https://pypi.org/project/pymupdf
 python-docx         = "0.8.10"  # https://pypi.org/project/python-docx
 scienco             = "0.4.1"   # https://pypi.org/project/scienco
 simplethread        = "0.4.1"   # https://pypi.org/project/simplethread
@@ -63,4 +63,4 @@ known_first_party          = ["readable"]
 known_local_folder         = ["tests"]
 lexicographical            = true
 line_length                = 125
-single_line_exclusions     = ["mypy_extensions", "typing", "typing_extensions"]
+single_line_exclusions     = ["typing"]

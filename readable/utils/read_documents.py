@@ -1,3 +1,4 @@
+from io import DEFAULT_BUFFER_SIZE
 from logging import Logger
 from logging import getLogger as get_logger
 from pathlib import Path as _P
@@ -42,7 +43,7 @@ def text_document(filename: _P, /) -> str:
     """
     def wrapper() -> Iterator[str]:
         with filename.open(encoding="utf-8") as istream:
-            while text := istream.read(4096):
+            while text := istream.read(DEFAULT_BUFFER_SIZE):
                 yield text.strip()
 
     return "".join(wrapper())
