@@ -35,7 +35,7 @@ class TestDocumentsUploaded(CommonTestCase):
 
         self.document = Documents.objects.create(filename=self.empty, uploaded_by=self.staff)
         file_processing(self.document)
-        self.assertEqual(self.document.status, Documents.Status.FAILED)
+        self.assertEqual(self.document.status, Documents.Status.FINISHED)
         self.assertFalse(hasattr(self.document, "metrics"))
 
 
