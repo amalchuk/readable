@@ -9,9 +9,9 @@ from readable.types import ViewType
 __all__: Final[list[str]] = ["bad_request_view", "forbidden_view", "internal_server_error_view", "not_found_view"]
 
 
-def _(template_name: Union[str, Sequence[str]], status_code: int, /, **context: Any) -> ViewType:
-    context.setdefault("status_code", status_code)
-    handler: ViewType = lambda request, *args, **kwargs: render(request, template_name, context, status=status_code)
+def _(template_name: Union[str, Sequence[str]], http_status: HTTPStatus, /, **context: Any) -> ViewType:
+    context.setdefault("status_code", http_status.value)
+    handler: ViewType = lambda request, *args, **kwargs: render(request, template_name, context, status=http_status.value)
     return never_cache(handler)
 
 
