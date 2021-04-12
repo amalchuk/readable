@@ -34,6 +34,6 @@ urlpatterns: Final[list[URLPattern]] = [
 # Override the built-in views:
 
 handler400: Final[Union[str, ViewType]] = views.bad_request_view
-handler403: Final[Union[str, ViewType]] = views.permission_denied_view
-handler404: Final[Union[str, ViewType]] = views.page_not_found_view
-handler500: Final[Union[str, ViewType]] = views.server_error_view
+handler403: Final[Union[str, ViewType]] = views.forbidden_view
+handler404: Final[Union[str, ViewType]] = views.not_found_view
+handler500: Final[Union[str, ViewType]] = views.internal_server_error_view
