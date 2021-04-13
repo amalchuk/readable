@@ -20,10 +20,15 @@ build images:
     - docker:18.09.7-dind
   stage: building
   variables:
+    # Docker environment variables:
+    DOCKER_BUILDKIT: 1
+    # Docker Compose environment variables:
+    COMPOSE_DOCKER_CLI_BUILD: 1
+    # Django environment variables:
     DJANGO_SETTINGS_MODULE: readable.settings.development
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
-    - docker-compose build --force-rm --no-cache --pull --quiet
+    - docker-compose build --force-rm --pull
     - docker-compose push
   only:
     - master
@@ -36,7 +41,9 @@ deployment:
       - -c
   stage: publishing
   variables:
+    # Docker environment variables:
     DOCKER_TLS_VERIFY: 1
+    # Django environment variables:
     DJANGO_SETTINGS_MODULE: readable.settings.production
   script: scripts/docker-publishing
   environment:

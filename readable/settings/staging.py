@@ -11,17 +11,15 @@ ADMINS: list[tuple[str, str]] = [
     ("webmaster", "webmaster@readable.pw")
 ]
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "USER": environ["POSTGRES_USER"],
-        "PASSWORD": environ["POSTGRES_PASSWORD"],
-        "HOST": "postgresql",
-        "PORT": "5432",
-        "NAME": environ["POSTGRES_DB"],
-        "OPTIONS": {
-            "isolation_level": import_string("psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE")
-        }
+DATABASES["default"] = {
+    "ENGINE": "django.db.backends.postgresql",
+    "USER": environ["POSTGRES_USER"],
+    "PASSWORD": environ["POSTGRES_PASSWORD"],
+    "HOST": "postgresql",
+    "PORT": "5432",
+    "NAME": environ["POSTGRES_DB"],
+    "OPTIONS": {
+        "isolation_level": import_string("psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE")
     }
 }
 
