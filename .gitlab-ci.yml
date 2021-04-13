@@ -20,10 +20,12 @@ build images:
     - docker:18.09.7-dind
   stage: building
   variables:
+    COMPOSE_DOCKER_CLI_BUILD: 1
     DJANGO_SETTINGS_MODULE: readable.settings.development
+    DOCKER_BUILDKIT: 1
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
-    - docker-compose build --force-rm --no-cache --pull --quiet
+    - docker-compose build --force-rm --pull --quiet
     - docker-compose push
   only:
     - master
