@@ -29,8 +29,7 @@ docker-machine create \
 # Build or rebuild the services:
 docker-compose build \
     --force-rm \
-    --pull \
-    --quiet
+    --pull
 
 # Start or restart the services:
 docker-compose up \
