@@ -27,11 +27,7 @@ services:
 
   readable:
     <<: *default-settings
-    build:
-      context: .
-      cache_from:
-        - python:3.9.4-buster
-        - $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
+    build: .
     image: $CI_REGISTRY/$CI_PROJECT_PATH/readable:latest
     container_name: readable
     environment:
