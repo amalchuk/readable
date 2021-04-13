@@ -29,7 +29,6 @@ docker-machine create \
 # Build or rebuild the services:
 docker-compose build \
     --force-rm \
-    --no-cache \
     --pull \
     --quiet
 
