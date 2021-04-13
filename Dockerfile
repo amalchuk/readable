@@ -1,5 +1,5 @@
 FROM python:3.9.4-buster
-LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.7.1"
+LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.8.0"
 
 WORKDIR /application
 COPY ["requirements/production.txt", "/application/requirements.txt"]
@@ -11,7 +11,7 @@ COPY ["scripts/docker-entrypoint", "scripts/docker-healthcheck", "/usr/local/bin
 COPY ["scripts/uwsgi.xml", "manage.py", "/application/"]
 COPY ["readable", "/application/readable/"]
 
-HEALTHCHECK --interval=30s --timeout=5s CMD ["docker-healthcheck"]
+HEALTHCHECK --interval=30s --timeout=5s --retries=1 CMD ["docker-healthcheck"]
 
 EXPOSE 8000-8003/tcp
 ENTRYPOINT ["docker-entrypoint"]
