@@ -11,6 +11,7 @@ __all__: Final[list[str]] = ["bad_request_view", "forbidden_view", "internal_ser
 
 def _(template_name: Union[str, Sequence[str]], http_status: HTTPStatus, /, **context: Any) -> ViewType:
     context.setdefault("status_code", http_status.value)
+    context.setdefault("status_description", http_status.description)
     handler: ViewType = lambda request, *args, **kwargs: render(request, template_name, context, status=http_status.value)
     return never_cache(handler)
 
