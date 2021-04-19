@@ -3,7 +3,6 @@ from typing import Final
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as BaseModel
 from django.db.models.query import QuerySet
-from django.http.response import HttpResponse
 from django.views.generic.detail import DetailView
 
 from readable.models import Documents

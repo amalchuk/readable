@@ -10,12 +10,13 @@ __all__: Final[list[str]] = ["bad_request_view", "forbidden_view", "internal_ser
 
 
 def _(template_name: Union[str, Sequence[str]], http_status: HTTPStatus, /, **context: Any) -> ViewType:
-    context.setdefault("status_code", http_status.value)
-    handler: ViewType = lambda request, *args, **kwargs: render(request, template_name, context, status=http_status.value)
-    return never_cache(handler)
+    status: int = context.setdefault("status_code", http_status.value)
+    context.setdefault("status_description", http_status.description)
+    response_handler: ViewType = lambda request, *args, **kwargs: render(request, template_name, context, status=status)
+    return never_cache(response_handler)
 
 
 bad_request_view: Final[ViewType] = _("exceptions_bad_request.html", HTTPStatus.BAD_REQUEST)
-forbidden_view: Final[ViewType] = _("exceptions_permission_denied.html", HTTPStatus.FORBIDDEN)
-not_found_view: Final[ViewType] = _("exceptions_page_not_found.html", HTTPStatus.NOT_FOUND)
-internal_server_error_view: Final[ViewType] = _("exceptions_server_error.html", HTTPStatus.INTERNAL_SERVER_ERROR)
+forbidden_view: Final[ViewType] = _("exceptions_forbidden.html", HTTPStatus.FORBIDDEN)
+not_found_view: Final[ViewType] = _("exceptions_not_found.html", HTTPStatus.NOT_FOUND)
+internal_server_error_view: Final[ViewType] = _("exceptions_internal_server_error.html", HTTPStatus.INTERNAL_SERVER_ERROR)
