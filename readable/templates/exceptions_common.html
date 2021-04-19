@@ -6,6 +6,7 @@
   <head>
     <title>{{ status_code }} &ndash; {% block title %}{% translate 'Site Maintenance' %}{% endblock %}</title>
     <meta charset="utf-8">
+    <meta name="description" content="{{ status_description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="robots" content="noindex, nofollow">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
@@ -17,7 +18,6 @@
         <h1 class="mr-3 pr-3 border-right">{{ status_code }}</h1>
         <div class="d-inline-flex align-items-center">
           <h2 class="font-weight-normal lead">{% block description %}{% translate 'Site Maintenance' %}{% endblock %}</h2>
-          <!-- {{ status_description }} -->
         </div>
       </div>
     </div>
