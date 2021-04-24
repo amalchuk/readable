@@ -1,4 +1,3 @@
-from functools import cached_property
 from pathlib import Path as _P
 from typing import Final
 from uuid import uuid4 as uuid
@@ -48,8 +47,7 @@ class Staff(Model):
         verbose_name_plural: str = _("Users' additional information")
         ordering: list[str] = ["-created_at", "-updated_at"]
 
-    def __str__(self) -> str:  # pragma: no cover
-        # Exclude from the code coverage 'cause it's a string representation.
+    def __str__(self) -> str:
         return f"{self.user}"
 
 
@@ -70,8 +68,7 @@ class Documents(Model):
         verbose_name_plural: str = _("Documents")
         ordering: list[str] = ["-created_at", "-updated_at"]
 
-    def __str__(self) -> str:  # pragma: no cover
-        # Exclude from the code coverage 'cause it's a string representation.
+    def __str__(self) -> str:
         return f"{self.realname}"
 
     @property
@@ -96,11 +93,12 @@ class Metrics(Model):
         verbose_name_plural: str = _("Metrics")
         ordering: list[str] = ["-created_at", "-updated_at"]
 
-    def __str__(self) -> str:  # pragma: no cover
-        # Exclude from the code coverage 'cause it's a string representation.
+    def __str__(self) -> str:
         return f"{self.document}"
 
-    @cached_property
+    @property
     def indexes(self) -> Indexes:  # pragma: no cover
-        # Exclude from the code coverage 'cause it's an indexes representation.
+        """
+        Calculate the readability indexes.
+        """
         return compute_indexes(self.sentences, self.words, self.letters, self.syllables, is_russian=self.is_russian)

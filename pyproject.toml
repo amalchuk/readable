@@ -48,9 +48,13 @@ omit   = [
 source = ["readable"]
 
 [tool.coverage.report]
-precision    = 2
-skip_covered = true
-skip_empty   = true
+exclude_lines = [
+    "def __str__",
+    "pragma: no cover"
+]
+fail_under    = 80.0
+precision     = 2
+skip_empty    = true
 
 [tool.coverage.html]
 directory = "public"
