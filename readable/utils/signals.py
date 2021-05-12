@@ -17,13 +17,11 @@ from readable.models import Staff
 from readable.utils.collections import as_list
 from readable.utils.read_documents import read_document
 
-from _thread import get_ident
-
 __all__: Final[list[str]] = ["documents_uploaded", "user_logged_in_out", "user_staff_is_created"]
 
 
 @synchronized
-def file_processing(document: Documents, *, thread_identifier: Optional[int] = None) -> None:
+def file_processing(document: Documents, /) -> None:
     update_fields: list[str] = as_list("status", "updated_at")
 
     document.status = Documents.Status.IN_PROGRESS
@@ -44,19 +42,13 @@ def file_processing(document: Documents, *, thread_identifier: Optional[int] = N
     document.updated_at = now()
     document.save(update_fields=update_fields)
 
-    if thread_identifier is not None and thread_identifier != get_ident():  # pragma: no cover
-        # Exit from the interpreter immediately:
-        raise SystemExit from None
 
-
+@threaded
 def documents_uploaded(*args: Any, **kwargs: Any) -> None:  # pragma: no cover
     # Exclude from the code coverage 'cause it's called in another thread without additional conditions.
     is_created: bool = kwargs.pop("created")
     document: Documents = kwargs.pop("instance")
-
-    if is_created and document.unavailable:
-        running_in_background = threaded(file_processing)
-        running_in_background(document, thread_identifier=get_ident())
+    return file_processing(document) if is_created and document.unavailable else None
 
 
 def user_logged_in_out(*args: Any, **kwargs: Any) -> None:

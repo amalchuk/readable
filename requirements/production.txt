@@ -87,10 +87,10 @@ python-docx==0.8.10 \
 pytz==2021.1; python_version >= "3.6" \
     --hash=sha256:eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798 \
     --hash=sha256:83a4a90894bf38e243cf052c8b58f381bfe9a7a483f6a9cab140bc7f702ac4da
-scienco==0.4.1; python_version >= "3.6" and python_version < "4.0" \
-    --hash=sha256:cc03e4cd24e284dae9037bb0e66d5881e2375b28156ea74c81fbed0309b59fa9
-simplethread==0.4.1; python_version >= "3.6" and python_version < "4.0" \
-    --hash=sha256:67ddb5cc746ffe914271bfb29d518cc24d4074228c953bbfb80e05db638f1254
+scienco==1.0.0; python_version >= "3.8" and python_version < "4.0" \
+    --hash=sha256:cb282b77c546697fe64e5be0589430f0994eeedd91aa0c1dde91b5c3bd39c696
+simplethread==1.0.0; python_version >= "3.8" and python_version < "4.0" \
+    --hash=sha256:571be8a16cc794bcfb9db868f320e7ebe2d9ff5641d08925b5ef50f885d305a5
 sqlparse==0.4.1; python_version >= "3.6" \
     --hash=sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0 \
     --hash=sha256:0f91fd2e829c44362cbcfab3e9ae12e22badaa8a29ad5ff599f9ec109f0454e8
