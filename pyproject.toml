@@ -1,6 +1,6 @@
 [tool.poetry]
 name        = "readable"
-version     = "0.8.2"
+version     = "0.8.3"
 authors     = ["Andrew Malchuk <andrew.malchuk@yandex.ru>"]
 description = "Check and improve the spelling and grammar of documents"
 keywords    = ["readability", "text statistics", "spelling", "grammar", "overall score"]
@@ -18,8 +18,10 @@ django              = { version = "^3.2", allow-prereleases = true } # https://p
 djangorestframework = "3.12.4"  # https://pypi.org/project/djangorestframework
 pymupdf             = "1.18.13" # https://pypi.org/project/pymupdf
 python-docx         = "0.8.10"  # https://pypi.org/project/python-docx
-scienco             = "0.4.1"   # https://pypi.org/project/scienco
-simplethread        = "0.4.1"   # https://pypi.org/project/simplethread
+
+# Custom dependencies:
+scienco      = "^1.0" # https://pypi.org/project/scienco
+simplethread = "^1.0" # https://pypi.org/project/simplethread
 
 # Optional dependencies:
 psycopg2 = { version = "^2.8", platform = "linux", optional = true } # https://pypi.org/project/psycopg2
@@ -63,7 +65,6 @@ title     = "Code Coverage"
 [tool.isort]
 force_single_line          = true
 force_sort_within_sections = true
-forced_separate            = ["_thread"]
 known_first_party          = ["readable"]
 known_local_folder         = ["tests"]
 lexicographical            = true
