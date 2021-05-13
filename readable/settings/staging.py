@@ -18,6 +18,7 @@ DATABASES["default"] = {
     "HOST": "postgresql",
     "PORT": "5432",
     "NAME": environ["POSTGRES_DB"],
+    "CONN_MAX_AGE": None,
     "OPTIONS": {
         "isolation_level": import_string("psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE")
     }
