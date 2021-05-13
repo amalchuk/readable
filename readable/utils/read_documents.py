@@ -20,9 +20,9 @@ def microsoft_word_document(filename: _P, /) -> str:
     def wrapper() -> Iterator[str]:
         document = DOCXDocument(filename)
         for paragraph in document.paragraphs:
-            yield paragraph.text.strip()
+            yield paragraph.text
 
-    return "\n".join(wrapper())
+    return "\n".join(wrapper()).strip()
 
 
 def pdf_document(filename: _P, /) -> str:
@@ -32,9 +32,9 @@ def pdf_document(filename: _P, /) -> str:
     def wrapper() -> Iterator[str]:
         document = PDFDocument(filename)
         for page in document:
-            yield page.getText("text", flags=TEXT_INHIBIT_SPACES).strip()
+            yield page.getText("text", flags=TEXT_INHIBIT_SPACES)
 
-    return "".join(wrapper())
+    return "".join(wrapper()).strip()
 
 
 def text_document(filename: _P, /) -> str:
@@ -44,9 +44,9 @@ def text_document(filename: _P, /) -> str:
     def wrapper() -> Iterator[str]:
         with filename.open(encoding="utf-8") as istream:
             while text := istream.read(DEFAULT_BUFFER_SIZE):
-                yield text.strip()
+                yield text
 
-    return "".join(wrapper())
+    return "".join(wrapper()).strip()
 
 
 def read_document(filename: _P, /) -> Optional[str]:
