@@ -14,7 +14,7 @@ include = ["manage.py"]
 python = "3.9.5"
 
 # Required dependencies:
-django = { version = "^3.2", allow-prereleases = true } # https://pypi.org/project/django
+django = "3.2.3" # https://pypi.org/project/django
 djangorestframework = "3.12.4" # https://pypi.org/project/djangorestframework
 pymupdf = "1.18.13" # https://pypi.org/project/pymupdf
 python-docx = "0.8.10" # https://pypi.org/project/python-docx
