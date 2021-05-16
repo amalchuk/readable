@@ -1,5 +1,5 @@
 FROM python:3.9.5-buster
-LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.8.4"
+LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.9.0"
 
 WORKDIR /application
 COPY ["requirements/production.txt", "/application/requirements.txt"]
