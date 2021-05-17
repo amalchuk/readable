@@ -13,6 +13,6 @@ COPY ["readable", "/application/readable/"]
 
 HEALTHCHECK --interval=30s --timeout=5s --retries=1 CMD ["docker-healthcheck"]
 
-EXPOSE 8000-8003/tcp
+EXPOSE 8000/tcp
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["uwsgi", "uwsgi.xml"]
