@@ -1,5 +1,5 @@
 FROM python:3.9.5-buster
-LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.9.0"
+LABEL maintainer="Andrew Malchuk <andrew.malchuk@yandex.ru>" version="0.9.1"
 
 WORKDIR /application
 COPY ["requirements/production.txt", "/application/requirements.txt"]
@@ -13,6 +13,6 @@ COPY ["readable", "/application/readable/"]
 
 HEALTHCHECK --interval=30s --timeout=5s --retries=1 CMD ["docker-healthcheck"]
 
-EXPOSE 8000-8003/tcp
+EXPOSE 8000/tcp
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["uwsgi", "uwsgi.xml"]

@@ -45,7 +45,7 @@ services:
     depends_on:
       - postgresql
     ports:
-      - 8000-8003:8000-8003/tcp
+      - 8000:8000/tcp
 
 volumes:
   datafiles:
